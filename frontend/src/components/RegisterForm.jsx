@@ -67,7 +67,7 @@ const RegisterForm = ({ tipoUsuario, onRegistroCompletado }) => {
                         className="placeholder-black text-black bg-color1 border border-black w-full py-2 px-3 leading-tight focus:outline-none"
                     />
                 </div>
-                <div className="mb-6">
+                <div className="mb-4">
                     <input
                         type="password"
                         id="passwordConfirm"
@@ -78,8 +78,8 @@ const RegisterForm = ({ tipoUsuario, onRegistroCompletado }) => {
                     />
                 </div>
                 <div className="flex items-center justify-center mt-20">
-                    <button 
-                        type="submit" 
+                    <button
+                        type="submit"
                         className="bg-color2 text-black py-4 px-20 text-2xl">
                         Registrate
                     </button>
