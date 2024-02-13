@@ -1,16 +1,9 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import Register from './components/Register';
+import Router from './routes/Router'
 
-function App() {
+const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/Register" element={<Register />} />
-      </Routes>
-    </BrowserRouter>
-  );
+    <Router />
+  )
 }
 
 export default App;
