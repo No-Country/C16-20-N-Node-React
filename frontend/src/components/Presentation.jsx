@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 
 const HomePage = ({ onEnter }) => {
     return (
@@ -12,5 +13,9 @@ const HomePage = ({ onEnter }) => {
         </div>
     )
 }
+
+HomePage.propTypes = {
+    onEnter: PropTypes.func.isRequired,
+  };
 
 export default HomePage;
