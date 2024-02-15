@@ -8,7 +8,7 @@
 import express, { urlencoded } from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
-import { ejecutarQuery } from "./controllers/conexion.js";
+import Conexion from "./controllers/conexion.js";
 import routerRestaurante from "./router/routerRestaurante.js";
 dotenv.config();
 const app = express();
@@ -26,7 +26,7 @@ const port = process.env.PORT || 3000;
  * acá podria ir el login
  */
 app.get("/", (req, res) => {
-  ejecutarQuery("SELECT 1"); //prueba que se conecta a la base de datos
+  Conexion.conectar(); //prueba que se conecta a la base de datos
   res.send("La aplicación está funcionando!!! 😁😁😁");
 });
 

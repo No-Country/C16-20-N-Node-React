@@ -17,6 +17,7 @@
     "mysql-promise": "^5.0.0",
     "mysql2": "^3.9.1",
     "nodemon": "^3.0.3",
-    "promise-mysql": "^5.2.0"
+    "promise-mysql": "^5.2.0",
+    "sequelize": "^6.37.0"
   }
 }

@@ -6,16 +6,19 @@
  * ⚡ - urgente
  */
 import express from "express";
-// import {} from "../controllers/controllerRestaurante.js";
-import { handleError } from "../helpers/error.js";
+import { listarRestaurante } from "../controllers/restauranteController.js";
+// import { handleError } from "../helpers/error.js";
 const routerRestaurante = express.Router();
 // ⏳ - En proceso
 // ⚡ - urgente
-routerRestaurante.get("/restaurante", (req, res) => {
+routerRestaurante.get("/restaurante", async (req, res) => {
   try {
-    res.json({ respuesta: "hola desde el endpoint de restaurantes" });
+    const restaurante = await listarRestaurante();
+    console.log(restaurante);
+    res.status(200).json(restaurante);
   } catch (error) {
-    handleError(error, res);
+    console.log(error);
+    res.status(500).json(error);
   }
 });
 
