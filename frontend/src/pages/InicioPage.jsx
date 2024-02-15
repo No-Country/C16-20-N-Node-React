@@ -9,7 +9,7 @@ const InicioPage = () => {
     }
 
     return (
-        <div className="flex h-screen bg-color1 items-center justify-center">
+        <div className="flex h-screen bg-color1 items-center justify-center min-w-96">
             {!showComponent ? (
                 <Presentation onEnter={handleEnter} />
             ) : (

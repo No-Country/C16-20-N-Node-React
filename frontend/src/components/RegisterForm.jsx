@@ -15,8 +15,8 @@ const RegisterForm = ({ tipoUsuario, onRegistroCompletado }) => {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen bg-color1">
-            <form onSubmit={handleSubmit} className="w-full max-w-sm">
+        <div className="flex justify-center items-center h-screen bg-color1 min-w-max">
+            <form onSubmit={handleSubmit} className="w-1/2 max-w-sm min-w-max">
                 <div className="mb-4">
                     <input
                         type="text"
