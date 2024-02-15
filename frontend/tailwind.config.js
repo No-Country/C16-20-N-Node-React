@@ -1,5 +1,3 @@
-import HomePage from './src/pages/HomePage'
-
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
