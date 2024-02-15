@@ -5,6 +5,7 @@ import ClienteDashboard from '../pages/ClienteDashboard';
 import RestauranteDashboard from '../pages/RestauranteDashboard';
 import RepartidorDashboard from '../pages/RepartidorDashboard';
 import RegisterForm from '../components/RegisterForm';
+import ProductoForm from '../components/ProductoForm';
 
 const Router = () => {
   const [clienteRegistrado, setClienteRegistrado] = useState(false);
@@ -49,10 +50,13 @@ const Router = () => {
 
         {/* Restaurante Dashboard */}
         <Route
-          path="/RestauranteDashboard"
+          path="/RestauranteDashboard/*"
           element={
             restauranteRegistrado ? (
-              <RestauranteDashboard />
+              <Routes>
+                <Route path="/" element={<RestauranteDashboard />} />
+                <Route path="/ProductoForm" element={<ProductoForm />} />
+              </Routes>
             ) : (
               <RegisterForm
                 tipoUsuario="restaurante"
