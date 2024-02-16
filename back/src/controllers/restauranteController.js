@@ -17,26 +17,19 @@ export const listarRestaurante = async () => {
   }
 };
 
-const listarRestaurantesPorRubro = async (req,res) => {
+const listarRestaurantesPorRubro = async (rubro) => {
   try {
-    const rubro = req.params.rubro;
-    const restaurantes = await Restaurante.findAll({
-      where: { rubro_restaurant:rubro }
+    const restauranteRubro = await Restaurante.findAll({
+      where: { rubro_restaurant: rubro },
     });
-    if (restaurantes.length > 0) {
-      res.status(200).json(restaurantes);
-    } else {
-      res.status(404).json({ message: `No hay registros de restaurantes en el rubro ${rubro}`});
-    }
+    return restauranteRubro;
   } catch (error) {
     console.error("Error al listar restaurantes por rubro:", error);
     throw error;
   }
 };
 
-export { 
-  listarRestaurantesPorRubro 
-}
+export { listarRestaurantesPorRubro };
 
 //TODO
 // buscarRestaurantes por rubro ⏳
