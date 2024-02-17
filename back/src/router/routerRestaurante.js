@@ -6,7 +6,7 @@
  * ⚡ - urgente
  */
 import express from "express";
-import { listarRestaurante, listarRestaurantesPorRubro, listarRestaurantesPorId } from "../controllers/restauranteController.js";
+import { listarRestaurante, listarRestaurantesPorRubro, listarRestaurantesPorId, crearRestaurante } from "../controllers/restauranteController.js";
 // import { handleError } from "../helpers/error.js";
 const routerRestaurante = express.Router();
 // ⏳ - En proceso
@@ -46,6 +46,15 @@ routerRestaurante.get("/restaurante/:id", async (req, res) => {
     } else {
       res.status(404).json({ message: `No hay registros de restaurantes con el Id ${id}`});
     }  
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+});
+
+routerRestaurante.post("/restaurante/registro", async (req, res) => {
+  try {
+    const restauranteRegistro= await crearRestaurante(req, res);
   } catch (error) {
     console.log(error);
     res.status(500).json(error);

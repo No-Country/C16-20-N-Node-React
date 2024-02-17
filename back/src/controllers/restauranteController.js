@@ -41,26 +41,36 @@ const listarRestaurantesPorId = async (id) => {
   }
 };
 
-// const crearRestaurante = async (req, res) => {
-//   try {
-//       const { nombre_restaurant, direccion_restaurant, mail_restaurant, telefono_restaurant, rubro_restaurant, rol_usuario } = req.body;
-      
-//       const newRestaurante = new Restaurante({ nombre_restaurant, direccion_restaurant, mail_restaurant, telefono_restaurant, rubro_restaurant, rol_usuario }); // Crea un nuevo usuario
-//       await create(newRestaurante); // Guarda el restaurante en la base de datos
-//       res.status(201).json({ message: 'Restaurante creado con éxito', Restaurante: newRestaurante });
-//       //console.log(req.body)
-//   } catch (error) {
-//       res.status(500).json({ message: error.message });
-//       //console.log(error)
-//   }
-// };
+const crearRestaurante = async (req, res) => {
+  try {
+    usuario = await crearUsuario(req, res);
+    idUsuario = usuario[0];
+    const { nombre, direccion, mail, telefono, rubro } = req.body;
+    const restaurante = await Restaurante.create({
+      nombre_restaurante: nombre,
+      dirección_restaurante: direccion,
+      mail_restaurant: mail,
+      telefono_restaurant:telefono,
+      rubro_restaurante: rubro,
+      id: idUsuario
+    });
+
+    return restaurante;
+    res.status(200).json({ message: 'Restaurante creado exitosamente' });
+  } catch (error) {
+    console.error('Error al crear el restaurante:', error);
+    res.status(500).json({ error: 'Ocurrió un error al crear el restaurante' });
+  }
+};
 
 export { 
   listarRestaurantesPorRubro,
-  listarRestaurantesPorId
+  listarRestaurantesPorId,
+  crearRestaurante
 }
 
 //TODO
 // buscarRestaurantes por rubro ⏳
 // buscar restaurantes por id ⏳
+// crear datos de un restaurante ⚡
 // editar datos de un restaurante ⚡
