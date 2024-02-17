@@ -6,10 +6,7 @@
  * ⚡ - urgente
  */
 import express from "express";
-import {
-  listarRestaurante,
-  listarRestaurantesPorRubro,
-} from "../controllers/restauranteController.js";
+import { listarRestaurante, listarRestaurantesPorRubro, listarRestaurantesPorId } from "../controllers/restauranteController.js";
 // import { handleError } from "../helpers/error.js";
 const routerRestaurante = express.Router();
 // ⏳ - En proceso
@@ -25,14 +22,30 @@ routerRestaurante.get("/restaurante", async (req, res) => {
   }
 });
 
-//routerRestaurante.get("/restaurante/:rubro", listarRestaurantesPorRubro());
-
-routerRestaurante.get("/restaurante/:rubro", async (req, res) => {
+routerRestaurante.get("/restaurante/rubro/:rubro", async (req, res) => {
   try {
     const rubro = req.params.rubro;
     const restauranteRubro = await listarRestaurantesPorRubro(rubro);
-    console.log(restauranteRubro);
-    res.status(200).json(restauranteRubro);
+    if (restauranteRubro.length > 0) {
+      res.status(200).json(restauranteRubro);
+    } else {
+      res.status(404).json({ message: `No hay registros de restaurantes en el rubro ${rubro}`});
+    }  
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+});
+
+routerRestaurante.get("/restaurante/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const restauranteId= await listarRestaurantesPorId(id);
+    if (restauranteId.length > 0) {
+      res.status(200).json(restauranteId);
+    } else {
+      res.status(404).json({ message: `No hay registros de restaurantes con el Id ${id}`});
+    }  
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
@@ -43,5 +56,7 @@ routerRestaurante.get("/restaurante/:rubro", async (req, res) => {
 // realizar los diferentes endpoints para cada método del controlador
 // por ejemplo para editar un restaurant usar '/editar/restaurant/:id'
 // probar la solicitud get desde el navegador y los post desde ThunderClient
+
+
 
 export default routerRestaurante;
