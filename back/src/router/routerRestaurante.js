@@ -6,11 +6,16 @@
  * ⚡ - urgente
  */
 import express from "express";
-import { listarRestaurante, listarRestaurantesPorRubro, listarRestaurantesPorId, crearRestaurante } from "../controllers/restauranteController.js";
-// import { handleError } from "../helpers/error.js";
+import {
+  listarRestaurante,
+  listarRestaurantesPorRubro,
+  listarRestaurantesPorId,
+  crearRestaurante,
+  editarRestaurante,
+} from "../controllers/restauranteController.js";
 const routerRestaurante = express.Router();
-// ⏳ - En proceso
-// ⚡ - urgente
+
+// ✔️ - Finalizado
 routerRestaurante.get("/restaurante", async (req, res) => {
   try {
     const restaurante = await listarRestaurante();
@@ -22,42 +27,50 @@ routerRestaurante.get("/restaurante", async (req, res) => {
   }
 });
 
+//✔️ - Finalizado
 routerRestaurante.get("/restaurante/rubro/:rubro", async (req, res) => {
   try {
     const rubro = req.params.rubro;
     const restauranteRubro = await listarRestaurantesPorRubro(rubro);
-    if (restauranteRubro.length > 0) {
-      res.status(200).json(restauranteRubro);
-    } else {
-      res.status(404).json({ message: `No hay registros de restaurantes en el rubro ${rubro}`});
-    }  
+    res.status(200).json(restauranteRubro);
   } catch (error) {
     console.log(error);
-    res.status(500).json(error);
+    res.status(404).json({ message: error.message });
   }
 });
 
+//✔️ - Finalizado
 routerRestaurante.get("/restaurante/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const restauranteId= await listarRestaurantesPorId(id);
-    if (restauranteId.length > 0) {
-      res.status(200).json(restauranteId);
-    } else {
-      res.status(404).json({ message: `No hay registros de restaurantes con el Id ${id}`});
-    }  
+    const restauranteId = await listarRestaurantesPorId(id);
+    res.status(200).json(restauranteId);
   } catch (error) {
-    console.log(error);
-    res.status(500).json(error);
+    res.status(404).json({ message: error.message });
   }
 });
-
+//✔️ - Finalizado
 routerRestaurante.post("/restaurante/registro", async (req, res) => {
   try {
-    const restauranteRegistro= await crearRestaurante(req, res);
+    const restauranteRegistro = await crearRestaurante(req.body);
+    res.status(201).json(restauranteRegistro);
   } catch (error) {
-    console.log(error);
-    res.status(500).json(error);
+    if (error.message === "El correo electrónico ya está en uso") {
+      res.status(409).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "Error interno del servidor" });
+    }
+  }
+});
+//✔️ - Finalizado
+routerRestaurante.patch("/restaurante/editar/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const restaurante = req.body;
+    const restauranteEditado = await editarRestaurante(id, restaurante);
+    res.status(200).json(restauranteEditado);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
   }
 });
 
@@ -65,7 +78,5 @@ routerRestaurante.post("/restaurante/registro", async (req, res) => {
 // realizar los diferentes endpoints para cada método del controlador
 // por ejemplo para editar un restaurant usar '/editar/restaurant/:id'
 // probar la solicitud get desde el navegador y los post desde ThunderClient
-
-
 
 export default routerRestaurante;

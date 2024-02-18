@@ -6,7 +6,8 @@
  * ⚡ - urgente
  */
 import Restaurante from "../models/restaurante.js";
-
+import Conexion from "./conexion.js";
+//✔️ - Finalizado
 export const listarRestaurante = async () => {
   try {
     const restaurantes = await Restaurante.findAll();
@@ -16,58 +17,96 @@ export const listarRestaurante = async () => {
     throw error;
   }
 };
-
+//✔️ - Finalizado
 const listarRestaurantesPorRubro = async (rubro) => {
   try {
     const restauranteRubro = await Restaurante.findAll({
-      where: { rubro_restaurant:rubro }
+      where: { rubro_restaurant: rubro },
     });
+    if (restauranteRubro.length === 0) {
+      throw new Error(`No hay registros de restaurantes con el rubro ${rubro}`);
+    }
     return restauranteRubro;
   } catch (error) {
-    console.error("Error al listar restaurantes por rubro:", error);
     throw error;
   }
 };
 
+/*
+ * Carla, acá tuve que cambiar un detallito del metodo
+usaste la funcion findAll() y eso te buscar en toda la base de datos
+deberias usar una funcionaque se llama findByPk - ya lo corrijo
+ */
+//✔️ - Finalizado
 const listarRestaurantesPorId = async (id) => {
   try {
-    const restauranteId = await Restaurante.findAll({
-      where: { id:id }
-    });
+    const restauranteId = await Restaurante.findByPk(id);
+    if (!restauranteId) {
+      throw new Error(`No hay registros de restaurantes con el Id ${id}`);
+    }
     return restauranteId;
   } catch (error) {
-    console.error("Error al listar restaurantes por Id:", error);
     throw error;
   }
 };
-
-const crearRestaurante = async (req, res) => {
+/**
+ * acá te volvio a pasar lo mismo, intentaste hacer un hibrido entre
+ * el router y el controlador. Lo voy a corregir y dejarlo para que
+ * funcione con el metodo post - Probalo con thunderClient
+ */
+//✔️ - Finalizado
+/**
+ * Actualizo:
+ * tuve que usar una transaccion para que no se rompa la base de datos
+ * porque aunque el metodo no te deja agregar un nuevo restaurante porque
+ * el mail ya esta en uso, el id sigue incrementandose en la bd
+ * es normal, pero podria llegar a dejar huecos que pueden causar un problema con
+ * las relaciones
+ */
+const crearRestaurante = async (restaurant) => {
+  const t = await Conexion.sequelize.transaction();
   try {
-    usuario = await crearUsuario(req, res);
-    idUsuario = usuario[0];
-    const { nombre, direccion, mail, telefono, rubro } = req.body;
-    const restaurante = await Restaurante.create({
-      nombre_restaurante: nombre,
-      dirección_restaurante: direccion,
-      mail_restaurant: mail,
-      telefono_restaurant:telefono,
-      rubro_restaurante: rubro,
-      id: idUsuario
+    const nuevoRestaurante = await Restaurante.create(restaurant, {
+      transaction: t,
     });
-
-    return restaurante;
-    res.status(200).json({ message: 'Restaurante creado exitosamente' });
+    await t.commit();
+    return nuevoRestaurante;
   } catch (error) {
-    console.error('Error al crear el restaurante:', error);
-    res.status(500).json({ error: 'Ocurrió un error al crear el restaurante' });
+    await t.rollback();
+    if (error.name === "SequelizeUniqueConstraintError") {
+      throw new Error("El correo electrónico ya está en uso");
+    } else {
+      throw error;
+    }
+  }
+};
+//✔️ - Finalizado
+const editarRestaurante = async (id, restaurant) => {
+  try {
+    const restauranteEditado = await Restaurante.update(restaurant, {
+      where: { id },
+    });
+    if (restauranteEditado[0] === 0) {
+      throw new Error(`No hay registros de restaurantes con el id ${id}`);
+    }
+    return restauranteEditado;
+  } catch (error) {
+    if (error.name === "SequelizeUniqueConstraintError") {
+      throw new Error(
+        "El correo electrónico ya está en uso, no se puede actualizar el restaurante"
+      );
+    } else {
+      throw error;
+    }
   }
 };
 
-export { 
+export {
   listarRestaurantesPorRubro,
   listarRestaurantesPorId,
-  crearRestaurante
-}
+  crearRestaurante,
+  editarRestaurante,
+};
 
 //TODO
 // buscarRestaurantes por rubro ⏳
