@@ -22,6 +22,9 @@ const HomePage = () => {
         };
         console.log('solicitud de acceso enviado!')
         console.log('Datos que se envian:', formData);
+
+        window.location.href = '/registerRestaurant';
+
     };
 
     const [email, setEmail] = useState('');

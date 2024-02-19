@@ -1,8 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from '../pages/homePage/homePage';
-import ClienteDashboard from '../pages/ClienteDashboard';
 import RestauranteDashboard from '../pages/RestauranteDashboard';
-import RepartidorDashboard from '../pages/RepartidorDashboard';
+import RegisterRestaurant from '../pages/restaurant/registerRestaurant';
 
 const Router = () => {
 
@@ -11,14 +10,10 @@ const Router = () => {
       <Routes>
         {/* pagina de inicio */}
         <Route exact path="/" element={<HomePage />} />
-        {/* pagina de registro */}
-
+        {/* pagina de registro del restaurante*/}
+        <Route path="/registerRestaurant" element={<RegisterRestaurant />} />
         {/* pagina del tablero del restaurante */}
         <Route path="/RestauranteDashboard" element={<RestauranteDashboard />} />
-        {/* pagina del tablero del cliente */}
-        <Route path="/ClienteDashboard" element={<ClienteDashboard />} />
-        {/* pagina del tablero del repartidor */}
-        <Route path="/RepartidorDashboard" element={<RepartidorDashboard />} />
       </Routes>
     </BrowserRouter>
   );
