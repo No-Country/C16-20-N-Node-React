@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import icon33 from '../../assets/icon33.svg';
 import imagen12 from '../../assets/image12.svg';
 
@@ -6,6 +7,7 @@ const HomePage = () => {
     const [mostrarOpciones, setMostrarOpciones] = useState(false);
     const [usuarioSeleccionado, setUsuarioSeleccionado] = useState('');
     const opciones = ['Cliente', 'Restaurante', 'Repartidor'];
+    const [redirect, setRedirect] = useState(false);
 
     const handleSeleccionUsuario = (usuario) => {
         setUsuarioSeleccionado(usuario);
@@ -22,6 +24,8 @@ const HomePage = () => {
         };
         console.log('solicitud de acceso enviado!')
         console.log('Datos que se envian:', formData);
+
+        setRedirect(true);
     };
 
     const [email, setEmail] = useState('');
@@ -32,6 +36,7 @@ const HomePage = () => {
             className='
                 flex h-screen w-screen bg-white items-center justify-center
             '>
+            {redirect && <Navigate to="/registerRestaurant" />}
             <div
                 className='
                     w-96 h-auto bg-white
@@ -90,15 +95,13 @@ const HomePage = () => {
                                 </div>
                             )}
                         </div>
-                        <a href='/registerRestaurant'>
-                            <button
-                                type='submit'
-                                className='
+                        <button
+                            type='submit'
+                            className='
                                 bg-teal-600 border border-1 border-black rounded-2xl py-4 text-4xl
                             '>
-                                Entrar
-                            </button>
-                        </a>
+                            Entrar
+                        </button>
                     </div>
                 </form>
                 <p className='text-center'>
