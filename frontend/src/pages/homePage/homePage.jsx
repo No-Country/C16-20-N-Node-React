@@ -22,9 +22,6 @@ const HomePage = () => {
         };
         console.log('solicitud de acceso enviado!')
         console.log('Datos que se envian:', formData);
-
-        window.location.href = '/registerRestaurant';
-
     };
 
     const [email, setEmail] = useState('');
@@ -93,13 +90,15 @@ const HomePage = () => {
                                 </div>
                             )}
                         </div>
-                        <button
-                            type='submit'
-                            className='
+                        <a href='/registerRestaurant'>
+                            <button
+                                type='submit'
+                                className='
                                 bg-teal-600 border border-1 border-black rounded-2xl py-4 text-4xl
                             '>
-                            Entrar
-                        </button>
+                                Entrar
+                            </button>
+                        </a>
                     </div>
                 </form>
                 <p className='text-center'>
