@@ -18,29 +18,17 @@ Restaurante.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    mail_restaurant: {
-      type: DataTypes.STRING,
-      unique: true,
-    },
     telefono_restaurant: {
       type: DataTypes.STRING,
     },
     rubro_restaurant: {
       type: DataTypes.STRING,
     },
-    rol_usuario: {
-      //Esta información está en la tabla de usuario
-      type: DataTypes.STRING,
+    id_usuario: {
+      // enlace con la tabla de usuario
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
-    // id: {
-    // enlace con la tabla de usuario
-    // type: DataTypes.INTEGER,
-    // allowNull: false,
-    // references: {
-    //   model: Usuario,
-    //   key: 'id'
-    // }
-    // },
   },
   {
     sequelize: Conexion.sequelize,
@@ -51,8 +39,8 @@ Restaurante.init(
 );
 
 // Relación entre Usuario y Restaurante
-// Usuario.hasOne(Restaurante, { foreignKey: "id" });
-// Restaurante.belongsTo(Usuario, { foreignKey: "id" });
+Usuario.hasOne(Restaurante, { foreignKey: "id_usuario" });
+Restaurante.belongsTo(Usuario, { foreignKey: "id_usuario" });
 
 // Sincronización de los modelos con la base de datos
 // sequelize
