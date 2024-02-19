@@ -6,10 +6,6 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        color1: '##F9F9F9',
-        color2: '#595959',
-      },
     },
   },
   plugins: [],
