@@ -31,4 +31,7 @@ Producto.init(
   }
 );
 
+Producto.hasMany(Restaurante, { foreignKey: "id_restaurante" });
+Restaurante.belongsTo(Producto, { foreignKey: "id_restaurante" });
+
 export default Producto;

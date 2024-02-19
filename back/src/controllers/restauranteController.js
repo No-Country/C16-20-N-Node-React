@@ -6,11 +6,16 @@
  * ⚡ - urgente
  */
 import Restaurante from "../models/restaurante.js";
+import Usuario from "../models/usuario.js";
 import Conexion from "./conexion.js";
 //✔️ - Finalizado
 export const listarRestaurante = async () => {
   try {
-    const restaurantes = await Restaurante.findAll();
+    const restaurantes = await Restaurante.findAll({
+      include: {
+        model: Usuario,
+      },
+    });
     return restaurantes;
   } catch (error) {
     console.error("Error al listar restaurantes:", error);
@@ -22,6 +27,9 @@ const listarRestaurantesPorRubro = async (rubro) => {
   try {
     const restauranteRubro = await Restaurante.findAll({
       where: { rubro_restaurant: rubro },
+      include: {
+        model: Usuario,
+      },
     });
     if (restauranteRubro.length === 0) {
       throw new Error(`No hay registros de restaurantes con el rubro ${rubro}`);
@@ -40,7 +48,11 @@ deberias usar una funcionaque se llama findByPk - ya lo corrijo
 //✔️ - Finalizado
 const listarRestaurantesPorId = async (id) => {
   try {
-    const restauranteId = await Restaurante.findByPk(id);
+    const restauranteId = await Restaurante.findByPk(id, {
+      include: {
+        model: Usuario,
+      },
+    });
     if (!restauranteId) {
       throw new Error(`No hay registros de restaurantes con el Id ${id}`);
     }
@@ -63,12 +75,13 @@ const listarRestaurantesPorId = async (id) => {
  * es normal, pero podria llegar a dejar huecos que pueden causar un problema con
  * las relaciones
  */
-const crearRestaurante = async (restaurant) => {
+const crearRestaurante = async (idUsuario, restaurant) => {
   const t = await Conexion.sequelize.transaction();
   try {
-    const nuevoRestaurante = await Restaurante.create(restaurant, {
-      transaction: t,
-    });
+    const nuevoRestaurante = await Restaurante.create(
+      { id_usuario: idUsuario, ...restaurant },
+      { transaction: t }
+    );
     await t.commit();
     return nuevoRestaurante;
   } catch (error) {

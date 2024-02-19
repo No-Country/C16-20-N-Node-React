@@ -1,5 +1,6 @@
 import Conexion from "../controllers/conexion.js";
 import { DataTypes, Model } from "sequelize";
+import Usuario from "./usuario.js";
 
 class Repartidor extends Model {}
 Repartidor.init(
@@ -17,17 +18,13 @@ Repartidor.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    mail_repartidor: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
     telefono_repartidor: {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-    rol_usuario: {
-      type: DataTypes.STRING,
-      allowNull: true,
+    id_usuario: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
   },
   {
@@ -37,5 +34,8 @@ Repartidor.init(
     timestamps: false,
   }
 );
+
+Usuario.hasOne(Repartidor, { foreignKey: "id_usuario" });
+Repartidor.belongsTo(Usuario, { foreignKey: "id_usuario" });
 
 export default Repartidor;
