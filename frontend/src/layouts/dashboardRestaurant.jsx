@@ -4,6 +4,7 @@ import icon35 from '../assets/icon35.svg'
 import icon36 from '../assets/icon36.svg'
 import { useState } from 'react';
 import PerfilRestaurant from '../pages/restaurant/perfilRestaurant'
+import ManageProducts from '../pages/restaurant/manageProducts'
 
 const DashboardRestaurant = () => {
     const [selectedButton, setSelectedButton] = useState('Perfil');
@@ -25,14 +26,22 @@ const DashboardRestaurant = () => {
                     src={image12}
                     alt='image12'
                     className='
-                        h-[142px] w-[208px]
+                        h-[142px] w-[208px] min-w-[208px]
                     '/>
             </div>
             <div
                 className='
-                    flex min-h-[72px] w-full bg-[#FF5733]
+                    flex min-h-[72px] w-full bg-[#FF5733] items-center
                 '>
-
+                {selectedButton === 'Platos' &&
+                    <div className='flex w-full ml-[310px]'>
+                        <tr className=''>
+                            <td className=' w-[180px] min-w-[180px] text-center'>Nombre</td>
+                            <td className=' w-[270px] min-w-[270px] text-center'>Descripción</td>
+                            <td className=' w-[110px] min-w-[110px] text-center'>Precio</td>
+                            <td className=' w-[160px] min-w-[160px] text-center'>Tiempo de espera</td>
+                        </tr>
+                    </div>}
             </div>
             <div
                 className='
@@ -105,6 +114,7 @@ const DashboardRestaurant = () => {
                 </div>
                 <div>
                     {selectedButton === 'Perfil' && <PerfilRestaurant />}
+                    {selectedButton === 'Platos' && <ManageProducts />}
                 </div>
             </div>
         </div>
