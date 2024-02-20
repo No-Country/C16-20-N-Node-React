@@ -31,7 +31,7 @@ const DashboardRestaurant = () => {
             </div>
             <div
                 className='
-                    flex min-h-[72px] w-full bg-[#FF5733] items-center
+                    flex min-h-[72px] w-full bg-[#FF5733] items-center min-w-[1100px]
                 '>
                 {selectedButton === 'Platos' &&
                     <div className='flex w-full ml-[310px]'>
