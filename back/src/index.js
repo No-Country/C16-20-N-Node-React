@@ -10,6 +10,7 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 import Conexion from "./controllers/conexion.js";
 import routerRestaurante from "./router/routerRestaurante.js";
+import routerCliente from "./router/routerCliente.js";
 dotenv.config();
 const app = express();
 app.use(morgan("dev"));
@@ -20,6 +21,7 @@ app.use(urlencoded({ extended: false }));
  */
 // ✔️ - Finalizado
 app.use("/", routerRestaurante);
+app.use("/", routerCliente);
 const port = process.env.PORT || 3000;
 /**
  * ruta de acceso publico
