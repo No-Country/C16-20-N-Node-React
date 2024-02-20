@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from '../pages/homePage/homePage';
-import RestauranteDashboard from '../pages/RestauranteDashboard';
 import RegisterRestaurant from '../pages/restaurant/registerRestaurant';
+import DashboardRestaurant from '../layouts/dashboardRestaurant';
 
 const Router = () => {
 
@@ -13,7 +13,7 @@ const Router = () => {
         {/* pagina de registro del restaurante*/}
         <Route path="/registerRestaurant" element={<RegisterRestaurant />} />
         {/* pagina del tablero del restaurante */}
-        <Route path="/RestauranteDashboard" element={<RestauranteDashboard />} />
+        <Route path="/dashboardRestaurant" element={<DashboardRestaurant />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 
 const RegisterRestaurant = () => {
 
@@ -6,6 +7,7 @@ const RegisterRestaurant = () => {
     const [direccion, setDireccion] = useState('');
     const [rubro, setRubro] = useState('');
     const [telefono, setTelefono] = useState('');
+    const [redirect, setRedirect] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,6 +20,8 @@ const RegisterRestaurant = () => {
         };
         console.log('solicitud de registro enviado!')
         console.log('Datos que se envian:', formData);
+
+        setRedirect(true);
     };
 
     return (
@@ -25,6 +29,7 @@ const RegisterRestaurant = () => {
             className='
                 flex h-screen w-screen bg-white items-center justify-center
             '>
+            {redirect && <Navigate to="/dashboardRestaurant" />}
             <div className='
                     w-[544px]
                 '>
