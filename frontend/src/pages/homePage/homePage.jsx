@@ -8,13 +8,15 @@ const HomePage = () => {
     const [usuarioSeleccionado, setUsuarioSeleccionado] = useState('');
     const opciones = ['Cliente', 'Restaurante', 'Repartidor'];
     const [redirect, setRedirect] = useState(false);
+    const [email, setEmail] = useState('');
+    const [contraseña, setContraseña] = useState('');
 
     const handleSeleccionUsuario = (usuario) => {
         setUsuarioSeleccionado(usuario);
         setMostrarOpciones(false);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         const formData = {
@@ -25,11 +27,23 @@ const HomePage = () => {
         console.log('solicitud de acceso enviado!')
         console.log('Datos que se envian:', formData);
 
-        setRedirect(true);
+        try {
+            const response = await fetch('https://vaya-pronto.onrender.com/usuario/registro', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            if (response.ok) {
+                setRedirect(true);
+            } else {
+                console.error('Error al enviar la solicitud:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error de red:', error);
+        }
     };
-
-    const [email, setEmail] = useState('');
-    const [contraseña, setContraseña] = useState('');
 
     return (
         <div
