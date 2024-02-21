@@ -25,20 +25,25 @@ const crearUsuario = async (usuario) => {
 
 const buscarUsuarioPorMail = async (usuario) => {
   try {
+    let usuarioEncontrado;
     console.log("Usuario del controlador:", usuario);
-    if (usuario.rol_usuario === "cliente") {
-      const cliente = await buscarClientePorMail(usuario);
+    const cliente = await buscarClientePorMail(usuario);
+    if (cliente) {
       console.log(cliente);
-      return cliente;
-    } else if (usuario.rol_usuario === "repartidor") {
-      const repartidor = await buscarRepartidorPorMail(usuario);
-      console.log(repartidor);
-      return repartidor;
-    } else if (usuario.rol_usuario === "restaurante") {
-      const restaurante = await buscarRestaurantePorMail(usuario);
-      console.log(restaurante);
-      return restaurante;
+      usuarioEncontrado = cliente;
     }
+    const restaurante = await buscarRestaurantePorMail(usuario);
+    if (restaurante) {
+      console.log(restaurante);
+      usuarioEncontrado = restaurante;
+    }
+    const repartidor = await buscarRepartidorPorMail(usuario);
+    if (repartidor) {
+      console.log(repartidor);
+      usuarioEncontrado = repartidor;
+    }
+
+    return usuarioEncontrado;
   } catch (error) {
     throw new Error(
       "Error al buscar usuario por correo electrónico: " + error.message

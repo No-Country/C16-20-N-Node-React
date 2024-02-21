@@ -13,7 +13,7 @@ routerUsuario.post("/usuario/registro", async (req, res) => {
     const usuarioExistente = await buscarUsuarioPorMail(usuario);
     if (usuarioExistente) {
       console.log(usuarioExistente);
-      return res.status(409).json({ message: "El usuario ya está registrado" });
+      return res.status(409).json({ message: "El usuario ya está registrado" }); //este return corta la ejecusion
     } else {
       const nuevoUsuario = await crearUsuario(usuario);
       return res.status(201).json(nuevoUsuario);
