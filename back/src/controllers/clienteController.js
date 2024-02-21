@@ -50,7 +50,7 @@ const crearCliente = async (idCliente, cliente) => {
  */
 export const buscarClientePorMail = async (usuario) => {
   try {
-    const cliente = await Cliente.findAll({
+    const cliente = await Cliente.findOne({
       include: {
         model: Usuario,
         where: { mail: usuario.mail },

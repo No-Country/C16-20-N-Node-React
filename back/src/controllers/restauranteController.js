@@ -11,7 +11,7 @@ import Conexion from "./conexion.js";
 //✔️ - Finalizado
 export const buscarRestaurantePorMail = async (usuario) => {
   try {
-    const restaurantes = await Restaurante.findAll({
+    const restaurantes = await Restaurante.findOne({
       include: {
         model: Usuario,
         where: { mail: usuario.mail },
