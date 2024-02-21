@@ -8,12 +8,14 @@
 import express, { urlencoded } from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
+import cors from "cors";
 import Conexion from "./controllers/conexion.js";
 import routerRestaurante from "./router/routerRestaurante.js";
 import routerCliente from "./router/routerCliente.js";
 import routerUsuario from "./router/routerUsuario.js";
 dotenv.config();
 const app = express();
+app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(urlencoded({ extended: false }));
