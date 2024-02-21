@@ -5,11 +5,11 @@ import imagen12 from '../../assets/image12.svg';
 
 const HomePage = () => {
     const [mostrarOpciones, setMostrarOpciones] = useState(false);
-    const [usuarioSeleccionado, setUsuarioSeleccionado] = useState('');
+    const [rol_usuario, setUsuarioSeleccionado] = useState('');
     const opciones = ['Cliente', 'Restaurante', 'Repartidor'];
     const [redirect, setRedirect] = useState(false);
-    const [email, setEmail] = useState('');
-    const [contraseña, setContraseña] = useState('');
+    const [mail, setEmail] = useState('');
+    const [password, setContraseña] = useState('');
 
     const handleSeleccionUsuario = (usuario) => {
         setUsuarioSeleccionado(usuario);
@@ -20,9 +20,9 @@ const HomePage = () => {
         event.preventDefault();
 
         const formData = {
-            email: email,
-            contraseña: contraseña,
-            usuario: usuarioSeleccionado
+            mail: mail,
+            password: password,
+            rol_usuario: rol_usuario
         };
         console.log('solicitud de acceso enviado!')
         console.log('Datos que se envian:', formData);
@@ -37,6 +37,7 @@ const HomePage = () => {
             });
             if (response.ok) {
                 setRedirect(true);
+
             } else {
                 console.error('Error al enviar la solicitud:', response.statusText);
             }
@@ -71,7 +72,7 @@ const HomePage = () => {
                             type='text'
                             id='email'
                             placeholder='Email'
-                            value={email}
+                            value={mail}
                             onChange={(e) => setEmail(e.target.value)}
                             className='
                                 placeholder-black text-black border border-1 border-black w-full py-2 px-3 rounded-2xl
@@ -81,7 +82,7 @@ const HomePage = () => {
                             type='password'
                             id='contraseña'
                             placeholder='Contraseña'
-                            value={contraseña}
+                            value={password}
                             onChange={(e) => setContraseña(e.target.value)}
                             className='
                                 placeholder-black text-black border border-1 border-black w-full py-2 px-3 rounded-2xl
@@ -92,7 +93,7 @@ const HomePage = () => {
                                 className='border border-1 border-black rounded-lg w-full py-2 px-3 flex items-center justify-between cursor-pointer'
                                 onClick={() => setMostrarOpciones(!mostrarOpciones)}
                             >
-                                <span>{usuarioSeleccionado || 'Selecciona un usuario'}</span>
+                                <span>{rol_usuario || 'Selecciona un usuario'}</span>
                                 <img src={icon33} alt='icon' className='w-6 h-6 mr-2' />
                             </div>
                             {mostrarOpciones && (
