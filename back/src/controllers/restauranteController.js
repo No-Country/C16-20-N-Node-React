@@ -9,6 +9,21 @@ import Restaurante from "../models/restaurante.js";
 import Usuario from "../models/usuario.js";
 import Conexion from "./conexion.js";
 //✔️ - Finalizado
+export const buscarRestaurantePorMail = async (usuario) => {
+  try {
+    const restaurantes = await Restaurante.findAll({
+      include: {
+        model: Usuario,
+        where: { mail: usuario.mail },
+      },
+    });
+    return restaurantes;
+  } catch (error) {
+    console.error("Error al listar restaurantes:", error);
+    throw error;
+  }
+};
+
 export const listarRestaurante = async () => {
   try {
     const restaurantes = await Restaurante.findAll({
@@ -76,7 +91,7 @@ const listarRestaurantesPorId = async (id) => {
  * las relaciones
  */
 const crearRestaurante = async (idUsuario, restaurant) => {
-  const t = await Conexion.sequelize.transaction();
+  let t = await Conexion.sequelize.transaction();
   try {
     const nuevoRestaurante = await Restaurante.create(
       { id_usuario: idUsuario, ...restaurant },

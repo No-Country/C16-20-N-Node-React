@@ -1,18 +1,27 @@
 import express from "express";
-import { crearUsuario } from "../controllers/usuarioController.js";
+import {
+  crearUsuario,
+  buscarUsuarioPorMail,
+} from "../controllers/usuarioController.js";
 const routerUsuario = express.Router();
 // ⏳ - En proceso
 // ⚡ - urgente
 
-
-routerUsuario.post("/Usuario/registro", async (req, res) => {
-    try {
-      const usuarioRegistro= await crearUsuario(req, res);
-    } catch (error) {
-      console.log(error);
-      res.status(500).json(error);
+routerUsuario.post("/usuario/registro", async (req, res) => {
+  try {
+    const usuario = req.body;
+    const usuarioExistente = await buscarUsuarioPorMail(usuario);
+    if (usuarioExistente) {
+      console.log(usuarioExistente);
+      return res.status(409).json({ message: "El usuario ya está registrado" });
+    } else {
+      const nuevoUsuario = await crearUsuario(usuario);
+      return res.status(201).json(nuevoUsuario);
     }
-  });
-  
+  } catch (error) {
+    console.error("Error al registrar usuario:", error);
+    return res.status(500).json({ error: "Error interno del servidor" });
+  }
+});
 
 export default routerUsuario;

@@ -26,7 +26,7 @@ const listarClientes = async () => {
  * en teoria este controlador solo crea un nuevo cliente
  */
 const crearCliente = async (idCliente, cliente) => {
-  const t = await Conexion.sequelize.transaction();
+  let t = await Conexion.sequelize.transaction();
   try {
     const nuevoCliente = await Cliente.create(
       { id_usuario: idCliente, ...cliente },
@@ -48,5 +48,25 @@ const crearCliente = async (idCliente, cliente) => {
  * este Modelo no conoce el mail del usuario que se registra todavia...
  * PENSANDO...
  */
+export const buscarClientePorMail = async (usuario) => {
+  try {
+    const cliente = await Cliente.findAll({
+      include: {
+        model: Usuario,
+        where: { mail: usuario.mail },
+      },
+    });
+    return cliente;
+  } catch (error) {
+    console.error("Error al listar clientes:", error);
+    throw error;
+  }
+};
 
 export { listarClientes, crearCliente };
+
+/**
+ * hacer un post a un end point que llame al controlador de usuario
+ * despues de eso, me devuelve el nuevo usuario, saco el id y el rol_usuario
+ * y en base a eso redirecciono a un nuevo endpoint
+ */
