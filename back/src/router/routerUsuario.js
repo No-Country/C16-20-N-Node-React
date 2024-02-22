@@ -21,6 +21,7 @@ routerUsuario.post("/usuario/registro", async (req, res) => {
     if (error.message === "El correo electrónico ya está en uso") {
       return res.status(409).json({
         message: "El correo electrónico ya está en uso",
+        usuario: usuarioExistente,
       });
     } else {
       console.error("Error al registrar usuario:", error);
