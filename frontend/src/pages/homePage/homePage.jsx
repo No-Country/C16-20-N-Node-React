@@ -26,8 +26,9 @@ const HomePage = () => {
         };
         console.log('solicitud de acceso enviado!')
         console.log('Datos que se envian:', formData);
+        setRedirect(true);
 
-        try {
+        /*try {
             const response = await fetch('https://vaya-pronto.onrender.com/usuario/registro', {
                 method: 'POST',
                 headers: {
@@ -43,7 +44,7 @@ const HomePage = () => {
             }
         } catch (error) {
             console.error('Error de red:', error);
-        }
+        }*/
     };
 
     return (

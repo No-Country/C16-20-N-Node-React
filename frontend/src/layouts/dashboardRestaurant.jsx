@@ -31,15 +31,17 @@ const DashboardRestaurant = () => {
             </div>
             <div
                 className='
-                    flex min-h-[72px] w-full bg-[#FF5733] items-center min-w-[1100px]
+                    flex min-h-[72px] w-full bg-[#FF5733] items-center min-w-[1400px]
                 '>
                 {selectedButton === 'Platos' &&
-                    <div className='flex w-full ml-[310px]'>
+                    <div className='flex w-full ml-[330px]'>
                         <tr className=''>
                             <td className=' w-[180px] min-w-[180px] text-center'>Nombre</td>
                             <td className=' w-[270px] min-w-[270px] text-center'>Descripción</td>
-                            <td className=' w-[110px] min-w-[110px] text-center'>Precio</td>
-                            <td className=' w-[160px] min-w-[160px] text-center'>Tiempo de espera</td>
+                            <td className=' w-[110px] min-w-[120px] text-center'>Precio</td>
+                            <td className=' w-[160px] min-w-[150px] text-center'>Tiempo de espera</td>
+                            <td className=' w-[120px] min-w-[120px] text-center'>Imagen</td>
+                            <td className=' w-[120px] min-w-[120px] text-center'>Editar</td>
                         </tr>
                     </div>}
             </div>
