@@ -5,7 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "dev": "console-ninja nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
