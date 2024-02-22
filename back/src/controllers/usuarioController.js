@@ -28,17 +28,17 @@ const buscarUsuarioPorMail = async (usuario) => {
     let usuarioEncontrado;
     console.log("Usuario del controlador:", usuario);
     const cliente = await buscarClientePorMail(usuario);
-    if (cliente) {
+    if (cliente && cliente.length > 0) {
       console.log(cliente);
       usuarioEncontrado = cliente;
     }
     const restaurante = await buscarRestaurantePorMail(usuario);
-    if (restaurante) {
+    if (restaurante && restaurante.length > 0) {
       console.log(restaurante);
       usuarioEncontrado = restaurante;
     }
     const repartidor = await buscarRepartidorPorMail(usuario);
-    if (repartidor) {
+    if (repartidor && repartidor.length > 0) {
       console.log(repartidor);
       usuarioEncontrado = repartidor;
     }

@@ -4,8 +4,6 @@ import {
   buscarUsuarioPorMail,
 } from "../controllers/usuarioController.js";
 const routerUsuario = express.Router();
-// ⏳ - En proceso
-// ⚡ - urgente
 
 routerUsuario.post("/usuario/registro", async (req, res) => {
   try {
@@ -13,17 +11,21 @@ routerUsuario.post("/usuario/registro", async (req, res) => {
     const usuarioExistente = await buscarUsuarioPorMail(usuario);
     if (usuarioExistente) {
       console.log(usuarioExistente);
-      return res.status(409).json({
-        message: "El usuario ya está registrado",
-        usuario: usuarioExistente, // Aquí incluyes el usuario existente en la respuesta JSON
-      });
+      return res.status(409).json({ usuarioExistente });
     } else {
       const nuevoUsuario = await crearUsuario(usuario);
+      console.log(nuevoUsuario);
       return res.status(201).json(nuevoUsuario);
     }
   } catch (error) {
-    console.error("Error al registrar usuario:", error);
-    return res.status(500).json({ error: "Error interno del servidor" });
+    if (error.message === "El correo electrónico ya está en uso") {
+      return res.status(409).json({
+        message: "El correo electrónico ya está en uso",
+      });
+    } else {
+      console.error("Error al registrar usuario:", error);
+      return res.status(500).json({ error: "Error interno del servidor" });
+    }
   }
 });
 
