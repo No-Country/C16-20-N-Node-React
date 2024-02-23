@@ -66,7 +66,7 @@ const HomePage = () => {
                     onSubmit={handleSubmit}
                     className=''>
                     <div className='
-                        flex flex-col mx-8 gap-3
+                        flex flex-col mx-8
                     '>
                         <input
                             type='text'
@@ -85,10 +85,10 @@ const HomePage = () => {
                             value={password}
                             onChange={(e) => setContraseña(e.target.value)}
                             className='
-                                placeholder-black text-black border border-1 border-black w-full py-2 px-3 rounded-2xl
+                                placeholder-black mt-[16px] text-black border border-1 border-black w-full py-2 px-3 rounded-2xl
                             '
                         />
-                        <div className='relative'>
+                        <div className='relative mt-[30px]'>
                             <div
                                 className='border border-1 border-black rounded-lg w-full py-2 px-3 flex items-center justify-between cursor-pointer'
                                 onClick={() => setMostrarOpciones(!mostrarOpciones)}
@@ -97,7 +97,7 @@ const HomePage = () => {
                                 <img src={icon33} alt='icon' className='w-6 h-6 mr-2' />
                             </div>
                             {mostrarOpciones && (
-                                <div className='absolute bg-white border border-1 border-black rounded-lg w-full mt-2'>
+                                <div className='absolute bg-white border border-1 border-black rounded-lg w-full mt-[8px]'>
                                     {opciones.map((opcion, index) => (
                                         <div
                                             key={index}
@@ -113,20 +113,12 @@ const HomePage = () => {
                         <button
                             type='submit'
                             className='
-                                bg-teal-600 border border-1 border-black rounded-2xl py-4 text-4xl
+                                bg-teal-600 border border-1 border-black rounded-2xl py-4 text-4xl mt-[30px]
                             '>
                             Entrar
                         </button>
                     </div>
                 </form>
-                <p className='text-center'>
-                    ¿Ya estás registrado?
-                    <a
-                        className='underline text-blue-600 font-medium ml-4'
-                        href='/'>
-                        Log in
-                    </a>
-                </p>
             </div>
         </div>
     );
