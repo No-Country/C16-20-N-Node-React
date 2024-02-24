@@ -5,15 +5,16 @@ import { buscarClientePorMail } from "./clienteController.js";
 import { buscarRepartidorPorMail } from "./repartidorController.js";
 
 const crearUsuario = async (usuario) => {
+  let t;
   try {
-    const usuarioExistente = await buscarUsuarioPorMail(usuario);
-    if (usuarioExistente) {
-      return usuarioExistente;
-    } else {
-      const nuevoUsuario = await Usuario.create(usuario);
-      return nuevoUsuario;
-    }
+    t = await Conexion.sequelize.transaction();
+    const nuevoUsuario = await Usuario.create(usuario, { transaction: t });
+    await t.commit();
+    return nuevoUsuario;
   } catch (error) {
+    if (t) {
+      await t.rollback();
+    }
     if (error.name === "SequelizeUniqueConstraintError") {
       throw new Error("El correo electrónico ya está en uso");
     } else {
@@ -24,13 +25,24 @@ const crearUsuario = async (usuario) => {
 
 const buscarUsuarioPorMail = async (usuario) => {
   try {
-    let usuarioEncontrado = await buscarRestaurantePorMail(usuario);
-    if (!usuarioEncontrado || usuarioEncontrado.length === 0) {
-      usuarioEncontrado = await buscarClientePorMail(usuario);
-      if (!usuarioEncontrado || usuarioEncontrado.length === 0) {
-        usuarioEncontrado = await buscarRepartidorPorMail(usuario);
-      }
+    let usuarioEncontrado;
+    console.log("Usuario del controlador:", usuario);
+    const cliente = await buscarClientePorMail(usuario);
+    if (cliente && cliente.length > 0) {
+      console.log(cliente);
+      usuarioEncontrado = cliente;
     }
+    const restaurante = await buscarRestaurantePorMail(usuario);
+    if (restaurante && restaurante.length > 0) {
+      console.log(restaurante);
+      usuarioEncontrado = restaurante;
+    }
+    const repartidor = await buscarRepartidorPorMail(usuario);
+    if (repartidor && repartidor.length > 0) {
+      console.log(repartidor);
+      usuarioEncontrado = repartidor;
+    }
+
     return usuarioEncontrado;
   } catch (error) {
     throw new Error(
@@ -39,16 +51,4 @@ const buscarUsuarioPorMail = async (usuario) => {
   }
 };
 
-const buscarUsuario = async (usuario) => {
-  try {
-    const usuarioBuscado = await Usuario.findOne({
-      where: {
-        mail: usuario.mail,
-      },
-    });
-    return usuarioBuscado;
-  } catch {
-    throw new Error("Error al buscar usuario");
-  }
-};
-export { crearUsuario, buscarUsuarioPorMail, buscarUsuario };
+export { crearUsuario, buscarUsuarioPorMail };

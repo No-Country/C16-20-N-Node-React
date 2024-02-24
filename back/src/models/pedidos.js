@@ -2,42 +2,46 @@ import Conexion from "../controllers/conexion.js";
 import Cliente from "../models/cliente.js";
 import Repartidor from "../models/repartidor.js";
 import Restaurante from "../models/restaurante.js";
-import { DataType, Model } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import Producto from "./productos.js";
 
 class Pedidos extends Model {}
 
 Pedidos.init(
   {
-    id_pedidos: {
-      type: DataType.INTEGER,
+    id_pedido: {
+      type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
     id_cliente: {
-      type: DataType.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     cantidad: {
-      type: DataType.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     id_producto: {
-      type: DataType.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     id_restaurant: {
-      type: DataType.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     id_repartidor: {
-      type: DataType.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     descripcion: {
-      type: DataType.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
+    // status: {
+    //   type: DataType.BOOLEAN,
+    //   allowNull: false,
+    // },
   },
   {
     sequelize: Conexion.sequelize,

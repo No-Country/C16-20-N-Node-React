@@ -5,7 +5,7 @@ import { DataTypes, Model } from "sequelize";
 class Producto extends Model {}
 Producto.init(
   {
-    id: {
+    id_producto: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -19,7 +19,7 @@ Producto.init(
     precio_producto: {
       type: DataTypes.INTEGER,
     },
-    id_restaurante: {
+    id_restaurant: {
       type: DataTypes.INTEGER,
     },
   },
@@ -31,7 +31,7 @@ Producto.init(
   }
 );
 
-Producto.hasMany(Restaurante, { foreignKey: "id_restaurante" });
-Restaurante.belongsTo(Producto, { foreignKey: "id_restaurante" });
+Restaurante.hasOne(Producto, { foreignKey: "id_restaurant" });
+Producto.belongsTo(Restaurante, { foreignKey: "id_restaurant" });
 
 export default Producto;

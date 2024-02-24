@@ -13,6 +13,8 @@ import Conexion from "./controllers/conexion.js";
 import routerRestaurante from "./router/routerRestaurante.js";
 import routerCliente from "./router/routerCliente.js";
 import routerUsuario from "./router/routerUsuario.js";
+import routerProducto from "./router/routerProducto.js";
+import routerPedido from "./router/routerPedido.js";
 dotenv.config();
 const app = express();
 app.use(cors());
@@ -26,6 +28,8 @@ app.use(urlencoded({ extended: false }));
 app.use("/", routerRestaurante);
 app.use("/", routerCliente);
 app.use("/", routerUsuario);
+app.use("/", routerProducto);
+app.use("/", routerPedido);
 const port = process.env.PORT || 3000;
 /**
  * ruta de acceso publico
