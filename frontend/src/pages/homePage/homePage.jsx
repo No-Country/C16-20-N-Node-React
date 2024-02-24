@@ -1,18 +1,19 @@
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Routes } from '../../api/routes';
 import icon33 from '../../assets/icon33.svg';
 import imagen12 from '../../assets/image12.svg';
+import { Navigate } from 'react-router-dom'
 
 const HomePage = () => {
     const [mostrarOpciones, setMostrarOpciones] = useState(false);
-    const [rol_usuario, setUsuarioSeleccionado] = useState('');
+    const [user, setUserSelection] = useState('');
     const opciones = ['Cliente', 'Restaurante', 'Repartidor'];
-    const [redirect, setRedirect] = useState(false);
-    const [mail, setEmail] = useState('');
-    const [password, setContraseña] = useState('');
+    const [mail, setMail] = useState('');
+    const [password, setPassword] = useState('');
+    const [redirect, setRedirect] = useState(null);
 
     const handleSeleccionUsuario = (usuario) => {
-        setUsuarioSeleccionado(usuario);
+        setUserSelection(usuario);
         setMostrarOpciones(false);
     };
 
@@ -22,13 +23,12 @@ const HomePage = () => {
         const formData = {
             mail: mail,
             password: password,
-            rol_usuario: rol_usuario
+            user: user
         };
-        console.log('solicitud de acceso enviado!')
-        console.log('Datos que se envian:', formData);
+        console.log('Frontend: Formulario enviado! ', formData);
 
         try {
-            const response = await fetch('https://vaya-pronto.onrender.com/usuario/registro', {
+            const response = await fetch(Routes.checkAccount, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -36,8 +36,15 @@ const HomePage = () => {
                 body: JSON.stringify(formData)
             });
             if (response.ok) {
-                setRedirect(true);
-
+                const data = await response.json();
+                console.log(data.message);
+                if (data.message === 'Backend: El correo electrónico no existe') {
+                    console.log('Frontend: No se permite el acceso al usuario ' + mail);
+                    setRedirect('/registerRestaurant')
+                } if (data.message === 'Backend: El correo electrónico ya existe') {
+                    console.log('Frontend: Se permite el acceso al usuario ' + mail);
+                    setRedirect('/dashboardRestaurant')
+                }
             } else {
                 console.error('Error al enviar la solicitud:', response.statusText);
             }
@@ -51,7 +58,7 @@ const HomePage = () => {
             className='
                 flex h-screen w-screen bg-white items-center justify-center
             '>
-            {redirect && <Navigate to="/registerRestaurant" />}
+            {redirect && <Navigate to={redirect} />}
             <div
                 className='
                     w-96 h-auto bg-white
@@ -73,17 +80,17 @@ const HomePage = () => {
                             id='email'
                             placeholder='Email'
                             value={mail}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => setMail(e.target.value)}
                             className='
                                 placeholder-black text-black border border-1 border-black w-full py-2 px-3 rounded-2xl
                             '
                         />
                         <input
                             type='password'
-                            id='contraseña'
+                            id='password'
                             placeholder='Contraseña'
                             value={password}
-                            onChange={(e) => setContraseña(e.target.value)}
+                            onChange={(e) => setPassword(e.target.value)}
                             className='
                                 placeholder-black mt-[16px] text-black border border-1 border-black w-full py-2 px-3 rounded-2xl
                             '
@@ -93,7 +100,7 @@ const HomePage = () => {
                                 className='border border-1 border-black rounded-lg w-full py-2 px-3 flex items-center justify-between cursor-pointer'
                                 onClick={() => setMostrarOpciones(!mostrarOpciones)}
                             >
-                                <span>{rol_usuario || 'Selecciona un usuario'}</span>
+                                <span>{user || 'Selecciona un usuario'}</span>
                                 <img src={icon33} alt='icon' className='w-6 h-6 mr-2' />
                             </div>
                             {mostrarOpciones && (
