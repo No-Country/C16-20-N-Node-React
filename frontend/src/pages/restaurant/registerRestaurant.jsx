@@ -77,7 +77,7 @@ const RegisterRestaurant = () => {
                         <button
                             type='submit'
                             className='
-                                font-[roboto] bg-[#00A896] border-[1px] border-[#575757] rounded-[20px] h-[82px] w-[352px] text-[36px]
+                                font-[roboto] bg-[#00A896] border-[1px] border-[#575757] rounded-[20px] h-[60px] w-[351px] text-[36px]
                             '>
                             Regístrate
                         </button>

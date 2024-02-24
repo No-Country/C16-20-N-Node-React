@@ -16,7 +16,7 @@ const DashboardRestaurant = () => {
     return (
         <div
             className='
-                flex flex-col w-full
+                flex flex-col w-full 
             '>
             <div
                 className='
@@ -51,7 +51,7 @@ const DashboardRestaurant = () => {
                 '>
                 <div
                     className='
-                    flex flex-col min-w-[256px] w-[256px] h-full bg-[#FF5733]
+                    flex flex-col min-w-[256px] w-[256px] h-[780px] bg-[#FF5733]
                 '>
                     <button
                         onClick={() => handleButtonClick('Platos')}

@@ -1,0 +1,19 @@
+{
+    "users": [
+        {
+            "mail": "cliente@example.com",
+            "password": "1234",
+            "role": "Cliente"
+        },
+        {
+            "mail": "restaurante@example.com",
+            "password": "1234",
+            "role": "Restaurante"
+        },
+        {
+            "mail": "repartidor@example.com",
+            "password": "1234",
+            "role": "Repartidor"
+        }
+    ]
+}

@@ -4,7 +4,7 @@ import icon37 from '../../assets/icon37.svg'
 
 const ManageProducts = () => {
     return (
-        <div className='flex w-full h-fit ml-[63px] mt-[74px] min-w-[1400px]'>
+        <div className='flex w-full h-fit ml-[63px] mt-[74px] min-w-[1000px]'>
             <table className='font-[roboto] text-[16px]'>
                 <tbody className=''>
                     {productos.map((producto, index) => (

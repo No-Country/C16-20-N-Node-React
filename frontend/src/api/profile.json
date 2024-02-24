@@ -1,0 +1,25 @@
+{
+    "usersInfo": [
+        {
+            "mail": "cliente@example.com",
+            "category": "Categoria 1",
+            "address": "Dirección del cliente 1",
+            "name": "Nombre del cliente 1",
+            "telephone": "Teléfono del cliente 1"
+        },
+        {
+            "mail": "restaurante@example.com",
+            "category": "Categoria 2",
+            "address": "Dirección del restaurante 1",
+            "name": "Nombre del restaurante 1",
+            "telephone": "Teléfono del restaurante 1"
+        },
+        {
+            "mail": "repartidor@example.com",
+            "category": "Categoria 3",
+            "address": "Dirección del repartidor 1",
+            "name": "Nombre del repartidor 1",
+            "telephone": "Teléfono del repartidor 1"
+        }
+    ]
+}
