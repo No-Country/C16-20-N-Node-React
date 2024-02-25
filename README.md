@@ -1,7 +1,22 @@
 ![Vaya Pronto](https://i.imgur.com/myATWsg.png)
 
-## RESUMEN
+
 ¡Bienvenido a Vaya Pronto, tu aplicación de entrega de comida a domicilio! 🍔🚀
+
+## Descripción
+
+Vaya Pronto es una aplicación diseñada para facilitar el proceso de ordenar comida desde la comodidad de tu hogar. Con una amplia selección de restaurantes asociados y una interfaz fácil de usar, encontrarás algo delicioso para satisfacer tus antojos en cualquier momento.
+
+
+## Características
+
+* Explora restaurantes: Navega por una amplia variedad de restaurantes cercanos.
+* Menús detallados: Consulta los menús completos de cada restaurante con descripciones detalladas de los platos.
+* Fácil ordenamiento: Ordena tus platos favoritos con solo unos pocos clics.
+* Seguimiento en tiempo real: Sigue el progreso de tu pedido desde la cocina hasta tu puerta.
+* Pagos seguros: Realiza pagos de forma segura utilizando diferentes métodos de pago disponibles.
+
+
 ## OBJETIVO
 
 ## FUNCIONALIDAD
