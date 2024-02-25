@@ -84,7 +84,7 @@ const LoadProduct = () => {
                                     src={icon38}
                                     alt='image12'
                                     className='
-                                h-[14px] w-[16px] object-cover ml-[8px] mr-[8px]
+                                h-[14px] w-[16px] object-cover ml-[8|px] mr-[8px]
                                 '
                                 >
                                 </img></span>    Subir imagen
