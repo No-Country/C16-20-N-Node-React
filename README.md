@@ -22,6 +22,37 @@ Vaya Pronto es una aplicación diseñada para facilitar el proceso de ordenar co
 
 ## TECNOLOGIAS
 
+Project Manager:
+
+Trello
+
+UX/UI:
+
+Figma 
+Figjam
+Google Forms
+
+Front End:
+
+HTML
+CSS
+JavaScript
+React JS
+Vite
+Tailwind CSS
+
+Back End:
+
+Node.js
+express
+SQL
+
+Testing QA:
+
+Test Monitor
+JMeter
+
+
 ## EQUIPO: C16-20-N-Node-React
 
 | Rol               | Nombre                    | Redes                                                                                                                             |
