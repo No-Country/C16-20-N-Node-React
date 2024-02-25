@@ -55,7 +55,8 @@ Back End:
 
 [![Node.js](https://img.shields.io/badge/Node.js-Runtime-green)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/Express-Framework-lightgrey)](https://expressjs.com/)
-[![SQL](https://img.shields.io/badge/SQL-Database-yellow)](https://en.wikipedia.org/wiki/SQL)
+[![Sequelize ORM](https://img.shields.io/badge/Sequelize-ORM-blue.svg)](https://github.com/sequelize/sequelize)
+[![MySQL](https://img.shields.io/badge/MySQL-Database-blue.svg)](https://www.mysql.com/)
 
 Testing QA:
 
