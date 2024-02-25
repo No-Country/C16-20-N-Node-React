@@ -17,7 +17,6 @@ Vaya Pronto es una aplicación diseñada para facilitar el proceso de ordenar co
 * Pagos seguros: Realiza pagos de forma segura utilizando diferentes métodos de pago disponibles.
 
 
-## OBJETIVO
 
 ## FUNCIONALIDAD
 
@@ -33,7 +32,8 @@ Vaya Pronto es una aplicación diseñada para facilitar el proceso de ordenar co
 | `Front End`       | Víctor Fernández          | [![GitHub]](https://github.com/LeanCano) [![linkedin]](https://www.linkedin.com/in/leandrocanoc/)                             |
 | `Back End`        | Leonardo Toloza           | [![GitHub]](https://github.com/rodriarguello) [![linkedin]](https://www.linkedin.com/in/rodrigo-arguello-402073240/)               |  
 | `Back End`        | Carla Sarabia             | [![GitHub]](https://github.com/rodriarguello) [![linkedin]](https://www.linkedin.com/in/rodrigo-arguello-402073240/)               | 
-| `QA Tester`       | Florencia Weingartner     | [![GitHub]](https://github.com/rodriarguello) [![linkedin]](https://www.linkedin.com/in/rodrigo-arguello-402073240/)               | 
+| `QA Tester`       | Florencia Weingartner     | [![GitHub](https://img.shields.io/badge/GitHub-Perfil-lightgrey)](https://github.com/GitMangus/)[![LinkedIn](https://img.shields.io/badge/LinkedIn-Perfil-deepskyblue)](https://www.linkedin.com/in/florencia-weingartner/)
+               | 
 
 
 ### QA
