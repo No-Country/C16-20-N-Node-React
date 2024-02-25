@@ -14,25 +14,11 @@ const DashboardRestaurant = () => {
     };
 
     return (
-        <div
-            className='
-                flex flex-col w-full 
-            '>
-            <div
-                className='
-                    pl-[120px] py-[12px]
-                '>
-                <img
-                    src={image12}
-                    alt='image12'
-                    className='
-                        h-[142px] w-[208px] min-w-[208px]
-                    '/>
+        <div className='flex flex-col w-full h-screen'>
+            <div className='pl-[120px] py-[12px]'>
+                <img src={image12} alt='image12' className='h-[142px] w-[208px] min-w-[208px]' />
             </div>
-            <div
-                className='
-                    flex min-h-[72px] w-full bg-[#FF5733] items-center min-w-[1400px]
-                '>
+            <div className='flex min-h-[72px] w-full bg-[#FF5733] items-center min-w-[1400px]'>
                 {selectedButton === 'Platos' &&
                     <div className='flex w-full ml-[330px]'>
                         <tr className=''>
@@ -47,11 +33,11 @@ const DashboardRestaurant = () => {
             </div>
             <div
                 className='
-                    flex flex-row h-screen w-full
+                    flex
                 '>
                 <div
                     className='
-                    flex flex-col min-w-[256px] w-[256px] h-[780px] bg-[#FF5733]
+                    min-w-[256px] w-[256px] bg-[#FF5733]
                 '>
                     <button
                         onClick={() => handleButtonClick('Platos')}
@@ -114,10 +100,8 @@ const DashboardRestaurant = () => {
                         '/>
                     </button>
                 </div>
-                <div>
-                    {selectedButton === 'Perfil' && <PerfilRestaurant />}
-                    {selectedButton === 'Platos' && <ManageProducts />}
-                </div>
+                {selectedButton === 'Perfil' && <PerfilRestaurant />}
+                {selectedButton === 'Platos' && <ManageProducts />}
             </div>
         </div>
 
