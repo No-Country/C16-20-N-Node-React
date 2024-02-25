@@ -2,8 +2,24 @@ import express from "express";
 import {
   crearUsuario,
   buscarUsuarioPorMail,
+  compararPass,
 } from "../controllers/usuarioController.js";
+import { autenticado, ensureAuthenticated } from "../middleware/login.js";
 const routerUsuario = express.Router();
+
+routerUsuario.post("/login", autenticado);
+
+routerUsuario.get("/perfil", ensureAuthenticated, async (req, res) => {
+  try {
+    const usuario = req.user;
+    console.log(usuario);
+    res.status(200).json(usuario);
+  } catch (error) {
+    res
+      .status(404)
+      .json({ error: "No se pudo obtener la información del usuario" });
+  }
+});
 
 routerUsuario.post("/usuario/registro", async (req, res) => {
   try {

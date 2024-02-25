@@ -13,6 +13,7 @@ async function hashearPass(pass) {
   return bcrypt.hash(pass, salt);
 }
 export async function compararPass(passActual, passHash) {
+  // console.log(await bcrypt.compare(passActual, passHash));
   return await bcrypt.compare(passActual, passHash);
 }
 
@@ -62,6 +63,7 @@ const crearUsuario = async (usuario) => {
 
 const buscarUsuarioPorMail = async (usuario) => {
   try {
+    // console.log(usuario);
     let usuarioEncontrado = await buscarRestaurantePorMail(usuario);
 
     if (!usuarioEncontrado || usuarioEncontrado.length === 0) {
