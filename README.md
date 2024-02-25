@@ -1,4 +1,4 @@
-![Vaya Pronto](https://imgur.com/a/FruIecR)
+![Vaya Pronto]([https://imgur.com/a/FruIecR](https://i.imgur.com/k6FVhHh.png))
 
 ## RESUMEN
 
