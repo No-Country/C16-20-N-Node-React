@@ -1,4 +1,4 @@
-![Vaya Pronto](https://imgur.com/gallery/K6v6Yui)
+![Vaya Pronto](https://i.imgur.com/myATWsg.png)
 
 ## RESUMEN
 
