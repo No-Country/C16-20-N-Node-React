@@ -26,12 +26,12 @@ Vaya Pronto es una aplicación diseñada para facilitar el proceso de ordenar co
 
 | Rol               | Nombre                    | Redes                                                                                                                             |
 | :---------------- | :-----------------------  | :-------------------------------------------------------------------------------------------------------------------------------- |
-| `Project Manager` | Fernando Vergel           | [![GitHub]](https://github.com/victoria-chaile) [![linkedin]](https://www.linkedin.com/in/victoria-agustina-chaile/)                 |
-| `UX/UI Designer`  | Fernando Vergel           | [![behance]](https://www.behance.net/sergioarancibia3) [![linkedin]](https://www.linkedin.com/in/sergio-arancibia-517345237/)               |
-| `Front End`       | Nahuel Lupe               | [![GitHub]](https://github.com/rcpc265) [![linkedin]](https://www.linkedin.com/in/rafael-cangahuala-864748251/)              |
-| `Front End`       | Víctor Fernández          | [![GitHub]](https://github.com/LeanCano) [![linkedin]](https://www.linkedin.com/in/leandrocanoc/)                             |
-| `Back End`        | Leonardo Toloza           | [![GitHub]](https://github.com/rodriarguello) [![linkedin]](https://www.linkedin.com/in/rodrigo-arguello-402073240/)               |  
-| `Back End`        | Carla Sarabia             | [![GitHub]](https://github.com/rodriarguello) [![linkedin]](https://www.linkedin.com/in/rodrigo-arguello-402073240/)               | 
+| `Project Manager` | Fernando Vergel           | [![GitHub](https://img.shields.io/badge/GitHub-Perfil-lightgrey)](https://github.com/GitMangus/)[![LinkedIn](https://img.shields.io/badge/LinkedIn-Perfil-deepskyblue)](https://www.linkedin.com/in/fernandovergel/)                 |
+| `UX/UI Designer`  | Fernando Vergel           | [![GitHub](https://img.shields.io/badge/GitHub-Perfil-lightgrey)](https://github.com/GitMangus/)[![LinkedIn](https://img.shields.io/badge/LinkedIn-Perfil-deepskyblue)](https://www.linkedin.com/in/fernandovergel/)              |
+| `Front End`       | Nahuel Lupe               | [![GitHub](https://img.shields.io/badge/GitHub-Perfil-lightgrey)](https://github.com/GitMangus/)[![LinkedIn](https://img.shields.io/badge/LinkedIn-Perfil-deepskyblue)](https://www.linkedin.com/in/nahuellupe/)           |
+| `Front End`       | Víctor Fernandez          | [![GitHub](https://img.shields.io/badge/GitHub-Perfil-lightgrey)](https://github.com/GitMangus/)[![LinkedIn](https://img.shields.io/badge/LinkedIn-Perfil-deepskyblue)](https://www.linkedin.com/in/victor-h-fernandez-p/)                            |
+| `Back End`        | Leonardo Toloza           | [![GitHub](https://img.shields.io/badge/GitHub-Perfil-lightgrey)](https://github.com/GitMangus/)[![LinkedIn](https://img.shields.io/badge/LinkedIn-Perfil-deepskyblue)](https://www.linkedin.com/in/leonel-toloza/)              |  
+| `Back End`        | Carla Sarabia             | [![GitHub](https://img.shields.io/badge/GitHub-Perfil-lightgrey)](https://github.com/GitMangus/)[![LinkedIn](https://img.shields.io/badge/LinkedIn-Perfil-deepskyblue)](https://www.linkedin.com/in/carlacarolinasarabiapescozo/)               | 
 | `QA Tester`       | Florencia Weingartner     | [![GitHub](https://img.shields.io/badge/GitHub-Perfil-lightgrey)](https://github.com/GitMangus/)[![LinkedIn](https://img.shields.io/badge/LinkedIn-Perfil-deepskyblue)](https://www.linkedin.com/in/florencia-weingartner/)
                | 
 
