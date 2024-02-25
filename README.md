@@ -72,8 +72,10 @@ Testing QA:
 | `Back End`        | Leonardo Toloza           | [![GitHub](https://img.shields.io/badge/GitHub-Perfil-lightgrey)](https://github.com/GitMangus/) [![LinkedIn](https://img.shields.io/badge/LinkedIn-Perfil-deepskyblue)](https://www.linkedin.com/in/leonel-toloza/)              |  
 | `Back End`        | Carla Sarabia             | [![GitHub](https://img.shields.io/badge/GitHub-Perfil-lightgrey)](https://github.com/carlasarabiap) [![LinkedIn](https://img.shields.io/badge/LinkedIn-Perfil-deepskyblue)](https://www.linkedin.com/in/carlacarolinasarabiapescozo/)               | 
 | `QA Tester`       | Florencia Weingartner     | [![GitHub](https://img.shields.io/badge/GitHub-Perfil-lightgrey)](https://github.com/GitMangus/) [![LinkedIn](https://img.shields.io/badge/LinkedIn-Perfil-deepskyblue)](https://www.linkedin.com/in/florencia-weingartner/)
-               | 
 
+               
 ## Deploy
+
+https://vayapronto.onrender.com/
 
 
