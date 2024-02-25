@@ -1,8 +1,7 @@
 ![Vaya Pronto](https://i.imgur.com/myATWsg.png)
 
 ## RESUMEN
-¡Bienvenido a Vaya Pronto, tu aplicación de entrega de comida a domicilio! <i class="fa-solid fa-burger-fries"></i>
-<i class="fa-regular fa-rocket-launch"></i>
+¡Bienvenido a Vaya Pronto, tu aplicación de entrega de comida a domicilio! 🍔🚀
 ## OBJETIVO
 
 ## FUNCIONALIDAD
