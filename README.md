@@ -38,8 +38,8 @@ Project Manager:
 
 UX/UI:
 
-[![Figma](https://img.shields.io/badge/Figma-Design-orange)](https://www.figma.com/)
-[![FigJam](https://img.shields.io/badge/FigJam-Collaboration-green)](https://www.figma.com/figjam)
+[![Figma](https://img.shields.io/badge/Figma-Design-orange)](https://www.figma.com/file/ZGN1nPmv8dpcSJUNEeYZfJ/No-Country-C16-20-n?type=design&t=xTuezUbMZTxxFr0q-6)
+[![FigJam](https://img.shields.io/badge/FigJam-Collaboration-green)](https://www.figma.com/file/oMB2ylf5sAU2niDMRnxTNM/No-Country-C16-20-n-node-react?type=whiteboard&t=xTuezUbMZTxxFr0q-6)
 [![Google Forms](https://img.shields.io/badge/Google_Forms-Surveys-yellow)](https://www.google.com/forms)
 
 Front End:
