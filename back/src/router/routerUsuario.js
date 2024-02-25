@@ -9,22 +9,17 @@ routerUsuario.post("/usuario/registro", async (req, res) => {
   try {
     const usuario = req.body;
     const usuarioExistente = await buscarUsuarioPorMail(usuario);
-    if (usuarioExistente) {
-      console.log(usuarioExistente);
-      return res.status(409).json({ usuarioExistente });
-    } else {
+    if (!usuarioExistente) {
       const nuevoUsuario = await crearUsuario(usuario);
       console.log(nuevoUsuario);
       return res.status(201).json(nuevoUsuario);
     }
+    console.log(usuarioExistente);
+    res.status(200).json(usuarioExistente);
   } catch (error) {
     if (error.message === "El correo electrónico ya está en uso") {
-      return res.status(409).json({
-        message: "El correo electrónico ya está en uso",
-        usuario: usuarioExistente,
-      });
+      return res.status(409).json({ error: error.message });
     } else {
-      console.error("Error al registrar usuario:", error);
       return res.status(500).json({ error: "Error interno del servidor" });
     }
   }
