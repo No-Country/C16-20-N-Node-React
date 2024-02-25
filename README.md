@@ -20,7 +20,7 @@ Vaya Pronto es una aplicación diseñada para facilitar el proceso de ordenar co
 
 ## FUNCIONALIDAD
 
-## TECNOLOGIAS
+## Tecnologías
 
 Project Manager:
 
@@ -52,8 +52,25 @@ Testing QA:
 Test Monitor
 JMeter
 
+1. **Figma**: [![Figma](https://img.shields.io/badge/Figma-Design-orange)](https://www.figma.com/)
+2. **FigJam**: [![FigJam](https://img.shields.io/badge/FigJam-Collaboration-green)](https://www.figma.com/figjam)
+3. **Trello**: [![Trello](https://img.shields.io/badge/Trello-Project_Management-blue)](https://trello.com/)
+4. **Google Forms**: [![Google Forms](https://img.shields.io/badge/Google_Forms-Surveys-yellow)](https://www.google.com/forms)
+5. **Test Monitor**: [![Test Monitor](https://img.shields.io/badge/Test_Monitor-Testing-lightgrey)](https://www.testmonitor.com/)
+6. **JMeter**: [![JMeter](https://img.shields.io/badge/JMeter-Performance_Testing-orange)](https://jmeter.apache.org/)
+7. **HTML**: [![HTML](https://img.shields.io/badge/HTML-Markup-red)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+8. **CSS**: [![CSS](https://img.shields.io/badge/CSS-Styles-blue)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+9. **JavaScript**: [![JavaScript](https://img.shields.io/badge/JavaScript-Scripting-yellow)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+10. **React JS**: [![React JS](https://img.shields.io/badge/React_JS-Library-blue)](https://reactjs.org/)
+11. **Vite**: [![Vite](https://img.shields.io/badge/Vite-Bundler-green)](https://vitejs.dev/)
+12. **Tailwind CSS**: [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-Utility_Framework-blue)](https://tailwindcss.com/)
+13. **Node.js**: [![Node.js](https://img.shields.io/badge/Node.js-Runtime-green)](https://nodejs.org/)
+14. **Express**: [![Express](https://img.shields.io/badge/Express-Framework-lightgrey)](https://expressjs.com/)
+15. **SQL**: [![SQL](https://img.shields.io/badge/SQL-Database-yellow)](https://en.wikipedia.org/wiki/SQL)
 
-## EQUIPO: C16-20-N-Node-React
+
+
+## Equipo: C16-20-N-Node-React
 
 | Rol               | Nombre                    | Redes                                                                                                                             |
 | :---------------- | :-----------------------  | :-------------------------------------------------------------------------------------------------------------------------------- |
