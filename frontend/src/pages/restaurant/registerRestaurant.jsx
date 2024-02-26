@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
 const RegisterRestaurant = () => {
-
     const [nombre, setNombre] = useState('');
     const [direccion, setDireccion] = useState('');
     const [rubro, setRubro] = useState('');
@@ -12,81 +11,41 @@ const RegisterRestaurant = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const formData = {
-            nombre: nombre,
-            direccion: direccion,
-            rubro: rubro,
-            telefono: telefono
-        };
-        console.log('solicitud de registro enviado!')
-        console.log('Datos que se envian:', formData);
+        const formData = { nombre, direccion, rubro, telefono };
+        console.log('Solicitud de registro enviada!');
+        console.log('Datos enviados:', formData);
 
         setRedirect(true);
     };
 
     return (
-        <div
-            className='
-                flex h-screen w-screen bg-white items-center justify-center
-            '>
+        <div className='flex min-h-screen min-w-[544px] bg-white items-center justify-center'>
             {redirect && <Navigate to="/dashboardRestaurant" />}
-            <div className='
-                    w-[544px]
-                '>
-                <form
-                    onSubmit={handleSubmit}
-                    className=''>
-                    <div
-                        className='
-                            flex flex-col gap-7
-                        '>
-                        <input
-                            type='text'
-                            id='nombre'
-                            value={nombre}
-                            placeholder='Nombre'
-                            onChange={(e) => setNombre(e.target.value)}
-                            className='font-[roboto] text-[16px] placeholder-[#737373] text-black rounded-[50px] border-[1px] border-[#575757] w-full h-[42px] px-4'
-                        />
-                        <input
-                            type='text'
-                            id='direccion'
-                            value={direccion}
-                            placeholder='Dirección'
-                            onChange={(e) => setDireccion(e.target.value)}
-                            className='font-[roboto] text-[16px] placeholder-[#737373] text-black rounded-[50px] border-[1px] border-[#575757] w-full h-[42px] px-4'
-                        />
-                        <input
-                            type='text'
-                            id='rubro'
-                            value={rubro}
-                            placeholder='Rubro'
-                            onChange={(e) => setRubro(e.target.value)}
-                            className='font-[roboto] text-[16px] placeholder-[#737373] text-black rounded-[50px] border-[1px] border-[#575757] w-full h-[42px] px-4'
-                        />
-                        <input
-                            type='text'
-                            id='telefono'
-                            value={telefono}
-                            placeholder='Telefono'
-                            onChange={(e) => setTelefono(e.target.value)}
-                            className='font-[roboto] text-[16px] placeholder-[#737373] text-black rounded-[50px] border-[1px] border-[#575757] w-full h-[42px] px-4'
-                        />
-                    </div>
-                    <div className='flex items-center justify-center mt-[120px]'>
-                        <button
-                            type='submit'
-                            className='
-                                font-[roboto] bg-[#00A896] border-[1px] border-[#575757] rounded-[20px] h-[60px] w-[351px] text-[36px]
-                            '>
-                            Regístrate
-                        </button>
-                    </div>
-                </form>
-            </div >
-        </div >
-    )
-}
+            <form onSubmit={handleSubmit} className='flex flex-col gap-[30px] items-center w-[544px] h-full min-w-[544px]'>
+                {[
+                    { id: 'nombre', value: nombre, placeholder: 'Nombre', onChange: setNombre },
+                    { id: 'direccion', value: direccion, placeholder: 'Dirección', onChange: setDireccion },
+                    { id: 'rubro', value: rubro, placeholder: 'Rubro', onChange: setRubro },
+                    { id: 'telefono', value: telefono, placeholder: 'Teléfono', onChange: setTelefono }
+                ].map(({ id, value, placeholder, onChange }) => (
+                    <input
+                        key={id}
+                        type='text'
+                        id={id}
+                        value={value}
+                        placeholder={placeholder}
+                        onChange={(e) => onChange(e.target.value)}
+                        className='placeholder-[#949494] rounded-[30px] border border-[#453A32] w-full h-[42px] px-[18px]'
+                    />
+                ))}
+                <button
+                    type='submit'
+                    className='bg-[#00A896] border border-[#453A32] rounded-[20px] mt-[60px] h-[60px] w-[351px] text-[36px]'>
+                    Regístrate
+                </button>
+            </form>
+        </div>
+    );
+};
 
 export default RegisterRestaurant;
-

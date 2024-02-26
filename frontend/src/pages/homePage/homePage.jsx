@@ -1,26 +1,36 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import icon33 from '../../assets/icon33.svg';
 import imagen12 from '../../assets/image12.svg';
 import userData from '../../api/users.json';
 
 const HomePage = () => {
     const [showRegister, setShowRegister] = useState(false);
-    const [showOptions, setShowOptions] = useState(false);
-    const [role, setRole] = useState('');
-    const options = ['Cliente', 'Restaurante', 'Repartidor'];
     const [redirect, setRedirect] = useState(null);
+
+    return (
+        <div className='flex min-h-screen min-w-[360px] bg-white items-center justify-center'>
+            {redirect && <Navigate to={redirect} />}
+            {!showRegister ? (
+                <LoginForm setShowRegister={setShowRegister} setRedirect={setRedirect} />
+            ) : (
+                <RegisterForm setShowRegister={setShowRegister} setRedirect={setRedirect} />
+            )}
+        </div>
+    );
+};
+
+const LoginForm = ({ setShowRegister, setRedirect }) => {
     const [mail, setMail] = useState('');
     const [password, setPassword] = useState('');
 
-    const formData = {
-        mail: mail,
-        password: password,
-        role: role
-    };
-
     const handleSubmitLogin = async (event) => {
         event.preventDefault();
+        const formData = {
+            mail: mail,
+            password: password
+        };
         console.log('Frontend: Formulario de login enviado!', formData);
 
         const user = userData.users.find(user => user.mail === mail);
@@ -36,8 +46,65 @@ const HomePage = () => {
         }
     };
 
+    return (
+        <div className='flex flex-col w-[400px] h-[551px] min-w-[400px] min-h-full my-[15px]'>
+            <img src={imagen12} alt='imagen12' className='w-full h-[242px] min-h-[242px] object-cover mb-[10px]' />
+            <form onSubmit={handleSubmitLogin} className='flex flex-col w-full text-center h-full px-[22px]'>
+                <input
+                    type='text'
+                    id='email'
+                    placeholder='Email'
+                    value={mail}
+                    onChange={(e) => setMail(e.target.value)}
+                    className='text-[16px] placeholder-black text-black rounded-[30px] border border-[#453A32] shadow-xl w-full h-[42px] px-[17px] mb-[16px]'
+                />
+                <input
+                    type='password'
+                    id='contraseña'
+                    placeholder='Contraseña'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className='text-[16px] placeholder-black text-black rounded-[30px] border border-[#453A32] shadow-xl w-full h-[42px] px-[17px]'
+                />
+                <button
+                    type='submit'
+                    className='bg-[#00A896] border border-[#453A32] rounded-[20px] text-[36px] shadow-xl mt-[60px] w-full h-[60px]'>
+                    Entrar
+                </button>
+            </form>
+            <p
+                className='text-center text-[16px] pt-[60px]'>
+                ¿No estás registrado?
+                <a
+                    onClick={() => setShowRegister(true)}
+                    className='ml-[11px] text-[#1F31C8] underline font-medium'>
+                    Resgístrate
+                </a>
+            </p>
+        </div>
+    );
+};
+
+LoginForm.propTypes = {
+    setShowRegister: PropTypes.func.isRequired,
+    setRedirect: PropTypes.func.isRequired,
+};
+
+const RegisterForm = ({ setRedirect }) => {
+    const [mail, setMail] = useState('');
+    const [password, setPassword] = useState('');
+    const [role, setRole] = useState('');
+    const [showOptions, setShowOptions] = useState(false);
+
+    const options = ['Cliente', 'Restaurante', 'Repartidor'];
+
     const handleSubmitRegister = async (event) => {
         event.preventDefault();
+        const formData = {
+            mail: mail,
+            password: password,
+            role: role
+        };
         console.log('Frontend: Formulario de registro enviado!', formData);
 
         const user = userData.users.find(user => user.mail === mail);
@@ -55,116 +122,58 @@ const HomePage = () => {
     };
 
     return (
-        <div
-            className='flex h-screen w-screen bg-white items-center justify-center'>
-            {redirect && <Navigate to={redirect} />}
-            {!showRegister ? (
-                <div
-                    className='w-[400px] h-[551px] bg-white'>
-                    <img
-                        src={imagen12}
-                        alt='imagen12'
-                    />
-                    <form onSubmit={handleSubmitLogin}>
-                        <div className='flex flex-col items-center mx-8'>
-                            <input
-                                type='text'
-                                id='email'
-                                placeholder='Email'
-                                value={mail}
-                                onChange={(e) => setMail(e.target.value)}
-                                className='font-[roboto] text-[16px] placeholder-black text-black rounded-[30px] border-[1px] border-[#575757] w-[356px] py-[7px] px-[18px]'
-                            />
-                            <input
-                                type='password'
-                                id='contraseña'
-                                placeholder='Contraseña'
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className='font-[roboto] text-[16px] placeholder-black text-black rounded-[30px] border-[1px] border-[#575757] w-[356px] py-[7px] px-[18px] mt-[16px]'
-                            />
-                            <button
-                                type='submit'
-                                className='bg-teal-600 border border-1 border-black rounded-2xl py-[8px] text-4xl mt-[60px] w-[352px]'>
-                                Entrar
-                            </button>
-                        </div>
-                    </form>
-                    <p className='flex justify-center font-[roboto] text-[16px] pt-[60px]'>¿No estas registrado?<a onClick={() => setShowRegister(true)} className='ml-[11px] text-[#1F31C8] underline font-medium'>Resgistrate</a></p>
-                </div>
-            ) : (
-
-                <div
-                    className='
-                    w-96 h-auto bg-white
-                '>
-                    <img
-                        className='
-                    '
-                        src={imagen12}
-                        alt='imagen12'
-                    />
-                    <form
-                        onSubmit={handleSubmitRegister}
-                        className=''>
-                        <div className='
-                        flex flex-col mx-8
-                    '>
-                            <input
-                                type='text'
-                                id='email'
-                                placeholder='Email'
-                                value={mail}
-                                onChange={(e) => setMail(e.target.value)}
-                                className='
-                                placeholder-black text-black border border-1 border-black w-full py-2 px-3 rounded-2xl
-                            '
-                            />
-                            <input
-                                type='password'
-                                id='contraseña'
-                                placeholder='Contraseña'
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className='
-                                placeholder-black mt-[16px] text-black border border-1 border-black w-full py-2 px-3 rounded-2xl
-                            '
-                            />
-                            <div className='relative mt-[30px]'>
+        <div className='flex flex-col w-[400px] h-full min-w-[400px] min-h-full my-[15px]'>
+            <img src={imagen12} alt='imagen12' className='w-full h-[242px] min-h-[242px] object-cover mb-[10px]' />
+            <form onSubmit={handleSubmitRegister} className='flex flex-col w-full text-center h-full px-[22px]'>
+                <input
+                    type='text'
+                    id='email'
+                    placeholder='Email'
+                    value={mail}
+                    onChange={(e) => setMail(e.target.value)}
+                    className='text-[16px] placeholder-black text-black rounded-[30px] border border-[#453A32] shadow-xl w-full h-[42px] px-[17px] mb-[16px]'
+                />
+                <input
+                    type='password'
+                    id='contraseña'
+                    placeholder='Contraseña'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className='text-[16px] placeholder-black text-black rounded-[30px] border border-[#453A32] shadow-xl w-full h-[42px] px-[17px]'
+                />
+                <div className='relative mt-[30px]'>
+                    <div onClick={() => setShowOptions(!showOptions)} className='border border-[#453A32] rounded-[30px] shadow-xl w-full h-[42px] px-[17px] flex items-center justify-between cursor-pointer'>
+                        <span>{role || 'Selecciona un usuario'}</span>
+                        <img
+                            src={icon33}
+                            alt='icon'
+                            className='w-[16px] h-[10px] mr-[15px] object-cover' />
+                    </div>
+                    {showOptions && (
+                        <div className='absolute bg-white border border-[#453A32] rounded-[20px] w-full mt-[8px]'>
+                            {options.map((option, index) => (
                                 <div
-                                    className='border border-1 border-black rounded-lg w-full py-2 px-3 flex items-center justify-between cursor-pointer'
-                                    onClick={() => setShowOptions(!showOptions)}
-                                >
-                                    <span>{role || 'Selecciona un usuario'}</span>
-                                    <img src={icon33} alt='icon' className='w-6 h-6 mr-2' />
+                                    key={index}
+                                    className='text-left px-[22px] py-[8px] h-[35px] cursor-pointer'
+                                    onClick={() => handleRole(option)}>
+                                    {option}
                                 </div>
-                                {showOptions && (
-                                    <div className='absolute bg-white border border-1 border-black rounded-lg w-full mt-[8px]'>
-                                        {options.map((option, index) => (
-                                            <div
-                                                key={index}
-                                                className='px-3 py-1 cursor-pointer hover:bg-gray-200'
-                                                onClick={() => handleRole(option)}
-                                            >
-                                                {option}
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                            <button
-                                type='submit'
-                                className='
-                                bg-teal-600 border border-1 border-black rounded-2xl py-4 text-4xl mt-[30px]
-                            '>
-                                Entrar
-                            </button>
+                            ))}
                         </div>
-                    </form>
+                    )}
                 </div>
-            )}
+                <button
+                    type='submit'
+                    className='bg-[#00A896] border border-[#453A32] rounded-[20px] text-[36px] shadow-xl mt-[30px] w-full h-[60px]'>
+                    Entrar
+                </button>
+            </form>
         </div>
     );
+};
+
+RegisterForm.propTypes = {
+    setRedirect: PropTypes.func.isRequired,
 };
 
 export default HomePage;

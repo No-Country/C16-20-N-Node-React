@@ -1,10 +1,10 @@
-import image12 from '../assets/image12.svg'
-import icon34 from '../assets/icon34.svg'
-import icon35 from '../assets/icon35.svg'
-import icon36 from '../assets/icon36.svg'
 import { useState } from 'react';
-import PerfilRestaurant from '../pages/restaurant/perfilRestaurant'
-import ManageProducts from '../pages/restaurant/manageProducts'
+import image12 from '../assets/image12.svg';
+import icon34 from '../assets/icon34.svg';
+import icon35 from '../assets/icon35.svg';
+import icon36 from '../assets/icon36.svg';
+import PerfilRestaurant from '../pages/restaurant/perfilRestaurant';
+import ManageProducts from '../pages/restaurant/manageProducts';
 
 const DashboardRestaurant = () => {
     const [selectedButton, setSelectedButton] = useState('Perfil');
@@ -14,98 +14,48 @@ const DashboardRestaurant = () => {
     };
 
     return (
-        <div className='flex flex-col w-full h-screen'>
-            <div className='pl-[120px] py-[12px]'>
-                <img src={image12} alt='image12' className='h-[142px] w-[208px] min-w-[208px]' />
+        <div className='flex flex-col min-h-screen min-w-max bg-white'>
+            <div className='h-[172px] w-full'>
+                <img src={image12} alt='image12' className='ml-[136px] h-[142px] w-[208px] min-w-[208px] min-h-[142px]' />
             </div>
-            <div className='flex min-h-[72px] w-full bg-[#FF5733] items-center min-w-[1400px]'>
+            <div className='flex text-[16px] min-h-[72px] h-[72px] w-full bg-[#FF7C58] pl-[319px]'>
                 {selectedButton === 'Platos' &&
-                    <div className='flex w-full ml-[330px]'>
-                        <tr className=''>
-                            <td className=' w-[180px] min-w-[180px] text-center'>Nombre</td>
-                            <td className=' w-[270px] min-w-[270px] text-center'>Descripción</td>
-                            <td className=' w-[110px] min-w-[120px] text-center'>Precio</td>
-                            <td className=' w-[160px] min-w-[150px] text-center'>Tiempo de espera</td>
-                            <td className=' w-[120px] min-w-[120px] text-center'>Imagen</td>
-                            <td className=' w-[120px] min-w-[120px] text-center'>Editar</td>
+                    <table className="w-full border-collapse text-left">
+                        <tr className='w-full'>
+                            <th className='font-medium w-[235px]'>Nombre</th>
+                            <th className='font-medium w-[235px]'>Descripción</th>
+                            <th className='font-medium w-[122px]'>Precio</th>
+                            <th className='font-medium w-[154px]'>Tiempo de espera</th>
+                            <th className='font-medium w-[120px]'>Imagen</th>
+                            <th className='font-medium'>Editar</th>
                         </tr>
-                    </div>}
+                    </table>
+                }
             </div>
-            <div
-                className='
-                    flex
-                '>
-                <div
-                    className='
-                    min-w-[256px] w-[256px] bg-[#FF5733]
-                '>
-                    <button
-                        onClick={() => handleButtonClick('Platos')}
-                        className={
-                            `flex w-full h-[84px] items-center border border-[#575757] border-l-[#FF5733]
-                        ${selectedButton === 'Platos' ? 'bg-[#00A896] border-black border-[2px]' : ''}
-                        `
-                        }>
-                        <p
-                            className='
-                            w-full text-[16px] font-[roboto] 
-                        '>
-                            Platos
-                        </p>
-                        <img
-                            src={icon34}
-                            alt='icon34'
-                            className='
-                            w-[33px] h-[41px] mr-[40px]
-                        '/>
-                    </button>
-                    <button
-                        onClick={() => handleButtonClick('Pedidos')}
-                        className={
-                            `flex w-full h-[84px] items-center border border-[#575757] border-l-[#FF5733] 
-                        ${selectedButton === 'Pedidos' ? 'bg-[#00A896] border-t-black border-black border-[2px]' : 'border-t-0 '} 
-                        `
-                        }>
-                        <p
-                            className='
-                            w-full text-[16px] font-[roboto] 
-                        '>
-                            Pedidos
-                        </p>
-                        <img
-                            src={icon35}
-                            alt='icon35'
-                            className='
-                            w-[38px] h-[41px] mr-[40px]
-                        '/>
-                    </button>
-                    <button
-                        onClick={() => handleButtonClick('Perfil')}
-                        className={
-                            `flex w-full h-[84px] items-center border border-[#575757] border-l-[#FF5733]
-                        ${selectedButton === 'Perfil' ? 'bg-[#00A896] border-t-black border-black border-[2px]' : 'border-t-0 '}                        
-                        `
-                        }>
-                        <p
-                            className='
-                            w-full text-[16px] font-[roboto] 
-                        '>
-                            Perfil
-                        </p>
-                        <img
-                            src={icon36}
-                            alt='icon36'
-                            className='
-                            w-[50px] h-[48px] mr-[35px] ml-[5px] 
-                        '/>
-                    </button>
+            <div className='flex'>
+                <div className='flex flex-col min-w-[256px] w-[256px] bg-[#FF7C58]'>
+                    {[
+                        { name: 'Platos', icon: icon34 },
+                        { name: 'Pedidos', icon: icon35 },
+                        { name: 'Perfil', icon: icon36 }
+                    ].map(({ name, icon }) => (
+                        <button
+                            key={name}
+                            onClick={() => handleButtonClick(name)}
+                            className={`flex w-full h-[84px] items-center border-l-[0] border-r-[0]
+                                ${selectedButton === name ? 'bg-[#00A896] border-black border-[2px]' : ''}
+                            `}
+                        >
+                            <p className='w-full text-left pl-[63px] text-[16px]'>{name}</p>
+                            <img src={icon} alt={name} className='w-[46px] h-[44px] object-cover mr-[40px]' />
+                        </button>
+                    ))}
                 </div>
                 {selectedButton === 'Perfil' && <PerfilRestaurant />}
                 {selectedButton === 'Platos' && <ManageProducts />}
             </div>
         </div>
-
-    )
-}
+    );
+};
 
 export default DashboardRestaurant;

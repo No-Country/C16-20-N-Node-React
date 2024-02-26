@@ -3,54 +3,63 @@
         "nombre": "Risotto de Champiñones",
         "descripcion": "Delicioso risotto hecho con...",
         "precio": "$12 USD",
-        "tiempo": "20 - 25 mins"
+        "tiempo": "20 - 25 mins",
+        "imagen": "P1.jpeg"
     },
     {
         "nombre": "Ensalada de Quinoa y...",
         "descripcion": "Fresca y colorida ensalada...",
         "precio": "$8 USD",
-        "tiempo": "15 - 20 mins"
+        "tiempo": "15 - 20 mins",
+        "imagen": "P2.jpeg"
     },
     {
         "nombre": "Tacos de Camarones al...",
         "descripcion": "Tacos de tortilla de maiz...",
         "precio": "$10 USD",
-        "tiempo": "15 - 20 mins"
+        "tiempo": "15 - 20 mins",
+        "imagen": "P3.jpeg"
     },
     {
         "nombre": "Filete de Res con Salsa...",
         "descripcion": "Jugoso filete de res con sal...",
         "precio": "$18 USD",
-        "tiempo": "20 - 25 mins"
+        "tiempo": "20 - 25 mins",
+        "imagen": "P4.jpeg"
     },
     {
         "nombre": "Pollo al Curry con Arroz...",
         "descripcion": "Trozos de pechuga de pollo...",
         "precio": "$14 USD",
-        "tiempo": "25 - 30 mins"
+        "tiempo": "25 - 30 mins",
+        "imagen": "P5.jpeg"
     },
     {
         "nombre": "Costillas de Cerdo a la...",
         "descripcion": "Costillas de cerdo en una...",
         "precio": "$16 USD",
-        "tiempo": "25 - 30 mins"
+        "tiempo": "25 - 30 mins",
+        "imagen": "P6.jpeg"
     },
     {
         "nombre": "Lomo Saltado",
         "descripcion": "Trozos de lomo de res a...",
         "precio": "$16 USD",
-        "tiempo": "15 - 20 mins"
+        "tiempo": "15 - 20 mins",
+        "imagen": "P7.jpeg"
     },
     {
         "nombre": "Pato a la Naranja con...",
         "descripcion": "Pechuga de pato servida...",
         "precio": "$20 USD",
-        "tiempo": "25 - 30 mins"
+        "tiempo": "25 - 30 mins",
+        "imagen": "P8.jpeg"
     },
     {
         "nombre": "Ternera Estofada con...",
         "descripcion": "Trozos de ternera en una...",
         "precio": "$19 USD",
-        "tiempo": "25 - 30 mins"
+        "tiempo": "25 - 30 mins",
+        "imagen": "P9.jpeg"
     }
 ]
