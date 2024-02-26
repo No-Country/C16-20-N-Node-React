@@ -58,7 +58,7 @@ const PerfilRestaurant = () => {
                 {productos.map((producto, index) => (
                     <img
                         key={index}
-                        src={`src/api/products/${producto.imagen}`}
+                        src={producto.imagen}
                         alt={producto.nombre}
                         className={`w-[256px] h-[120px] object-cover rounded-[15px] mb-[56px]`}
                     />

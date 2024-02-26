@@ -13,7 +13,7 @@ const ManageProducts = () => {
                         <td className='pb-[28px] w-[154px]'>{producto.tiempo}</td>
                         <td className='pb-[28px] w-[120px]'>
                             <img
-                                src={`src/api/products/${producto.imagen}`}
+                                src={producto.imagen}
                                 alt={producto.nombre}
                                 className='h-8 w-16 object-cover' />
                         </td>
