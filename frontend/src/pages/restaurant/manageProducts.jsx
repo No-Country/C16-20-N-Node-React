@@ -12,7 +12,10 @@ const ManageProducts = () => {
                         <td className='pb-[28px] w-[122px]'>{producto.precio}</td>
                         <td className='pb-[28px] w-[154px]'>{producto.tiempo}</td>
                         <td className='pb-[28px] w-[120px]'>
-                            <img src={`src/api/products/${producto.imagen}`} alt={producto.nombre} className='h-8 w-16 object-cover' />
+                            <img
+                                src={`src/api/products/${producto.imagen}`}
+                                alt={producto.nombre}
+                                className='h-8 w-16 object-cover' />
                         </td>
                         <td className='pb-[28px]'>
                             <img src={icon37} alt='icon37' className='h-[26px] w-[26px] object-cover' />

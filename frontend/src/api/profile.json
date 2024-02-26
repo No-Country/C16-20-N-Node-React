@@ -2,24 +2,24 @@
     "usersInfo": [
         {
             "mail": "cliente@example.com",
-            "category": "Categoria 1",
-            "address": "Dirección del cliente 1",
-            "name": "Nombre del cliente 1",
-            "telephone": "Teléfono del cliente 1"
+            "category": "Amante de la buena comida",
+            "address": "123 Calle Principal, Ciudad Fantasía",
+            "name": "Juan Pérez",
+            "telephone": "555-123-4567"
         },
         {
             "mail": "restaurante@example.com",
-            "category": "Categoria 2",
-            "address": "Dirección del restaurante 1",
-            "name": "Nombre del restaurante 1",
-            "telephone": "Teléfono del restaurante 1"
+            "category": "Cocina de autor",
+            "address": "456 Avenida Principal, Ciudad Ilusión",
+            "name": "Restaurante Estrella",
+            "telephone": "555-987-6543"
         },
         {
             "mail": "repartidor@example.com",
-            "category": "Categoria 3",
-            "address": "Dirección del repartidor 1",
-            "name": "Nombre del repartidor 1",
-            "telephone": "Teléfono del repartidor 1"
+            "category": "Entregador de sonrisas",
+            "address": "789 Calle Principal, Ciudad Imaginación",
+            "name": "Carlos González",
+            "telephone": "555-456-7890"
         }
     ]
 }

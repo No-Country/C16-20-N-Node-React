@@ -5,6 +5,7 @@ import icon35 from '../assets/icon35.svg';
 import icon36 from '../assets/icon36.svg';
 import PerfilRestaurant from '../pages/restaurant/perfilRestaurant';
 import ManageProducts from '../pages/restaurant/manageProducts';
+import ManageDelivery from '../pages/restaurant/mangeDelivery';
 
 const DashboardRestaurant = () => {
     const [selectedButton, setSelectedButton] = useState('Perfil');
@@ -53,6 +54,7 @@ const DashboardRestaurant = () => {
                 </div>
                 {selectedButton === 'Perfil' && <PerfilRestaurant />}
                 {selectedButton === 'Platos' && <ManageProducts />}
+                {selectedButton === 'Pedidos' && <ManageDelivery />}
             </div>
         </div>
     );
