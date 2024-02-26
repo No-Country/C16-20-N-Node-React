@@ -45,10 +45,13 @@ routerProducto.get("/producto/:id", async (req, res) => {
     }
 });
 
-//⏳ - En proceso
+//✔️ - Finalizado
 routerProducto.post("/producto/registro", async (req, res) => {
     try {
-        const productoRegistro = await crearProducto(req.body);
+        console.log(req.body);
+        //const id = req.params.id;
+        const idRestaurant = req.session.id;       
+        const productoRegistro = await crearProducto(idRestaurant,req.body);
         res.status(201).json(productoRegistro);
     } catch (error) {
             res.status(500).json({ message: "Error interno del servidor" });
@@ -59,7 +62,8 @@ routerProducto.post("/producto/registro", async (req, res) => {
 //✔️ - Finalizado
 routerProducto.patch("/producto/editar/:id", async (req, res) => {
     try {
-        const id = req.params.id;
+        //const id = req.params.id;
+        const idRestaurant = req.session.id;
         const producto = req.body;
         const productoEditado = await editarProducto(id, producto);
         console.log(productoEditado);

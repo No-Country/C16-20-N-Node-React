@@ -60,13 +60,13 @@ const listarProductoPorId = async (id) => {
     }
 };
 
-// ⏳ - En proceso
+//✔️ - Finalizado
 const crearProducto = async (idRestaurant, producto) => {
     let t = await Conexion.sequelize.transaction();
     try {
         const nuevoProducto = await Producto.create(
-            { id_restaurant: idRestaurant, ...producto },
-            { transaction: t }
+        { id_restaurant: idRestaurant, ...producto },
+        { transaction: t }
         );
         await t.commit();
         return nuevoProducto;
@@ -85,7 +85,6 @@ const editarProducto = async (id, producto) => {
             },
         });
 
-        //console.log("productosController.js:85",productoEditado);
         if (productoEditado[0] === 0) {
             throw new Error(`No hay registros de productos con el id ${id}`);
         }

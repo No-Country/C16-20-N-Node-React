@@ -11,15 +11,11 @@ import Cliente from "../models/cliente.js";
 import Repartidor from "../models/repartidor.js";
 import Conexion from "./conexion.js";
 
-//⏳ - En proceso
+//✔️ - Finalizado
 const listarPedidos = async () => {
     try {
         const pedidos = await Pedidos.findAll({
-            include: {
-                model: Restaurante,
-                model: Cliente,
-                model: Repartidor
-            },
+            include: [Restaurante, Cliente, Repartidor],
         });
         console.log("productoController.js:13", pedidos);
         return pedidos;
@@ -34,11 +30,7 @@ const listarPedidosPorNombre = async (nombre) => {
     try {
         const pedidosNombre = await Pedidos.findAll({
         where: { nombre_pedido: nombre },
-            include: {
-                model: Restaurante,
-                model: Cliente,
-                model: Repartidor
-            },
+        include: [Restaurante, Cliente, Repartidor],
         });
         if (pedidosNombre.length === 0) {
         throw new Error(`No hay registros de productos con el nombre ${nombre}`);
@@ -49,20 +41,63 @@ const listarPedidosPorNombre = async (nombre) => {
     }
 };
 
-//⏳ - En proceso
+//✔️ - Finalizado
 const listarPedidoPorId = async (id) => {
     try {
         const pedidoId = await Pedidos.findByPk(id, {
-            include: {
-            model: Restaurante,
-            model: Cliente,
-            model: Repartidor
-            },
+            include: [Restaurante, Cliente, Repartidor],
         });
         if (!pedidoId) {
             throw new Error(`No hay registros de pedidos con el Id ${id}`);
         }
         return pedidoId;
+    } catch (error) {
+        throw error;
+    }
+};
+
+//✔️ - Finalizado
+const listarPedidosPorCliente = async (id) => {
+    try {
+        const pedidosCliente = await Pedidos.findAll({
+        where: { id_cliente: id },
+        include: [Restaurante, Cliente, Repartidor],
+        });
+        if (pedidosCliente.length === 0) {
+        throw new Error(`No hay registros de productos con el cliente ${id}`);
+        }
+        return pedidosCliente;
+    } catch (error) {
+        throw error;
+    }
+};
+
+//✔️ - Finalizado
+const listarPedidosPorRestaurant = async (id) => {
+    try {
+        const pedidosRestaurant = await Pedidos.findAll({
+        where: { id_restaurant: id },
+        include: [Restaurante, Cliente, Repartidor],
+        });
+        if (pedidosRestaurant.length === 0) {
+        throw new Error(`No hay registros de productos con el restaurant ${id}`);
+        }
+        return pedidosRestaurant;
+    } catch (error) {
+        throw error;
+    }
+};
+//✔️ - Finalizado
+const listarPedidosPorRepartidor = async (id) => {
+    try {
+        const pedidosRepartidor = await Pedidos.findAll({
+        where: { id_repartidor: id },
+        include: [Restaurante, Cliente, Repartidor],
+        });
+        if (pedidosRepartidor.length === 0) {
+        throw new Error(`No hay registros de productos con el repartidor ${id}`);
+        }
+        return pedidosRepartidor;
     } catch (error) {
         throw error;
     }
@@ -86,7 +121,7 @@ const crearPedido = async (idRestaurant, idCliente, idRepartidor, pedido) => {
 // ⏳ - En proceso
 const editarPedido = async (id, pedido) => {
     try {
-        const pedidoEditado = await pedido.update(pedido, {
+        const pedidoEditado = await Pedidos.update(pedido, {
             where: {
                 id_pedido: id,
             },
@@ -102,4 +137,12 @@ const editarPedido = async (id, pedido) => {
     }
 };
 
-export { listarPedidos, listarPedidosPorNombre, listarPedidoPorId, crearPedido, editarPedido };
+export { listarPedidos,
+        listarPedidosPorCliente,
+        listarPedidosPorRestaurant,
+        listarPedidosPorRepartidor,
+        listarPedidosPorNombre,
+        listarPedidoPorId,
+        crearPedido,
+        editarPedido
+    };

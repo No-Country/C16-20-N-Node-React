@@ -19,6 +19,10 @@ Producto.init(
     precio_producto: {
       type: DataTypes.INTEGER,
     },
+    tiempo_preparacion: {
+      type: DataTypes.STRING,
+    },
+
     id_restaurant: {
       type: DataTypes.INTEGER,
     },
