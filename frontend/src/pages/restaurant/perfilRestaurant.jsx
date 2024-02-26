@@ -1,7 +1,7 @@
-import image13 from '../../assets/image13.jpeg';
 import image14 from '../../assets/image14.svg';
 import icon37 from '../../assets/icon37.svg';
 import productos from '../../api/products/products.json';
+import perfil from '../../api/profile.json';
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
@@ -11,6 +11,8 @@ const PerfilRestaurant = () => {
     const handleRedirect = () => {
         setRedirect('/loadProduct');
     };
+
+    const restauranteInfo = perfil.usersInfo.find(user => user.mail === 'restaurante@example.com');
 
     return (
         <div className='flex flex-col min-h-screen bg-white my-[47px] px-[64px]'>
@@ -30,8 +32,15 @@ const PerfilRestaurant = () => {
                             className='w-[26px] h-[26px] object-cover'
                         />
                     </div>
-                    <div className='w-[297px]'>
-
+                    <div className='flex flex-col justify-between w-[297px] h-[140px]'>
+                        <p className='text-[24px] font-medium'>{restauranteInfo.name}</p>
+                        <p className='text-[16px]'>{restauranteInfo.address}</p>
+                        <p className='text-[16px]'>{restauranteInfo.telephone}</p>
+                        <img
+                            src={icon37}
+                            alt='icon37'
+                            className='w-[26px] h-[26px] object-cover self-end mr-[27px]'
+                        />
                     </div>
                 </div>
                 {/* seccion derecha */}
