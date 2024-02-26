@@ -48,7 +48,7 @@ const PerfilRestaurant = () => {
                     <p className='mb-[22px] text-[24px]'>Administra tu carta</p>
                     <button
                         onClick={handleRedirect}
-                        className='font-[roboto] bg-[#00A896] border-[1px] border-[#575757] rounded-[20px] h-[70px] w-[224px] text-[36px]'>
+                        className='bg-[#00A896] border border-[#575757] rounded-[20px] h-[70px] w-[224px] text-[36px]'>
                         Entrar
                     </button>
                 </div>
