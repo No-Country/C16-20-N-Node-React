@@ -3,7 +3,7 @@ import icon37 from '../../assets/icon37.svg';
 
 const ManageProducts = () => {
     return (
-        <div className='flex flex-col min-h-screen min-w-full bg-white mt-[70px] pl-[63px]'>
+        <div className='flex flex-col min-h-screen w-full bg-white my-[70px] mx-[63px]'>
             <table className='text-[16px] font-medium'>
                 {productos.map((producto, index) => (
                     <tr key={index}>
