@@ -41,4 +41,19 @@ routerUsuario.post("/usuario/registro", async (req, res) => {
   }
 });
 
+routerUsuario.get("/logout", async (req, res) => {
+  try {
+    req.logout((err) => {
+      if (err) {
+        console.error("Error en logout", err);
+        return next(err);
+      }
+      res.redirect("/");
+    });
+  } catch (error) {
+    console.error("Error en logout", error);
+    res.status(500).json(error);
+  }
+});
+
 export default routerUsuario;
