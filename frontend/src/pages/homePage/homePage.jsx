@@ -24,6 +24,7 @@ const HomePage = () => {
 const LoginForm = ({ setShowRegister, setRedirect }) => {
     const [mail, setMail] = useState('');
     const [password, setPassword] = useState('');
+    const [mensajeError, setMensajeError] = useState(false);
 
     const handleSubmitLogin = async (event) => {
         event.preventDefault();
@@ -43,6 +44,7 @@ const LoginForm = ({ setShowRegister, setRedirect }) => {
             }
         } else {
             console.log('Frontend: Email incorrecto! - Acceso no autorizado a ' + mail);
+            setMensajeError(true);
         }
     };
 
@@ -57,6 +59,7 @@ const LoginForm = ({ setShowRegister, setRedirect }) => {
                     value={mail}
                     onChange={(e) => setMail(e.target.value)}
                     className='text-[16px] placeholder-black text-black rounded-[30px] border border-[#453A32] shadow-xl w-full h-[42px] px-[17px] mb-[16px]'
+                    autoComplete='off'
                 />
                 <input
                     type='password'
@@ -71,14 +74,15 @@ const LoginForm = ({ setShowRegister, setRedirect }) => {
                     className='bg-[#00A896] border border-[#453A32] rounded-[20px] text-[36px] shadow-xl mt-[60px] w-full h-[60px]'>
                     Entrar
                 </button>
+                {mensajeError && <p className="absolute left-0 right-0 mt-[230px] text-red-500 text-sm">Debes registrarte para poder iniciar sesión</p>}
             </form>
             <p
                 className='text-center text-[16px] pt-[60px]'>
                 ¿No estás registrado?
                 <a
                     onClick={() => setShowRegister(true)}
-                    className='ml-[11px] text-[#1F31C8] underline font-medium'>
-                    Resgístrate
+                    className='ml-[11px] text-[#1F31C8] underline font-medium cursor-pointer'>
+                    Regístrate
                 </a>
             </p>
         </div>

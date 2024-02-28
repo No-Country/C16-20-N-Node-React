@@ -8,8 +8,12 @@ import { Navigate } from 'react-router-dom';
 const PerfilRestaurant = () => {
     const [redirect, setRedirect] = useState(null);
 
-    const handleRedirect = () => {
+    const handleRedirectToLoadProduct = () => {
         setRedirect('/loadProduct');
+    };
+
+    const handleRedirectToRegister = () => {
+        setRedirect('/registerRestaurant');
     };
 
     const restauranteInfo = perfil.usersInfo.find(user => user.mail === 'restaurante@example.com');
@@ -20,16 +24,11 @@ const PerfilRestaurant = () => {
             <div className='flex justify-between w-[959px] h-[200px]'>
                 {/* seccion izquierda */}
                 <div className='flex items-center justify-end w-[449px] h-[200px] border border-[#575757] rounded-[20px]'>
-                    <div className='flex flex-col items-end mr-[16px]'>
+                    <div className='flex mb-[25px] mr-[16px]'>
                         <img
                             src={image14}
                             alt='Image14'
                             className='w-[105px] h-[109px] object-cover rounded-[10px]'
-                        />
-                        <img
-                            src={icon37}
-                            alt='icon37'
-                            className='w-[26px] h-[26px] object-cover'
                         />
                     </div>
                     <div className='flex flex-col justify-between w-[297px] h-[140px]'>
@@ -39,7 +38,8 @@ const PerfilRestaurant = () => {
                         <img
                             src={icon37}
                             alt='icon37'
-                            className='w-[26px] h-[26px] object-cover self-end mr-[27px]'
+                            onClick={handleRedirectToRegister}
+                            className='cursor-pointer w-[26px] h-[26px] object-cover self-end mr-[27px]'
                         />
                     </div>
                 </div>
@@ -47,7 +47,7 @@ const PerfilRestaurant = () => {
                 <div className='flex flex-col items-center justify-center w-[449px] h-[200px] border border-[#575757] rounded-[20px]'>
                     <p className='mb-[22px] text-[24px]'>Administra tu carta</p>
                     <button
-                        onClick={handleRedirect}
+                        onClick={handleRedirectToLoadProduct}
                         className='bg-[#00A896] border border-[#575757] rounded-[20px] h-[70px] w-[224px] text-[36px]'>
                         Entrar
                     </button>
