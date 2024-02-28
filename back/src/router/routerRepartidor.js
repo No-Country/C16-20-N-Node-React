@@ -6,8 +6,6 @@ import {
 import { autenticado, ensureAuthenticated } from "../middleware/login.js";
 const routerRepartidor = express.Router();
 
-// routerRepartidor.post("/login", autenticado);
-
 routerRepartidor.get("/repartidores", ensureAuthenticated, async (req, res) => {
   try {
     console.log(req.user);

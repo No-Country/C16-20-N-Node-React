@@ -77,3 +77,37 @@ export const ensureAuthenticated = (req, res, next) => {
   }
   res.redirect("/");
 };
+
+/**
+ * proteccion de rutas segun tipo de usuario.
+ */
+
+export const permisoRestaurant = (req, res, next) => {
+  const rol = req.user.rol_usuario;
+  if (rol !== "cliente" && rol !== "repartidor") {
+    res.status(401).json({
+      message: "No tiene permiso para realizar esta operación",
+    });
+  }
+  next();
+};
+
+export const permisoRepartidor = (req, res, next) => {
+  const rol = req.user.rol_usuario;
+  if (rol !== "cliente" && rol !== "restaurante") {
+    res.status(401).json({
+      message: "No tiene permiso para realizar esta operación",
+    });
+  }
+  next();
+};
+
+export const permisoCliente = (req, res, next) => {
+  const rol = req.user.rol_usuario;
+  if (rol !== "repartidor" && rol !== "restaurante") {
+    res.status(401).json({
+      message: "No tiene permiso para realizar esta operación",
+    });
+  }
+  next();
+};
