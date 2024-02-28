@@ -84,8 +84,8 @@ export const ensureAuthenticated = (req, res, next) => {
 
 export const permisoRestaurant = (req, res, next) => {
   const rol = req.user.rol_usuario;
-  if (rol !== "cliente" && rol !== "repartidor") {
-    res.status(401).json({
+  if (rol !== "restaurante") {
+    return res.status(401).json({
       message: "No tiene permiso para realizar esta operación",
     });
   }
@@ -94,8 +94,8 @@ export const permisoRestaurant = (req, res, next) => {
 
 export const permisoRepartidor = (req, res, next) => {
   const rol = req.user.rol_usuario;
-  if (rol !== "cliente" && rol !== "restaurante") {
-    res.status(401).json({
+  if (rol !== "repartidor") {
+    return res.status(401).json({
       message: "No tiene permiso para realizar esta operación",
     });
   }
@@ -104,8 +104,8 @@ export const permisoRepartidor = (req, res, next) => {
 
 export const permisoCliente = (req, res, next) => {
   const rol = req.user.rol_usuario;
-  if (rol !== "repartidor" && rol !== "restaurante") {
-    res.status(401).json({
+  if (rol !== "cliente") {
+    return res.status(401).json({
       message: "No tiene permiso para realizar esta operación",
     });
   }

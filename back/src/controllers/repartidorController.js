@@ -23,3 +23,15 @@ export const crearRepartidor = async (repartidor) => {
     throw error;
   }
 };
+
+export const listarRepartidor = async () => {
+  try {
+    const repartidores = await Repartidor.findAll();
+    if (!repartidores || repartidores.length === 0) {
+      throw new Error("No hay repartidores");
+    }
+    return repartidores;
+  } catch (error) {
+    throw error;
+  }
+};
