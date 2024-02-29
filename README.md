@@ -29,7 +29,7 @@ Vaya Pronto es una aplicación diseñada para facilitar el proceso de ordenar co
 * Asignación y seguimiento de entregas por parte de los repartidores.
 
 
-## Historias de Usuario
+## Historias de Usuarios
 
 CLIENTE FINAL
 
@@ -78,6 +78,12 @@ Testing QA:
 [![JMeter](https://img.shields.io/badge/JMeter-Performance_Testing-orange)](https://jmeter.apache.org/)
 
 
+## Links a Google Drive
+
+UX/UI
+
+
+TESTING
 
 
 ## Equipo: C16-20-N-Node-React
