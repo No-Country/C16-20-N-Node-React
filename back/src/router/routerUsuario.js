@@ -11,8 +11,7 @@ routerUsuario.post("/login", autenticado);
 
 routerUsuario.get("/perfil", ensureAuthenticated, async (req, res) => {
   try {
-    const usuario = req.user;
-    console.log(usuario);
+    const usuario = req.session.usuario;
     res.status(200).json(usuario);
   } catch (error) {
     res
