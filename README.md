@@ -10,7 +10,19 @@
 
 Vaya Pronto es una aplicación diseñada para facilitar el proceso de ordenar comida desde la comodidad de tu hogar. Con una amplia selección de restaurantes asociados y una interfaz fácil de usar, encontrarás algo delicioso para satisfacer tus antojos en cualquier momento.
 
+## Historias de Usuarios
 
+CLIENTE FINAL
+
+* Como cliente, quiero poder pedir comida de restaurantes locales y recibir entregas rápidas y convenientes en mi domicilio.
+
+RESTAURANTE
+
+* Como restaurante, quiero poder registrar mi negocio en la plataforma y gestionar pedidos en línea.
+
+REPARTIDOR
+
+* Como repartidor, quiero poder aceptar pedidos de comida y entregarlos a los clientes de manera eficiente para ganar ingresos adicionales.
 
 ## Características
 
@@ -28,20 +40,6 @@ Vaya Pronto es una aplicación diseñada para facilitar el proceso de ordenar co
 * Registro y gestión de restaurantes en la plataforma.
 * Asignación y seguimiento de entregas por parte de los repartidores.
 
-
-## Historias de Usuarios
-
-CLIENTE FINAL
-
-* Como cliente, quiero poder pedir comida de restaurantes locales y recibir entregas rápidas y convenientes en mi domicilio.
-
-RESTAURANTE
-
-* Como restaurante, quiero poder registrar mi negocio en la plataforma y gestionar pedidos en línea.
-
-REPARTIDOR
-
-* Como repartidor, quiero poder aceptar pedidos de comida y entregarlos a los clientes de manera eficiente para ganar ingresos adicionales.
 
 
 ## Tecnologías
