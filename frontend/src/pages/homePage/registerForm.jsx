@@ -10,7 +10,7 @@ const RegisterForm = () => {
     const [redirect, setRedirect] = useState('');
     const [showOptions, setShowOptions] = useState(false);
 
-    const options = ['cliente', 'repartidor', 'restaurant'];
+    const options = ['cliente', 'repartidor', 'restaurante'];
     const formData = { mail: mail, password: password, rol_usuario: rol_usuario };
 
     const handleSubmitRegister = async (event) => {
