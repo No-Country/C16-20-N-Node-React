@@ -29,7 +29,6 @@ const LoadProduct = () => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         setSelectedFile(file);
-        // Crear una URL de vista previa para la imagen seleccionada
         setFilePreview(URL.createObjectURL(file));
     };
 
