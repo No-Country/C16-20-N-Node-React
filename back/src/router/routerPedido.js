@@ -15,6 +15,7 @@ import {
     listarPedidoPorId,
     crearPedido,
     editarPedido } from "../controllers/pedidosController.js";
+import { repartidorAleatorio } from "../controllers/repartidorController.js";
 const routerPedido = express.Router();
 
 //✔️ - Finalizado
@@ -30,9 +31,10 @@ routerPedido.get("/pedido", async (req, res) => {
 });
 
 //✔️ - Finalizado
-routerPedido.get("/pedido/cliente/:id_cliente", async (req, res) => {
+routerPedido.get("/pedido/cliente", async (req, res) => {
     try {
-        const id = req.params.id_cliente;
+        //const id = req.params.id;
+        const id = req.session.id;
         const pedidoCliente = await listarPedidosPorCliente(id);
         res.status(200).json(pedidoCliente);
     } catch (error) {
@@ -42,9 +44,10 @@ routerPedido.get("/pedido/cliente/:id_cliente", async (req, res) => {
 });
 
 //✔️ - Finalizado
-routerPedido.get("/pedido/restaurante/:id_restaurant", async (req, res) => {
+routerPedido.get("/pedido/restaurante", async (req, res) => {
     try {
-        const id = req.params.id_restaurant;
+        //const id = req.params.id;
+        const id = req.session.id;
         const pedidoRestaurant = await listarPedidosPorRestaurant(id);
         res.status(200).json(pedidoRestaurant);
     } catch (error) {
@@ -54,24 +57,14 @@ routerPedido.get("/pedido/restaurante/:id_restaurant", async (req, res) => {
 });
 
 //✔️ - Finalizado
-routerPedido.get("/pedido/repartidor/:id_repartidor", async (req, res) => {
+routerPedido.get("/pedido/repartidor/:id", async (req, res) => {
     try {
-        const id = req.params.id_repartidor;
+        //const id = req.params.id;
+        const id = req.session.id;
         const pedidoRepartidor = await listarPedidosPorRepartidor(id);
         res.status(200).json(pedidoRepartidor);
     } catch (error) {
         console.log(error);
-        res.status(404).json({ message: error.message });
-    }
-});
-
-//✔️ - Finalizado
-routerPedido.get("/pedido/:id", async (req, res) => {
-    try {
-        const id = req.params.id;
-        const pedidoId = await listarPedidoPorId(id);
-        res.status(200).json(pedidoId);
-    } catch (error) {
         res.status(404).json({ message: error.message });
     }
 });
@@ -81,10 +74,13 @@ routerPedido.post("/pedido/registro", async (req, res) => {
     try {
         const idCliente = req.session.id;
         const pedido = req.body;
+        // Obtener un repartidor aleatorio
+        const repartidor = await repartidorAleatorio();
+        const idRepartidor = repartidor.id;
         //const idRestaurant = ...;
-        //const idRepartidor = ...;
-        const pedidoRegistro = await crearPedido(idCliente, pedido); //(idRestaurant, idRepartidor) no se como obtebgo estos id para enviar la información completa a crearPedido()
+        const pedidoRegistro = await crearPedido(idCliente,idRestaurant, idRepartidor, pedido);
         res.status(201).json(pedidoRegistro);
+        
     } catch (error) {
             res.status(500).json({ message: "Error interno del servidor" });
             console.log(error);

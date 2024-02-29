@@ -25,22 +25,6 @@ const listarPedidos = async () => {
     }
 };
 
-//⏳ - En proceso
-const listarPedidosPorNombre = async (nombre) => {
-    try {
-        const pedidosNombre = await Pedidos.findAll({
-        where: { nombre_pedido: nombre },
-        include: [Restaurante, Cliente, Repartidor],
-        });
-        if (pedidosNombre.length === 0) {
-        throw new Error(`No hay registros de productos con el nombre ${nombre}`);
-        }
-        return pedidosNombre;
-    } catch (error) {
-        throw error;
-    }
-};
-
 //✔️ - Finalizado
 const listarPedidoPorId = async (id) => {
     try {
@@ -141,7 +125,6 @@ export { listarPedidos,
         listarPedidosPorCliente,
         listarPedidosPorRestaurant,
         listarPedidosPorRepartidor,
-        listarPedidosPorNombre,
         listarPedidoPorId,
         crearPedido,
         editarPedido

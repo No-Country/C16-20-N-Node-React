@@ -18,8 +18,9 @@ import routerPedido from "./router/routerPedido.js";
 import routerRepartidor from "./router/routerRepartidor.js";
 import expressSession from "express-session";
 import cookieParser from "cookie-parser";
-import { autenticado, ensureAuthenticated } from "./middleware/login.js";
+// import { autenticado, ensureAuthenticated } from "./middleware/login.js";
 import passport from "passport";
+import { autenticado } from "./middleware/login.js";
 dotenv.config();
 const app = express();
 app.use(cors());
@@ -41,27 +42,26 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.get("/", (req, res) => {
-  Conexion.conectar(); //prueba que se conecta a la base de datos
-  res.send("La aplicación está funcionando!!! 😁😁😁");
-});
 /**
  * ruteo al restaurante
  */
 // ✔️ - Finalizado
 // app.use("/", autenticado);
 app.use("/", routerUsuario);
-app.use("/", ensureAuthenticated, routerRepartidor);
-app.use("/", ensureAuthenticated, routerRestaurante);
-app.use("/", ensureAuthenticated, routerCliente);
-app.use("/", ensureAuthenticated, routerProducto);
-app.use("/", ensureAuthenticated, routerPedido);
+app.use("/", routerRepartidor);
+app.use("/", routerRestaurante);
+app.use("/", routerCliente);
+app.use("/", routerProducto);
+app.use("/", routerPedido);
 const port = process.env.PORT || 3000;
 /**
  * ruta de acceso publico
  * acá podria ir el login
  */
+app.get("/", (req, res) => {
+  Conexion.conectar(); //prueba que se conecta a la base de datos
+  res.send("La aplicación está funcionando!!! 😁😁😁");
+});
 
 app.listen(port, () => {
   console.log(`La aplicación está funcionando en http://localhost:${port}`);

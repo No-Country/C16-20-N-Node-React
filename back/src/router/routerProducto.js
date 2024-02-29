@@ -50,7 +50,10 @@ routerProducto.post("/producto/registro", async (req, res) => {
     try {
         console.log(req.body);
         //const id = req.params.id;
-        const idRestaurant = req.session.id;       
+        const restaurant = req.session.id;  
+        //const restaurant = req.user;  
+        console.log(`routerProducto.js:54, ${restaurant}`); 
+        const idRestaurant = restaurant.id
         const productoRegistro = await crearProducto(idRestaurant,req.body);
         res.status(201).json(productoRegistro);
     } catch (error) {
