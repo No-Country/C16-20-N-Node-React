@@ -32,6 +32,10 @@ routerUsuario.post("/usuario/registro", async (req, res) => {
       return res.status(201).json(nuevoUsuario);
     }
     console.log(usuarioExistente);
+    /**
+     * Si el usuario ya existe, devolver un error
+     *
+     */
     res.status(200).json(usuarioExistente);
   } catch (error) {
     if (error.message === "El correo electrónico ya está en uso") {

@@ -5,12 +5,18 @@
  * ❌ - No realizado
  * ⚡ - urgente
  */
-import { listarClientes, crearCliente, listarClientesPorId, editarCliente } from "../controllers/clienteController.js";//listarClientesPorId / editarCliente
+import {
+  listarClientes,
+  crearCliente,
+  listarClientesPorId,
+  editarCliente,
+} from "../controllers/clienteController.js"; //listarClientesPorId / editarCliente
 import express from "express";
+import { permisoCliente } from "../middleware/login.js";
 const routerCliente = express.Router();
 
 //✔️ - Finalizado
-routerCliente.get("/clientes", async (req, res) => {
+routerCliente.get("/clientes", permisoCliente, async (req, res) => {
   try {
     const clientes = await listarClientes();
     res.status(200).json(clientes);
@@ -32,7 +38,7 @@ routerCliente.get("/clientes/:id", async (req, res) => {
 });
 
 //⏳ - En proceso
-routerCliente.post("/cliente/registro", async (req, res) => {
+routerCliente.post("/cliente/registro", permisoCliente, async (req, res) => {
   try {
     const clienteRegistro = await crearCliente(req.body);
     res.status(201).json(clienteRegistro);
@@ -46,7 +52,7 @@ routerCliente.post("/cliente/registro", async (req, res) => {
 });
 
 //✔️ - Finalizado
-routerCliente.patch("/cliente/editar/:id", async (req, res) => {
+routerCliente.patch("/cliente/editar/:id", permisoCliente, async (req, res) => {
   try {
     const id = req.params.id;
     const cliente = req.body;
@@ -56,6 +62,5 @@ routerCliente.patch("/cliente/editar/:id", async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 });
-
 
 export default routerCliente;

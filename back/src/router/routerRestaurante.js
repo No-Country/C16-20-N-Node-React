@@ -13,6 +13,7 @@ import {
   crearRestaurante,
   editarRestaurante,
 } from "../controllers/restauranteController.js";
+import { permisoRestaurant } from "../middleware/login.js";
 const routerRestaurante = express.Router();
 
 // ✔️ - Finalizado
@@ -50,29 +51,37 @@ routerRestaurante.get("/restaurante/:id", async (req, res) => {
   }
 });
 //✔️ - Finalizado
-routerRestaurante.post("/restaurante/registro", async (req, res) => {
-  try {
-    const restauranteRegistro = await crearRestaurante(req.body);
-    res.status(201).json(restauranteRegistro);
-  } catch (error) {
-    if (error.message === "El correo electrónico ya está en uso") {
-      res.status(409).json({ message: error.message });
-    } else {
-      res.status(500).json({ message: "Error interno del servidor" });
+routerRestaurante.post(
+  "/restaurante/registro",
+  permisoRestaurant,
+  async (req, res) => {
+    try {
+      const restauranteRegistro = await crearRestaurante(req.body);
+      res.status(201).json(restauranteRegistro);
+    } catch (error) {
+      if (error.message === "El correo electrónico ya está en uso") {
+        res.status(409).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Error interno del servidor" });
+      }
     }
   }
-});
+);
 //✔️ - Finalizado
-routerRestaurante.patch("/restaurante/editar/:id", async (req, res) => {
-  try {
-    const id = req.params.id;
-    const restaurante = req.body;
-    const restauranteEditado = await editarRestaurante(id, restaurante);
-    res.status(200).json(restauranteEditado);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
+routerRestaurante.patch(
+  "/restaurante/editar/:id",
+  permisoRestaurant,
+  async (req, res) => {
+    try {
+      const id = req.params.id;
+      const restaurante = req.body;
+      const restauranteEditado = await editarRestaurante(id, restaurante);
+      res.status(200).json(restauranteEditado);
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
   }
-});
+);
 
 //TODO
 // realizar los diferentes endpoints para cada método del controlador
