@@ -43,6 +43,25 @@ const listarProductosPorNombre = async (nombre) => {
     }
 };
 
+
+const listarProductosPorRestaurant = async (id_restaurant) => {
+    try {
+        const productoRestaurant = await Producto.findAll({
+        where: { id_restaurant },
+        include: {
+            model: Restaurante,
+        },
+        });
+        console.log(`productosController.js:55 ${productoRestaurant}`)
+        if (productoRestaurant.length === 0) {
+        throw new Error(`No hay registros de productos para el restaurant ${id_restaurant}`);
+        }
+        return productoRestaurant;
+    } catch (error) {
+        throw error;
+    }
+};
+
 //✔️ - Finalizado
 const listarProductoPorId = async (id) => {
     try {
@@ -95,4 +114,4 @@ const editarProducto = async (id, producto) => {
     }
 };
 
-export { listarProductos, listarProductosPorNombre, listarProductoPorId, crearProducto, editarProducto };
+export { listarProductos, listarProductosPorNombre, listarProductoPorId, listarProductosPorRestaurant, crearProducto, editarProducto };

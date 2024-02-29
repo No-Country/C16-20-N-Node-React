@@ -5,7 +5,7 @@
  * ❌ - No realizado
  * ⚡ - urgente
  */
-import { Sequelize } from "sequelize";
+import {Sequelize} from 'Sequelize';
 import Repartidor from "../models/repartidor.js";
 import Usuario from "../models/usuario.js";
 
@@ -24,18 +24,18 @@ export const buscarRepartidorPorMail = async (usuario) => {
 };
 
 // Obtener un repartidor aleatorio
-const repartidorAleatorio = async (req, res) => {
-  try {
-    const repartidorAleatorio = await Repartidor.findOne({
-      order: Sequelize.literal("random()"), // Ordenar aleatoriamente
-    });
-    if (!repartidorAleatorio) {
-      throw new Error("No se encontraron repartidores disponibles");
+const repartidorAleatorio = async (req,res) => {
+    try {    
+        const repartidorAleatorio = await Repartidor.findOne({
+            order: Sequelize.literal('random()'), // Ordenar aleatoriamente
+        });
+        if (!repartidorAleatorio) {
+            throw new Error('No se encontraron repartidores disponibles');
+        }
+        return repartidorAleatorio;
+    } catch (error) {
+      throw error;
     }
-    return repartidorAleatorio;
-  } catch (error) {
-    throw error;
-  }
 };
 
 //⏳ - En proceso
@@ -90,7 +90,7 @@ const listarRepartidorPorId = async (id) => {
 const editarRepartidor = async (id, repartidor) => {
   try {
     const repartidorEditado = await Repartidor.update(repartidor, {
-      where: { id_repartidor: id },
+      where: { id_repartidor:id },
     });
     if (repartidorEditado[0] === 0) {
       throw new Error(`No hay registros de repartidores con el id ${id}`);
@@ -107,10 +107,4 @@ const editarRepartidor = async (id, repartidor) => {
   }
 };
 
-export {
-  crearRepartidor,
-  repartidorAleatorio,
-  listarRepartidor,
-  listarRepartidorPorId,
-  editarRepartidor,
-};
+export {crearRepartidor, repartidorAleatorio, listarRepartidor, listarRepartidorPorId, editarRepartidor}

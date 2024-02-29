@@ -76,20 +76,9 @@ const listarRestaurantesPorId = async (id) => {
     throw error;
   }
 };
-/**
- * acá te volvio a pasar lo mismo, intentaste hacer un hibrido entre
- * el router y el controlador. Lo voy a corregir y dejarlo para que
- * funcione con el metodo post - Probalo con thunderClient
- */
+
 //✔️ - Finalizado
-/**
- * Actualizo:
- * tuve que usar una transaccion para que no se rompa la base de datos
- * porque aunque el metodo no te deja agregar un nuevo restaurante porque
- * el mail ya esta en uso, el id sigue incrementandose en la bd
- * es normal, pero podria llegar a dejar huecos que pueden causar un problema con
- * las relaciones
- */
+
 const crearRestaurante = async (idUsuario, restaurant) => {
   let t = await Conexion.sequelize.transaction();
   try {

@@ -11,6 +11,9 @@ Usuario.init(
         mail: {
             type: DataTypes.STRING,
             allowNull: true,
+            validate: {
+                isEmail: true, // Validación de formato de correo electrónico
+            }        
         },
         password: {
             type: DataTypes.STRING,
