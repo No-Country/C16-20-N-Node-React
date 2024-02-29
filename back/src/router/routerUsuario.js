@@ -11,9 +11,8 @@ routerUsuario.post("/login", autenticado);
 
 routerUsuario.get("/perfil", ensureAuthenticated, async (req, res) => {
   try {
-    const usuario = req.user;
-    console.log(usuario);
-    res.status(200).json(usuario);
+    const perfil = await buscarUsuarioPorMail(req.user);
+    res.status(200).json(perfil);
   } catch (error) {
     res
       .status(404)
@@ -25,14 +24,15 @@ routerUsuario.post("/usuario/registro", async (req, res) => {
   try {
     const usuario = req.body;
     const usuarioExistente = await buscarUsuarioPorMail(usuario);
-    if (!usuarioExistente) {
-      const nuevoUsuario = await crearUsuario(usuario);
-      console.log(nuevoUsuario);
-      return res.status(201).json(nuevoUsuario);
+    if (usuarioExistente) {
+      console.log(usuarioExistente);
+      return res.status(200).json(usuarioExistente);
     }
-    console.log(usuarioExistente);
-    res.status(200).json(usuarioExistente);
+    const nuevoUsuario = await crearUsuario(usuario);
+    console.log(nuevoUsuario);
+    return res.status(201).json(nuevoUsuario);
   } catch (error) {
+    console.error(error);
     if (error.message === "El correo electrónico ya está en uso") {
       return res.status(409).json({ error: error.message });
     } else {

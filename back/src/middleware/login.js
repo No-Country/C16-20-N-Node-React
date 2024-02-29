@@ -81,7 +81,9 @@ export const ensureAuthenticated = (req, res, next) => {
 /**
  * proteccion de rutas segun tipo de usuario.
  */
-
+/**
+ PERMISO PARA QUE ACCEDAN LOS RESTAURANTES
+ * */
 export const permisoRestaurant = (req, res, next) => {
   const rol = req.user.rol_usuario;
   if (rol !== "restaurante") {
@@ -91,7 +93,9 @@ export const permisoRestaurant = (req, res, next) => {
   }
   next();
 };
-
+/**
+ * PERMISO PARA QUE ACCEDAN LOS REPARTIDORES
+ */
 export const permisoRepartidor = (req, res, next) => {
   const rol = req.user.rol_usuario;
   if (rol !== "repartidor") {
@@ -101,7 +105,9 @@ export const permisoRepartidor = (req, res, next) => {
   }
   next();
 };
-
+/**
+ * PERMISO PARA QUE ACCEDAN LOS CLIENTES
+ */
 export const permisoCliente = (req, res, next) => {
   const rol = req.user.rol_usuario;
   if (rol !== "cliente") {
