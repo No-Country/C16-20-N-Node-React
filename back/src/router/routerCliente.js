@@ -54,7 +54,7 @@ routerCliente.post("/cliente/registro", permisoCliente, async (req, res) => {
 //✔️ - Finalizado
 routerCliente.patch("/cliente/editar/:id", permisoCliente, async (req, res) => {
   try {
-    const id = req.params.id;
+    const id = req.session.usuario.id_cliente;
     const cliente = req.body;
     const clienteEditado = await editarCliente(id, cliente);
     res.status(200).json(clienteEditado);

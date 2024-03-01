@@ -69,11 +69,11 @@ routerRestaurante.post(
 );
 //✔️ - Finalizado
 routerRestaurante.patch(
-  "/restaurante/editar/:id",
+  "/restaurante/editar",
   permisoRestaurant,
   async (req, res) => {
     try {
-      const id = req.params.id;
+      const id = req.session.usuario.id;
       const restaurante = req.body;
       const restauranteEditado = await editarRestaurante(id, restaurante);
       res.status(200).json(restauranteEditado);

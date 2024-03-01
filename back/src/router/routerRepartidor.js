@@ -70,7 +70,7 @@ routerRepartidor.patch(
   permisoRepartidor,
   async (req, res) => {
     try {
-      const id = req.params.id;
+      const id = req.session.usuario.id_repartidor;
       const repartidor = req.body;
       const repartidorEditado = await editarRepartidor(id, repartidor);
       res.status(200).json(repartidorEditado);

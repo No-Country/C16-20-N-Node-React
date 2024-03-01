@@ -73,11 +73,7 @@ routerProducto.post(
   permisoRestaurant,
   async (req, res) => {
     try {
-      console.log(req.body);
-      //const restaurant = req.session.id;
-      const restaurant = req.user;
-      console.log(`routerProducto.js:54, ${restaurant}`);
-      const idRestaurant = restaurant.id;
+      const idRestaurant = req.session.usuario.id;
       const productoRegistro = await crearProducto(idRestaurant, req.body);
       res.status(201).json(productoRegistro);
     } catch (error) {
@@ -94,9 +90,9 @@ routerProducto.patch(
   async (req, res) => {
     try {
       //const id = req.params.id;
-      const idRestaurant = req.session.id;
+      const idRestaurant = req.session.usuario.id;
       const producto = req.body;
-      const productoEditado = await editarProducto(id, producto);
+      const productoEditado = await editarProducto(idRestaurant, producto);
       console.log(productoEditado);
       res.status(200).json(productoEditado);
     } catch (error) {
