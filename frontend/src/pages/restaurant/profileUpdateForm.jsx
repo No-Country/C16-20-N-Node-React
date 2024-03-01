@@ -1,39 +1,17 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
-const RegisterRestaurant = ({ formData }) => {
+const ProfileUpdateForm = () => {
     const [nombre_restaurant, setNombre] = useState('');
     const [dirección_restaurant, setDireccion] = useState('');
     const [rubro_restaurant, setRubro] = useState('');
     const [telefono_restaurant, setTelefono] = useState('');
     const [redirect, setRedirect] = useState(false);
 
-    const { mail, password, rol_usuario } = formData || {};
-
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const formData = { mail, password, rol_usuario, nombre_restaurant, dirección_restaurant, telefono_restaurant, rubro_restaurant };
-        console.log('Frontend: formulario de datos enviado:', formData);
-        try {
-            const response = await fetch('https://vaya-pronto.onrender.com/usuario/registro', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-
-            if (response.ok) {
-                const responseData = await response.json();
-                console.log('Respuesta del backend:', responseData);
-                setRedirect(true);
-            } else {
-                console.error('Error al enviar el formulario al backend');
-            }
-        } catch (error) {
-            console.error('Error de red:', error);
-        }
+        console.log('Frontend: formulario de datos enviado:');
+        setRedirect(true);
     };
 
     return (
@@ -59,15 +37,11 @@ const RegisterRestaurant = ({ formData }) => {
                 <button
                     type='submit'
                     className='bg-[#00A896] border border-[#453A32] rounded-[20px] mt-[60px] h-[60px] w-[351px] text-[36px]'>
-                    Regístrate
+                    Actualizar
                 </button>
             </form>
         </div>
     );
 };
 
-RegisterRestaurant.propTypes = {
-    formData: PropTypes.object,
-}
-
-export default RegisterRestaurant;
+export default ProfileUpdateForm;

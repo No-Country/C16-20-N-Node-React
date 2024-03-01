@@ -1,25 +1,25 @@
 {
-    "usersInfo": [
+    "profile": [
         {
             "mail": "cliente@example.com",
             "category": "Amante de la buena comida",
             "address": "123 Calle Principal, Ciudad Fantasía",
             "name": "Juan Pérez",
-            "telephone": "555-123-4567"
+            "phone": "555-123-4567"
         },
         {
             "mail": "restaurante@example.com",
             "category": "Cocina de autor",
             "address": "456 Avenida Principal, Ciudad Ilusión",
             "name": "Restaurante Estrella",
-            "telephone": "555-987-6543"
+            "phone": "555-987-6543"
         },
         {
             "mail": "repartidor@example.com",
             "category": "Entregador de sonrisas",
             "address": "789 Calle Principal, Ciudad Imaginación",
             "name": "Carlos González",
-            "telephone": "555-456-7890"
+            "phone": "555-456-7890"
         }
     ]
 }

@@ -1,12 +1,25 @@
-import productos from '../../api/products/products.json';
-import icon37 from '../../assets/icon37.svg';
+import { useEffect, useState } from 'react';
+import productsData from '../../resources/products.json'
+import icon5 from '../../assets/icons/icon5.svg';
 
 const ManageProducts = () => {
+    const [userProducts, setUserProducts] = useState([]);
+
+    useEffect(() => {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const currentUserEmail = currentUser?.mail || '';
+        const productsFromLocalStorage = JSON.parse(localStorage.getItem('productsCurrent')) || [];
+        const productsFromJSON = productsData.products.filter(product => product.mail === currentUserEmail);
+        const filteredProductsFromLocalStorage = productsFromLocalStorage.filter(product => product.mail === currentUserEmail);
+        const combinedProducts = [...productsFromJSON, ...filteredProductsFromLocalStorage];
+        setUserProducts(combinedProducts);
+    }, []);
+
     return (
         <div className='flex flex-col min-h-screen w-full bg-white my-[70px] mx-[63px]'>
             <table className='text-[16px] font-medium'>
                 <tbody>
-                    {productos.map((producto, index) => (
+                    {userProducts.map((producto, index) => (
                         <tr key={index}>
                             <td className='pb-[28px] w-[235px]'>{producto.nombre}</td>
                             <td className='pb-[28px] w-[235px]'>{producto.descripcion}</td>
@@ -19,7 +32,7 @@ const ManageProducts = () => {
                                     className='h-8 w-16 object-cover' />
                             </td>
                             <td className='pb-[28px]'>
-                                <img src={icon37} alt='icon37' className='h-[26px] w-[26px] object-cover' />
+                                <img src={icon5} alt='icon5' className='h-[26px] w-[26px] object-cover' />
                             </td>
                         </tr>
                     ))}

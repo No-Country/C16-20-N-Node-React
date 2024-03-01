@@ -3,17 +3,17 @@
         {
             "mail": "cliente@example.com",
             "password": "1234",
-            "role": "Cliente"
+            "role": "rliente"
         },
         {
             "mail": "restaurante@example.com",
             "password": "1234",
-            "role": "Restaurante"
+            "role": "restaurante"
         },
         {
             "mail": "repartidor@example.com",
             "password": "1234",
-            "role": "Repartidor"
+            "role": "repartidor"
         }
     ]
 }

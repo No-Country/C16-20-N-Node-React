@@ -1,34 +1,75 @@
 import { useState } from 'react';
-import icon33 from '../../assets/icon33.svg';
-import imagen12 from '../../assets/image12.svg';
-import RegisterRestaurant from '../restaurant/registerRestaurant';
+import { Navigate } from 'react-router-dom';
+import icon1 from '../../assets/icons/icon1.svg';
+import logo1 from '../../assets/logos/logo1.svg';
+import usersData from '../../resources/users.json';
 
 const RegisterForm = () => {
     const [mail, setMail] = useState('');
     const [password, setPassword] = useState('');
-    const [rol_usuario, setRole] = useState('');
+    const [role, setRole] = useState('');
     const [redirect, setRedirect] = useState('');
     const [showOptions, setShowOptions] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(false);
 
     const options = ['cliente', 'repartidor', 'restaurante'];
-    const formData = { mail: mail, password: password, rol_usuario: rol_usuario };
-
-    const handleSubmitRegister = async (event) => {
-        event.preventDefault();
-        setRedirect('/registerRestaurant');
-    };
 
     const handleRole = (usuario) => {
         setRole(usuario);
         setShowOptions(false);
     };
 
+    const handleSubmitRegister = async (event) => {
+        event.preventDefault();
+
+        try {
+            const users = usersData.users;
+            const userIndex = users.findIndex((user) => user.mail === mail);
+
+            if (userIndex !== -1) {
+                console.log('El correo ya está registrado, registro denegado!');
+                setErrorMessage(true);
+            } else {
+                const localStorageUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (localStorageUser !== null && localStorageUser.mail === mail) {
+                    console.log('El correo ya está registrado en localStorage, registro denegado!');
+                    setErrorMessage(true);
+                } else {
+                    if (!validateEmail(mail)) {
+                        console.log('El correo electrónico no tiene un formato válido!');
+                        setErrorMessage(true);
+                        return;
+                    }
+                    
+                    if (password.length > 10) {
+                        console.log('La contraseña no puede tener más de 10 caracteres!');
+                        setErrorMessage(true);
+                        return;
+                    }
+
+                    const newUser = { mail: mail, password: password, role: role };
+                    localStorage.setItem('currentUser', JSON.stringify(newUser));
+                    console.log('Registro exitoso desde localStorage!');
+                    if (role === 'restaurante') {
+                        setRedirect('/registerFormRestaurant');
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Error al verificar usuarios:', error);
+        }
+    };
+
+    const validateEmail = (email) => {
+        const re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    };
+
     return (
         <div className='flex min-h-screen min-w-[360px] bg-white items-center justify-center'>
-
+            {redirect && <Navigate to={redirect} />}
             <div className='flex flex-col w-[400px] h-full min-w-[400px] min-h-full my-[15px]'>
-                {redirect && <RegisterRestaurant formData={formData} />}
-                <img src={imagen12} alt='imagen12' className='w-full h-[242px] min-h-[242px] object-cover mb-[10px]' />
+                <img src={logo1} alt='logo1' className='w-full h-[242px] min-h-[242px] object-cover mb-[10px]' />
                 <form onSubmit={handleSubmitRegister} className='flex flex-col w-full text-center h-full px-[22px]'>
                     <input
                         type='text'
@@ -37,6 +78,7 @@ const RegisterForm = () => {
                         value={mail}
                         onChange={(e) => setMail(e.target.value)}
                         className='text-[16px] placeholder-black text-black rounded-[30px] border border-[#453A32] shadow-xl w-full h-[42px] px-[17px] mb-[16px]'
+                        required // Campo requerido
                     />
                     <input
                         type='password'
@@ -45,13 +87,14 @@ const RegisterForm = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className='text-[16px] placeholder-black text-black rounded-[30px] border border-[#453A32] shadow-xl w-full h-[42px] px-[17px]'
+                        required // Campo requerido
                     />
                     <div className='relative mt-[30px]'>
                         <div onClick={() => setShowOptions(!showOptions)} className='border border-[#453A32] rounded-[30px] shadow-xl w-full h-[42px] px-[17px] flex items-center justify-between cursor-pointer'>
-                            <span>{rol_usuario || 'Selecciona un usuario'}</span>
+                            <span>{role || 'Selecciona un usuario'}</span>
                             <img
-                                src={icon33}
-                                alt='icon'
+                                src={icon1}
+                                alt='icon1'
                                 className='w-[16px] h-[10px] mr-[15px] object-cover' />
                         </div>
                         {showOptions && (
@@ -72,6 +115,7 @@ const RegisterForm = () => {
                         className='bg-[#00A896] border border-[#453A32] rounded-[20px] text-[36px] shadow-xl mt-[30px] w-full h-[60px]'>
                         Entrar
                     </button>
+                    {errorMessage && <p className="text-red-500 mt-2">Error en el registro. Por favor, verifica los campos!</p>}
                 </form>
             </div>
         </div>

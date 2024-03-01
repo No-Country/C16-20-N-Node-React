@@ -1,14 +1,26 @@
-import { useState } from 'react';
-import image12 from '../assets/image12.svg';
-import icon34 from '../assets/icon34.svg';
-import icon35 from '../assets/icon35.svg';
-import icon36 from '../assets/icon36.svg';
+import { useState, useEffect } from 'react';
+import logo1 from '../assets/logos/logo1.svg';
+import icon2 from '../assets/icons/icon2.svg';
+import icon3 from '../assets/icons/icon3.svg';
+import icon4 from '../assets/icons/icon4.svg';
+//import ManageProducts from '../pages/restaurant/manageProducts';
+//import ManageDelivery from '../pages/restaurant/mangeDelivery';
+import ManagePerfil from '../pages/restaurant/managePerfil';
 import ManageProducts from '../pages/restaurant/manageProducts';
-import ManageDelivery from '../pages/restaurant/mangeDelivery';
-import PerfilRestaurant from '../pages/restaurant/perfilRestaurant';
 
 const DashboardRestaurant = () => {
     const [selectedButton, setSelectedButton] = useState('Perfil');
+    const [sessionData, setSessionData] = useState(() => {
+        const session = localStorage.getItem('currentSession');
+        return session ? JSON.parse(session) : null;
+    });
+
+    useEffect(() => {
+        const session = localStorage.getItem('currentSession');
+        if (!sessionData && session) {
+            setSessionData(JSON.parse(session));
+        }
+    }, [sessionData]);
 
     const handleButtonClick = (buttonName) => {
         setSelectedButton(buttonName);
@@ -16,7 +28,7 @@ const DashboardRestaurant = () => {
     return (
         <div className='flex flex-col min-h-screen min-w-max bg-white'>
             <div className='flex justify-center md:justify-start h-[172px] w-full'>
-                <img src={image12} alt='image12' className='ml-[136px] h-[142px] w-[208px] min-w-[208px] min-h-[142px]' />
+                <img src={logo1} alt='logo1' className='ml-[136px] h-[142px] w-[208px] min-w-[208px] min-h-[142px]' />
             </div>
             <div className='flex text-[16px] min-h-[72px] h-[72px] w-full bg-[#FF7C58] pl-[319px]'>
                 {selectedButton === 'Platos' &&
@@ -34,12 +46,12 @@ const DashboardRestaurant = () => {
                     </table>
                 }
             </div>
-            <div className='flex'>
+            <div className='flex min-h-screen'>
                 <div className='flex flex-col md:min-w-[256px] md:w-[256px] bg-[#FF7C58] min-w-[103px] w-[103px]'>
                     {[
-                        { name: 'Platos', icon: icon34 },
-                        { name: 'Pedidos', icon: icon35 },
-                        { name: 'Perfil', icon: icon36 }
+                        { name: 'Platos', icon: icon2 },
+                        { name: 'Pedidos', icon: icon3 },
+                        { name: 'Perfil', icon: icon4 }
                     ].map(({ name, icon }) => (
                         <button
                             key={name}
@@ -49,13 +61,15 @@ const DashboardRestaurant = () => {
                             `}
                         >
                             <p className='hidden md:block md:w-full md:text-left md:pl-[63px] text-[16px]'>{name}</p>
-                            <img src={icon} alt={name} className='md:object-cover md:mr-[40px] flex h-[44px] w-[46px]' />
+                            <img src={icon} alt={name} className='md:mr-[40px] flex h-[44px] w-[46px]' />
                         </button>
                     ))}
                 </div>
-                {selectedButton === 'Perfil' && <PerfilRestaurant />}
+                {selectedButton === 'Perfil' && <ManagePerfil currentUser={sessionData} />}
                 {selectedButton === 'Platos' && <ManageProducts />}
+                {/*
                 {selectedButton === 'Pedidos' && <ManageDelivery />}
+                */}
             </div>
         </div>
     );

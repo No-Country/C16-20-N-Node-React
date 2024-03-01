@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import icon38 from '../../assets/icon38.svg'
+import icon5 from '../../assets/icons/icon5.svg'
 
 const LoadProduct = () => {
-    const [nombrePlato, setNombrePlato] = useState('');
+    const [nombre, setNombrePlato] = useState('');
     const [descripcion, setDescripcion] = useState('');
     const [precio, setPrecio] = useState('');
-    const [tiempoEspera, setTiempoEspera] = useState('');
+    const [tiempo, setTiempoEspera] = useState('');
     const [redirect, setRedirect] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [filePreview, setFilePreview] = useState('');
@@ -15,14 +15,11 @@ const LoadProduct = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const formData = {
-            nombrePlato: nombrePlato,
-            descripcion: descripcion,
-            precio: precio,
-            tiempoEspera: tiempoEspera,
-        };
-        console.log('solicitud de registro enviado!')
-        console.log('Datos que se envian:', formData);
+        const currentUserEmail = JSON.parse(localStorage.getItem('currentUser')).mail;
+        const existingProducts = JSON.parse(localStorage.getItem('productsCurrent')) || [];
+        const newProduct = { nombre: nombre, descripcion: descripcion, precio: precio, tiempo: tiempo, mail: currentUserEmail, imagen: selectedFile ? URL.createObjectURL(selectedFile) : '' };
+        existingProducts.push(newProduct);
+        localStorage.setItem('productsCurrent', JSON.stringify(existingProducts));
         setRedirect('/dashboardRestaurant');
     };
 
@@ -51,7 +48,7 @@ const LoadProduct = () => {
                     <input
                         type='text'
                         id='nombre-plato'
-                        value={nombrePlato}
+                        value={nombre}
                         placeholder='Nombre del plato:'
                         onChange={(e) => setNombrePlato(e.target.value)}
                         className='text-[16px] placeholder-[#737373] text-black rounded-[30px] border border-[#575757] w-full h-[42px] px-[18px]'
@@ -75,7 +72,7 @@ const LoadProduct = () => {
                     <input
                         type='text'
                         id='tiempo-espera'
-                        value={tiempoEspera}
+                        value={tiempo}
                         placeholder='Tiempo de espera:'
                         onChange={(e) => setTiempoEspera(e.target.value)}
                         className='mt-[30px] text-[16px] placeholder-[#737373] text-black rounded-[30px] border border-[#575757] w-full h-[42px] px-[18px]'
@@ -92,8 +89,8 @@ const LoadProduct = () => {
                             className='text-[16px] placeholder-[#737373] text-black rounded-[8px] border border-[#575757] bg-[#00A896] h-[27px] w-[135px] flex items-center'>
                             <span>
                                 <img
-                                    src={icon38}
-                                    alt='image12'
+                                    src={icon5}
+                                    alt='icon5'
                                     className='h-[14px] w-[16px] object-cover ml-[8px] mr-[8px]'
                                 >
                                 </img>
