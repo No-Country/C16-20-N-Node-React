@@ -1,61 +1,53 @@
 import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import icon5 from '../../assets/icons/icon5.svg';
-import productsData from '../../resources/products.json'
-import profileData from '../../resources/profile.json'
+import logo2 from '../../assets/logos/logo2.svg';
 
-const ManagePerfil = ({ currentUser }) => {
+const ManagePerfil = () => {
     const [redirect, setRedirect] = useState(null);
-    const [userProducts, setUserProducts] = useState([]);
-    const [userProfile, setUserProfile] = useState(null);
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        const storedProducts = sessionStorage.getItem('formData');
+        if (storedProducts) {
+            setProducts(JSON.parse(storedProducts));
+        }
+    }, []);
 
     const handleRedirectToLoadProduct = () => {
-        setRedirect('/loadProduct');
+        setRedirect('/productUploadForm');
     };
 
     const handleRedirectToRegister = () => {
         setRedirect('/profileUpdateForm');
     };
 
-    useEffect(() => {
-        if (currentUser) {
-            const currentUserEmail = currentUser.mail;
-
-            const productsFromJSON = productsData.products.filter(product => product.mail === currentUserEmail);
-            const productsFromLocalStorage = JSON.parse(localStorage.getItem('productsCurrent')) || [];
-            const filteredProductsFromLocalStorage = productsFromLocalStorage.filter(product => product.mail === currentUserEmail);
-            const combinedProducts = [...productsFromJSON, ...filteredProductsFromLocalStorage];
-            setUserProducts(combinedProducts);
-
-            let filteredProfile = profileData.profile.find(profile => profile.mail === currentUserEmail);
-
-            if (!filteredProfile) {
-                const localStorageUser = JSON.parse(localStorage.getItem('currentProfile'));
-                if (localStorageUser && localStorageUser.mail === currentUserEmail) {
-                    filteredProfile = localStorageUser;
-                }
-            }
-            setUserProfile(filteredProfile);
-        }
-    }, [currentUser]);
+    const profile = {
+        "mail": "restaurante@example.com",
+        "category": "Cocina de autor",
+        "address": "456 Avenida Principal, Ciudad Ilusión",
+        "name": "Restaurante Estrella",
+        "phone": "555-987-6543",
+        "logo": logo2
+    }
 
     return (
         <div className='flex flex-col min-h-screen bg-white my-[47px] px-[64px]'>
             {redirect && <Navigate to={redirect} />}
             <div className='flex justify-between w-[959px] h-[200px]'>
-                {/* seccion izquierda */}
+                {/* Sección izquierda */}
                 <div className='flex items-center justify-end w-[449px] h-[200px] border border-[#575757] rounded-[20px]'>
                     <div className='flex mb-[25px] mr-[16px]'>
                         <img
-                            alt='Image14'
+                            src={profile.logo}
+                            alt='logo2'
                             className='w-[105px] h-[109px] object-cover rounded-[10px]'
                         />
                     </div>
                     <div className='flex flex-col justify-between w-[297px] h-[140px]'>
-                        <p className='text-[24px] font-medium'>{userProfile ? userProfile.name : ''}</p>
-                        <p className='text-[16px]'>{userProfile ? userProfile.address : ''}</p>
-                        <p className='text-[16px]'>{userProfile ? userProfile.phone : ''}</p>
+                        <p className='text-[24px] font-medium'>{profile.name}</p>
+                        <p className='text-[16px]'>{profile.address}</p>
+                        <p className='text-[16px]'>{profile.phone}</p>
                         <img
                             src={icon5}
                             alt='icon5'
@@ -64,7 +56,7 @@ const ManagePerfil = ({ currentUser }) => {
                         />
                     </div>
                 </div>
-                {/* seccion derecha */}
+                {/* Sección derecha */}
                 <div className='flex flex-col items-center justify-center w-[449px] h-[200px] border border-[#575757] rounded-[20px]'>
                     <p className='mb-[22px] text-[24px]'>Administra tu carta</p>
                     <button
@@ -74,25 +66,23 @@ const ManagePerfil = ({ currentUser }) => {
                     </button>
                 </div>
             </div>
-            Galería de imágenes
-            {currentUser && (
-                <div className='flex flex-wrap justify-between mt-[36px] w-[960px]'>
-                    {userProducts.map((producto, index) => (
+            {/* Sección inferior */}
+            <div className='flex flex-wrap justify-between mt-[36px] w-[960px]'>
+                {products.length > 0 ? (
+                    products.map((producto, index) => (
                         <img
                             key={index}
                             src={producto.imagen}
                             alt={producto.nombre}
                             className={`w-[256px] h-[120px] object-cover rounded-[15px] mb-[56px]`}
                         />
-                    ))}
-                </div>
-            )}
+                    ))
+                ) : (
+                    <p>No hay productos disponibles.</p>
+                )}
+            </div>
         </div>
     )
-}
-
-ManagePerfil.propTypes = {
-    currentUser: PropTypes.object,
 }
 
 export default ManagePerfil;

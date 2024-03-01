@@ -1,43 +1,49 @@
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
 import LoginForm from './pages/access/loginForm';
 import RegisterForm from './pages/access/registerForm';
 import RegisterFormRestaurant from './pages/access/registerFormRestaurant';
 import DashboardRestaurant from './layouts/dashboardRestaurant';
 import ProductUploadForm from './pages/restaurant/productUploadForm';
 import ProfileUpdateForm from './pages/restaurant/profileUpdateForm';
+import ManageProducts from './pages/restaurant/manageProducts';
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState(() => {
-    const storedUser = localStorage.getItem('currentSession');
-    return storedUser ? JSON.parse(storedUser) : null;
-  });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleLogin = (user) => {
-    setCurrentUser(user);
-    localStorage.setItem('currentSession', JSON.stringify(user));
+  useEffect(() => {
+    const storedLoggedInStatus = localStorage.getItem('isLoggedIn');
+    if (storedLoggedInStatus) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const handleLogin = () => {
+    localStorage.setItem('isLoggedIn', 'true');
+    setIsLoggedIn(true);
   };
 
   const handleLogout = () => {
-    setCurrentUser(null);
-    localStorage.removeItem('currentSession');
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
   };
 
   return (
     <BrowserRouter>
       <Routes>
-        {/* página de inicio */}
-        <Route exact path="/" element={<LoginForm setCurrentUser={handleLogin} />} />
-        {/* página de registro */}
+        <Route exact path="/" element={<LoginForm onLogin={handleLogin} />} />
         <Route path="/registerform" element={<RegisterForm />} />
-        {/* página de registro del restaurante */}
         <Route path="/registerFormRestaurant" element={<RegisterFormRestaurant />} />
-        {/* página del tablero del restaurante */}
-        <Route path="/dashboardRestaurant" element={<DashboardRestaurant currentUser={currentUser} onLogout={handleLogout} />} />
-        {/* pagina del tablero del restaurante */}
-        <Route path="/loadProduct" element={<ProductUploadForm />} />
-        {/* pagina actualizar registro del restaurante*/}
-        <Route path="/profileUpdateForm" element={<ProfileUpdateForm />} />
+        {isLoggedIn ? (
+          <>
+            <Route path="/dashboardRestaurant" element={<DashboardRestaurant onLogout={handleLogout} />} />
+            <Route path="/productUploadForm" element={<ProductUploadForm />} />
+            <Route path="/profileUpdateForm" element={<ProfileUpdateForm />} />
+            <Route path="/manageProducts" element={<ManageProducts />} />
+          </>
+        ) : (
+          <Route path="*" element={<LoginForm onLogin={handleLogin} />} />
+        )}
       </Routes>
     </BrowserRouter>
   );

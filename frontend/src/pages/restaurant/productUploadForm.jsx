@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import icon5 from '../../assets/icons/icon5.svg'
 
-const LoadProduct = () => {
+const ProductUploadForm = () => {
     const [nombre, setNombrePlato] = useState('');
     const [descripcion, setDescripcion] = useState('');
     const [precio, setPrecio] = useState('');
@@ -11,15 +11,33 @@ const LoadProduct = () => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [filePreview, setFilePreview] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const [formData, setFormData] = useState([]);
+
+    useEffect(() => {
+        const savedFormData = sessionStorage.getItem('formData');
+        if (savedFormData) {
+            setFormData(JSON.parse(savedFormData));
+        }
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        const currentUserEmail = JSON.parse(localStorage.getItem('currentUser')).mail;
-        const existingProducts = JSON.parse(localStorage.getItem('productsCurrent')) || [];
-        const newProduct = { nombre: nombre, descripcion: descripcion, precio: precio, tiempo: tiempo, mail: currentUserEmail, imagen: selectedFile ? URL.createObjectURL(selectedFile) : '' };
-        existingProducts.push(newProduct);
-        localStorage.setItem('productsCurrent', JSON.stringify(existingProducts));
+        const newProduct = {
+            nombre,
+            descripcion,
+            precio,
+            tiempo,
+            imagen: selectedFile ? URL.createObjectURL(selectedFile) : null
+        };
+        const updatedFormData = [...formData, newProduct];
+        setFormData(updatedFormData);
+        sessionStorage.setItem('formData', JSON.stringify(updatedFormData));
+        setNombrePlato('');
+        setDescripcion('');
+        setPrecio('');
+        setTiempoEspera('');
+        setSelectedFile(null);
+        setFilePreview('');
         setRedirect('/dashboardRestaurant');
     };
 
@@ -126,7 +144,6 @@ const LoadProduct = () => {
                             </button>
                         </div>
                         <div>
-                            {/* Mostrar la imagen seleccionada a tamaño completo */}
                             <img src={filePreview} alt="Preview" className="max-w-full max-h-full" />
                         </div>
                     </div>
@@ -136,5 +153,4 @@ const LoadProduct = () => {
     )
 }
 
-export default LoadProduct;
-
+export default ProductUploadForm;

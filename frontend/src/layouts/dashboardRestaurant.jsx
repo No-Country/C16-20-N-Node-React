@@ -1,30 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import logo1 from '../assets/logos/logo1.svg';
 import icon2 from '../assets/icons/icon2.svg';
 import icon3 from '../assets/icons/icon3.svg';
 import icon4 from '../assets/icons/icon4.svg';
-//import ManageProducts from '../pages/restaurant/manageProducts';
-//import ManageDelivery from '../pages/restaurant/mangeDelivery';
+import icon6 from '../assets/icons/icon6.svg';
 import ManagePerfil from '../pages/restaurant/managePerfil';
 import ManageProducts from '../pages/restaurant/manageProducts';
+import ManageDelivery from '../pages/restaurant/mangeDelivery';
 
-const DashboardRestaurant = () => {
+const DashboardRestaurant = ({ onLogout }) => {
     const [selectedButton, setSelectedButton] = useState('Perfil');
-    const [sessionData, setSessionData] = useState(() => {
-        const session = localStorage.getItem('currentSession');
-        return session ? JSON.parse(session) : null;
-    });
-
-    useEffect(() => {
-        const session = localStorage.getItem('currentSession');
-        if (!sessionData && session) {
-            setSessionData(JSON.parse(session));
-        }
-    }, [sessionData]);
 
     const handleButtonClick = (buttonName) => {
         setSelectedButton(buttonName);
+        if (buttonName === 'Salir') {
+            onLogout();
+        }
     };
+
     return (
         <div className='flex flex-col min-h-screen min-w-max bg-white'>
             <div className='flex justify-center md:justify-start h-[172px] w-full'>
@@ -51,7 +45,8 @@ const DashboardRestaurant = () => {
                     {[
                         { name: 'Platos', icon: icon2 },
                         { name: 'Pedidos', icon: icon3 },
-                        { name: 'Perfil', icon: icon4 }
+                        { name: 'Perfil', icon: icon4 },
+                        { name: 'Salir', icon: icon6 }
                     ].map(({ name, icon }) => (
                         <button
                             key={name}
@@ -65,14 +60,16 @@ const DashboardRestaurant = () => {
                         </button>
                     ))}
                 </div>
-                {selectedButton === 'Perfil' && <ManagePerfil currentUser={sessionData} />}
+                {selectedButton === 'Perfil' && <ManagePerfil />}
                 {selectedButton === 'Platos' && <ManageProducts />}
-                {/*
                 {selectedButton === 'Pedidos' && <ManageDelivery />}
-                */}
             </div>
         </div>
     );
 };
+
+DashboardRestaurant.propTypes = {
+    onLogout: PropTypes.func.isRequired,
+}
 
 export default DashboardRestaurant;

@@ -10,11 +10,16 @@ const RegisterFormRestaurant = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const currentUserJSON = localStorage.getItem('currentUser');
-        const currentUser = JSON.parse(currentUserJSON);
-        const profileData = { mail: currentUser.mail, name, address, category, phone };
-        const newUserJSON = JSON.stringify(profileData);
-        localStorage.setItem('currentProfile', newUserJSON);
+        const restaurantData = {
+            name,
+            address,
+            category,
+            phone
+        };
+        const userData = JSON.parse(sessionStorage.getItem('users'));
+        console.log(userData);
+        const updateData = { userData, restaurantData };
+        sessionStorage.setItem('users', JSON.stringify(updateData));
         setRedirect(true);
     };
 
@@ -36,7 +41,7 @@ const RegisterFormRestaurant = () => {
                         placeholder={placeholder}
                         onChange={(e) => onChange(e.target.value)}
                         className='placeholder-[#949494] rounded-[30px] border border-[#453A32] w-full h-[42px] px-[18px]'
-                        required // Campo requerido
+                        required
                     />
                 ))}
                 <button
