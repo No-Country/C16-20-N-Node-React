@@ -36,8 +36,8 @@ const ManagePerfil = () => {
                 <div className='flex items-center justify-end w-[449px] h-[200px] border border-[#575757] rounded-[20px]'>
                     <div className='flex mb-[25px] mr-[16px]'>
                         <img
-                            src=''
-                            alt='logo2'
+                            src={profile?.logo}
+                            alt=''
                             className='w-[105px] h-[109px] object-cover rounded-[10px]'
                         />
                     </div>
