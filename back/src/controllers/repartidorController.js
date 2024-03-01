@@ -5,7 +5,7 @@
  * ❌ - No realizado
  * ⚡ - urgente
  */
-import {Sequelize} from 'Sequelize';
+import {Sequelize} from 'sequelize';
 import Repartidor from "../models/repartidor.js";
 import Usuario from "../models/usuario.js";
 
