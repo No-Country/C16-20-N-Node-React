@@ -17,7 +17,6 @@ const RegisterFormRestaurant = () => {
             phone
         };
         const userData = JSON.parse(sessionStorage.getItem('users'));
-        console.log(userData);
         const updateData = { userData, restaurantData };
         sessionStorage.setItem('users', JSON.stringify(updateData));
         setRedirect(true);

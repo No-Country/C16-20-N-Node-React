@@ -3,16 +3,26 @@ import { Link, Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import logo1 from '../../assets/logos/logo1.svg';
 
-
 const LoginForm = ({ onLogin }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleLoginFormSubmit = async (event) => {
         event.preventDefault();
-        onLogin();
-        setRedirect('/dashboardRestaurant');
+        const storedData = sessionStorage.getItem('users');
+        if (storedData) {
+            const userData = JSON.parse(storedData).userData;
+            if (userData && userData.mail === email && userData.password === password) {
+                setRedirect('/dashboardRestaurant');
+                onLogin();
+            } else {
+                setErrorMessage('El correo electrónico o la contraseña son incorrectos.');
+            }
+        } else {
+            setErrorMessage('Debes registrarte para poder iniciar sesión');
+        }
     };
 
     return (
@@ -42,6 +52,7 @@ const LoginForm = ({ onLogin }) => {
                         className='bg-[#00A896] border border-[#453A32] rounded-[20px] text-[36px] shadow-xl mt-[60px] w-full h-[60px]'>
                         Entrar
                     </button>
+                    {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
                 </form>
                 <p className='text-center text-[16px] pt-[60px]'>
                     ¿No estás registrado?{' '}
