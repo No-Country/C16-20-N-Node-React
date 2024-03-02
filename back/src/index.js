@@ -6,6 +6,7 @@
  * ⚡ - urgente
  */
 import express, { urlencoded } from "express";
+import multer from "multer";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import path, { dirname } from "path";
@@ -49,7 +50,8 @@ app.use(passport.session());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, "public")));
-routerImg.use("/images", express.static("public"));
+app.use(multer().single("imagen"));
+app.use("/public", express.static("public"));
 
 // ✔️ - Finalizado
 app.get("/", (req, res) => {
@@ -61,7 +63,6 @@ app.use("/", routerRepartidor);
 app.use("/", routerRestaurante);
 app.use("/", routerCliente);
 app.use("/", routerProducto);
-app.use("/", routerImg);
 app.use("/", routerPedido);
 const port = process.env.PORT || 3000;
 
