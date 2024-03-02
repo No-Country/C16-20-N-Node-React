@@ -20,8 +20,11 @@ import multer from "multer";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 const routerProducto = express.Router();
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
 
 const storage = multer.diskStorage({
   destination: path.join(__dirname, "../public"),
