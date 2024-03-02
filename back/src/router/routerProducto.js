@@ -87,12 +87,13 @@ routerProducto.get("/producto/:id", async (req, res) => {
 //✔️ - Finalizado
 routerProducto.post(
   "/producto/registro/:id",
-  upload.single("imagen_producto"), // Middleware de multer para manejar la carga de la imagen
+  upload.single("imagen"), // Middleware de multer para manejar la carga de la imagen
   async (req, res) => {
     try {
-      console.log(req.file.path);
+      console.log(req.file);
       const idRestaurant = req.params.id;
       const producto = { ...req.body, imagen: req.file.path };
+      console.log(producto);
       const productoRegistro = await crearProducto(idRestaurant, producto);
       res.status(201).json(productoRegistro);
     } catch (error) {
