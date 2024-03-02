@@ -86,6 +86,7 @@ routerProducto.post(
   upload.single("imagen"),
   async (req, res) => {
     try {
+      console.log(req.session.usuario);
       const idRestaurant = req.session.usuario.id;
       const imagen = req.file.path;
       const productoRegistro = await crearProducto(idRestaurant, req.body);
