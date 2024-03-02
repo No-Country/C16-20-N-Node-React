@@ -27,9 +27,9 @@ routerCliente.get("/clientes", permisoCliente, async (req, res) => {
 });
 
 //✔️ - Finalizado
-routerCliente.get("/clientes/:id", async (req, res) => {
+routerCliente.get("/clientes/sesion", async (req, res) => {
   try {
-    const id = req.params.id;
+    const id = req.session.usuario.id_cliente;
     const clienteId = await listarClientesPorId(id);
     res.status(200).json(clienteId);
   } catch (error) {

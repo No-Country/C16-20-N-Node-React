@@ -23,10 +23,6 @@ Usuario.init(
             type: DataTypes.STRING,
             allowNull: true,
         },
-        // status: {
-        //     type: DataTypes.BOOLEAN,
-        //     allowNull: false,
-        // },
     },
     {
         sequelize: Conexion.sequelize,

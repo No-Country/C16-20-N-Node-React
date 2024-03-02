@@ -84,7 +84,7 @@ routerPedido.post("/pedido/registro", permisoCliente, async (req, res) => {
     //const idProducto = ...;  //Como saco id_producto
     const pedidoRegistro = await crearPedido(
       idCliente,
-      idProducto,
+      //idProducto,
       idRepartidor,
       pedido
     );

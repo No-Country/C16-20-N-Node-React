@@ -26,10 +26,6 @@ Repartidor.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    // status: {
-    //   type: DataTypes.BOOLEAN,
-    //   allowNull: false,
-    // },
   },
   {
     sequelize: Conexion.sequelize,

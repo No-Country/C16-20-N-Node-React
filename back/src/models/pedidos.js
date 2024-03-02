@@ -2,6 +2,8 @@ import Conexion from "../controllers/conexion.js";
 import Cliente from "../models/cliente.js";
 import Repartidor from "../models/repartidor.js";
 import Restaurante from "../models/restaurante.js";
+import Pagos from "../models/pagos.js";
+import Status from "../models/status.js";
 import { DataTypes, Model } from "sequelize";
 import Producto from "./productos.js";
 
@@ -26,7 +28,7 @@ Pedidos.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    id_restaurant: {
+    id_pago: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -38,10 +40,15 @@ Pedidos.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // status: {
-    //   type: DataType.BOOLEAN,
+    // id_restaurant: {
+    //   type: DataTypes.STRING,
     //   allowNull: false,
     // },
+    id_status: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+
   },
   {
     sequelize: Conexion.sequelize,
@@ -56,10 +63,17 @@ Pedidos.belongsTo(Cliente, { foreignKey: "id_cliente" });
 Repartidor.hasMany(Pedidos, { foreignKey: "id_repartidor" });
 Pedidos.belongsTo(Repartidor, { foreignKey: "id_repartidor" });
 
-Restaurante.hasMany(Pedidos, { foreignKey: "id_restaurant" });
-Pedidos.belongsTo(Restaurante, { foreignKey: "id_restaurant" });
+Pagos.hasMany(Pedidos, { foreignKey: "id_pago" });
+Pedidos.belongsTo(Pagos, { foreignKey: "id_pago" });
 
 Producto.hasMany(Pedidos, { foreignKey: "id_producto" });
 Pedidos.belongsTo(Producto, { foreignKey: "id_producto" });
+
+// Restaurante.hasMany(Restaurante, { foreignKey: "id_restaurant" });
+// Pedidos.belongsTo(Producto, { foreignKey: "id_restaurant" });
+
+Status.hasMany(Pedidos, { foreignKey: "id_status" });
+Pedidos.belongsTo(Status, { foreignKey: "id_status" });
+
 
 export default Pedidos;

@@ -27,7 +27,7 @@ export const buscarRepartidorPorMail = async (usuario) => {
 const repartidorAleatorio = async (req,res) => {
     try {    
         const repartidorAleatorio = await Repartidor.findOne({
-            order: Sequelize.literal('random()'), // Ordenar aleatoriamente
+          order: Sequelize.literal('RAND()'), // Ordenar aleatoriamente
         });
         if (!repartidorAleatorio) {
             throw new Error('No se encontraron repartidores disponibles');
