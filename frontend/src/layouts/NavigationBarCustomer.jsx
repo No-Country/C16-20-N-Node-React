@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import logo1 from '../assets/logos/logo1.svg';
 import icon2 from '../assets/icons/icon2.svg';
 import icon3 from '../assets/icons/icon3.svg';
@@ -66,5 +67,10 @@ const SearchBar = () => {
         </div>
     );
 };
+
+NavigationBarCustomer.propTypes = {
+    onCarritoIconClick: PropTypes.func,
+    cantidadCarrito: PropTypes.func,
+}
 
 export default NavigationBarCustomer;
