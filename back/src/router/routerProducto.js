@@ -16,7 +16,19 @@ import {
   editarProducto,
 } from "../controllers/productosController.js";
 import { permisoRestaurant } from "../middleware/login.js";
+import multer from "multer";
 const routerProducto = express.Router();
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "../../public/img");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
 
 //✔️ - Finalizado
 routerProducto.get("/producto", async (req, res) => {
@@ -71,9 +83,11 @@ routerProducto.get("/producto/:id", async (req, res) => {
 routerProducto.post(
   "/producto/registro",
   permisoRestaurant,
+  upload.single("imagen"),
   async (req, res) => {
     try {
       const idRestaurant = req.session.usuario.id;
+      const imagen = req.file.path;
       const productoRegistro = await crearProducto(idRestaurant, req.body);
       res.status(201).json(productoRegistro);
     } catch (error) {
