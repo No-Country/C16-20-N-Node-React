@@ -18,7 +18,7 @@ const NavigationBarRestaurant = () => {
     return (
         <div className="relative flex flex-col">
             <img src={logo1} alt='logo1' className='m-auto h-[142px] w-[208px] min-w-[208px] min-h-[142px]' />
-            <div className="bg-[#FF7C58] px-4 py-2 flex  items-center">
+            <div className="bg-[#FF7C58] px-4 py-[10px] flex  items-center">
                 <button onClick={() => setMostrarBotones(!mostrarBotones)} className="text-white">
                     <img src={icon7} className='h-[20px]' />
                 </button>

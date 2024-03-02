@@ -48,7 +48,7 @@ const ManageProductsCustomer = () => {
                             <img
                                 src={producto.imagen}
                                 alt="imagen"
-                                className="w-full h-[200px] w-[200px] shadow-md object-cover rounded-lg"
+                                className="w-full h-[200px] w-[200px] max-w-[200px] shadow-md object-cover rounded-lg"
                             />
                             <h3 className="text-lg font-semibold m-2">{producto.nombre}</h3>
                             <div className="flex w-full justify-between px-2">

@@ -7,6 +7,7 @@ import icon4 from '../assets/icons/icon4.svg';
 import icon6 from '../assets/icons/icon6.svg';
 import icon7 from '../assets/icons/icon7.svg';
 import icon8 from '../assets/icons/icon8.svg';
+import icon9 from '../assets/icons/icon9.svg';
 
 const NavigationBarCustomer = ({ onCarritoIconClick, cantidadCarrito }) => {
     const [mostrarBotones, setMostrarBotones] = useState(false);
@@ -20,13 +21,13 @@ const NavigationBarCustomer = ({ onCarritoIconClick, cantidadCarrito }) => {
     return (
         <div className="relative flex flex-col">
             <img src={logo1} alt='logo1' className='m-auto h-[142px] w-[208px] min-w-[208px] min-h-[142px]' />
-            <div className="bg-[#FF7C58] px-4 py-2 flex  items-center">
+            <div className="bg-[#FF7C58] px-4 py-[10px] flex">
                 <button onClick={() => setMostrarBotones(!mostrarBotones)} className="text-white">
                     <img src={icon7} className='h-[20px]' />
                 </button>
                 <SearchBar />
-                <button onClick={onCarritoIconClick} className="flex ml-auto">
-                    <img src={icon8} className="h-[20px]" />
+                <button onClick={onCarritoIconClick} className="flex my-auto">
+                    <img src={icon9} className="h-[20px]" />
                     {cantidadCarrito > 0 && <span className="bg-red-500 text-white text-[14px] rounded-full px-[8px] py-[2px] ">{cantidadCarrito}</span>}
                 </button>
                 {mostrarBotones && (
@@ -59,7 +60,7 @@ const SearchBar = () => {
             <input
                 type="text"
                 placeholder="¿Qué desea comer?"
-                className="pl-10 pr-2 py-2 w-[40vw] rounded-[30px] border border-gray-300 focus:outline-none focus:border-blue-500"
+                className="pl-10 pr-2 py-[1px] w-[40vw] rounded-[30px] border border-gray-300 focus:outline-none focus:border-blue-500"
             />
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <img src={icon8} className="h-[20px]" />
@@ -70,7 +71,7 @@ const SearchBar = () => {
 
 NavigationBarCustomer.propTypes = {
     onCarritoIconClick: PropTypes.func,
-    cantidadCarrito: PropTypes.func,
+    cantidadCarrito: PropTypes.number,
 }
 
 export default NavigationBarCustomer;

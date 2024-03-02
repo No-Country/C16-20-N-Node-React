@@ -38,7 +38,7 @@ const ProductUploadFormRestaurant = () => {
         setTiempoEspera('');
         setSelectedFile(null);
         setFilePreview('');
-        setRedirect('/restaurante/pefil');
+        setRedirect('/restaurante/perfil');
     };
 
     const handleFileChange = (e) => {
