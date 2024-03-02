@@ -90,11 +90,10 @@ routerProducto.post(
   upload.single("imagen_producto"), // Middleware de multer para manejar la carga de la imagen
   async (req, res) => {
     try {
-      console.log(req.session.usuario);
+      console.log(req.file.path);
       const idRestaurant = req.params.id;
-      console.log(req.body);
-      const imagen = req.file.path;
-      const productoRegistro = await crearProducto(idRestaurant, req.body);
+      const producto = { ...req.body, imagen: req.file.path };
+      const productoRegistro = await crearProducto(idRestaurant, producto);
       res.status(201).json(productoRegistro);
     } catch (error) {
       res.status(500).json({ message: "Error interno del servidor" });
