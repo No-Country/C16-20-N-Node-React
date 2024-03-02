@@ -22,16 +22,18 @@ import { fileURLToPath } from "url";
 const routerProducto = express.Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "/opt/render/project/src/back/src/public/");
-  },
-  filename: function (req, file, cb) {
+  destination: path.join(__dirname, "../public"),
+  filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 60000000 },
+});
 
 //✔️ - Finalizado
 routerProducto.get("/producto", async (req, res) => {
@@ -85,7 +87,7 @@ routerProducto.get("/producto/:id", async (req, res) => {
 //✔️ - Finalizado
 routerProducto.post(
   "/producto/registro",
-  upload.single("imagen"),
+  upload.single("imagen"), // Middleware de multer para manejar la carga de la imagen
   async (req, res) => {
     try {
       console.log(req.session.usuario);
