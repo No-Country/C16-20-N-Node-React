@@ -55,11 +55,11 @@ app.get("/", (req, res) => {
   res.send("La aplicación está funcionando!!! 😁😁😁");
 });
 app.use("/", routerUsuario);
-app.use("/", ensureAuthenticated, routerRepartidor);
-app.use("/", ensureAuthenticated, routerRestaurante);
-app.use("/", ensureAuthenticated, routerCliente);
-app.use("/", ensureAuthenticated, routerProducto);
-app.use("/", ensureAuthenticated, routerPedido);
+app.use("/", routerRepartidor);
+app.use("/", routerRestaurante);
+app.use("/", routerCliente);
+app.use("/", routerProducto);
+app.use("/", routerPedido);
 const port = process.env.PORT || 3000;
 /**
  * ruta de acceso publico
