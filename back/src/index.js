@@ -50,7 +50,6 @@ app.use(passport.session());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, "public")));
-
 // ✔️ - Finalizado
 app.get("/", (req, res) => {
   Conexion.conectar(); //prueba que se conecta a la base de datos

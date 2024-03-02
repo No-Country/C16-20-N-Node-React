@@ -18,11 +18,10 @@ import {
 import { permisoRestaurant } from "../middleware/login.js";
 import multer from "multer";
 import path, { dirname } from "path";
-const routerProducto = express.Router();
 import { fileURLToPath } from "url";
-
+const routerProducto = express.Router();
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename);
 
 const storage = multer.diskStorage({
   destination: path.join(__dirname, "../public"),
@@ -88,14 +87,12 @@ routerProducto.get("/producto/:id", async (req, res) => {
 //✔️ - Finalizado
 routerProducto.post(
   "/producto/registro/:id",
-  upload.single("imagen"),
+  upload.single("imagen"), // Middleware de multer para manejar la carga de la imagen
   async (req, res) => {
     try {
       console.log(req.file);
       const idRestaurant = req.params.id;
-      const imageUrl = "/images/" + req.file.filename; // Ruta relativa de la imagen
-      console.log("ruta de la imagen -->" + imageUrl);
-      const producto = { ...req.body, imagen: imageUrl };
+      const producto = { ...req.body, imagen: req.file.originalname };
       console.log(producto);
       const productoRegistro = await crearProducto(idRestaurant, producto);
       res.status(201).json(productoRegistro);
