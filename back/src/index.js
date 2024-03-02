@@ -23,11 +23,11 @@ import passport from "passport";
 // import { autenticado } from "./middleware/login.js";
 dotenv.config();
 const app = express();
-const corsOptions = {
-  origin: '*',
-  credentials: true
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: '*',
+//   credentials: true
+// };
+app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(urlencoded({ extended: false }));
