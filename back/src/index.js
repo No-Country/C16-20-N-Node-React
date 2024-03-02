@@ -5,7 +5,7 @@
  * ❌ - No realizado
  * ⚡ - urgente
  */
-import express, { urlencoded } from "express";
+import express from "express";
 import multer from "multer";
 import morgan from "morgan";
 import dotenv from "dotenv";
@@ -31,7 +31,7 @@ const app = express();
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true })); // Use `express.urlencoded` instead of `urlencoded`
 app.use(cookieParser(process.env.SECRETO));
 app.use(
   expressSession({
@@ -50,8 +50,6 @@ app.use(passport.session());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, "public")));
-app.use(multer().single("imagen"));
-app.use("/public", express.static("public"));
 
 // ✔️ - Finalizado
 app.get("/", (req, res) => {
