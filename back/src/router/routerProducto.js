@@ -87,7 +87,7 @@ routerProducto.get("/producto/:id", async (req, res) => {
 //✔️ - Finalizado
 routerProducto.post(
   "/producto/registro/:id",
-  upload.single("imagen"), // Middleware de multer para manejar la carga de la imagen
+  upload.single("imagen_producto"), // Middleware de multer para manejar la carga de la imagen
   async (req, res) => {
     try {
       console.log(req.session.usuario);
