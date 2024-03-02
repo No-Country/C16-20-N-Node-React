@@ -17,8 +17,9 @@ import {
 } from "../controllers/productosController.js";
 import { permisoRestaurant } from "../middleware/login.js";
 import multer from "multer";
+import path, { dirname } from "path";
 const routerProducto = express.Router();
-
+const __dirname = path.dirname(__filename);
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.join(__dirname, "../public"));
