@@ -92,6 +92,7 @@ routerProducto.post(
     try {
       console.log(req.session.usuario);
       const idRestaurant = req.params.id;
+      console.log(req.body);
       const imagen = req.file.path;
       const productoRegistro = await crearProducto(idRestaurant, req.body);
       res.status(201).json(productoRegistro);
