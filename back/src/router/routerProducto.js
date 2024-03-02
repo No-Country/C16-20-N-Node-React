@@ -82,7 +82,6 @@ routerProducto.get("/producto/:id", async (req, res) => {
 //✔️ - Finalizado
 routerProducto.post(
   "/producto/registro",
-  permisoRestaurant,
   upload.single("imagen"),
   async (req, res) => {
     try {
@@ -99,21 +98,17 @@ routerProducto.post(
 );
 
 //✔️ - Finalizado
-routerProducto.patch(
-  "/producto/editar/:id",
-  permisoRestaurant,
-  async (req, res) => {
-    try {
-      //const id = req.params.id;
-      const idRestaurant = req.session.usuario.id;
-      const producto = req.body;
-      const productoEditado = await editarProducto(idRestaurant, producto);
-      console.log(productoEditado);
-      res.status(200).json(productoEditado);
-    } catch (error) {
-      res.status(404).json({ message: error.message });
-    }
+routerProducto.patch("/producto/editar/:id", async (req, res) => {
+  try {
+    //const id = req.params.id;
+    const idRestaurant = req.session.usuario.id;
+    const producto = req.body;
+    const productoEditado = await editarProducto(idRestaurant, producto);
+    console.log(productoEditado);
+    res.status(200).json(productoEditado);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
   }
-);
+});
 
 export default routerProducto;
