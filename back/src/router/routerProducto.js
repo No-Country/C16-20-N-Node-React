@@ -18,7 +18,9 @@ import {
 import { permisoRestaurant } from "../middleware/login.js";
 import multer from "multer";
 import path, { dirname } from "path";
+import { fileURLToPath } from "url";
 const routerProducto = express.Router();
+const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
