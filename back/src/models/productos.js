@@ -25,7 +25,7 @@ Producto.init(
     tiempo_preparacion: {
       type: DataTypes.STRING,
     },
-    imagen_producto: {
+    imagen: {
       type: DataTypes.STRING,
     },
   },
