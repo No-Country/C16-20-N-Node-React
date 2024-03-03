@@ -7,19 +7,23 @@ const RegisterProfileRestaurant = () => {
     const [address, setAddress] = useState('');
     const [category, setCategory] = useState('');
     const [phone, setPhone] = useState('');
-    const [redirect, setRedirect] = useState(false);
+    const [redirect, setRedirect] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
     const [filePreview, setFilePreview] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const userCurrent = JSON.parse(localStorage.getItem('UserCurrent'));
-
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        if (!selectedFile) {
+            setErrorMessage('Por favor, sube una imagen para tu perfil.');
+            return;
+        }
+
+        const userEmail = localStorage.getItem('UserEmail');
         const restaurantData = {
-            email: userCurrent.mail,
+            email: userEmail,
             name,
             address,
             category,
@@ -27,21 +31,12 @@ const RegisterProfileRestaurant = () => {
             logo: selectedFile ? URL.createObjectURL(selectedFile) : null
         };
 
-        const storedProfileUsers = localStorage.getItem('ProfileUsers');
-        let profileUsers = [];
+        const storedProfileUsers = JSON.parse(localStorage.getItem('ProfileUsers')) || [];
+        storedProfileUsers.push(restaurantData);
 
-        if (storedProfileUsers) {
-            profileUsers = JSON.parse(storedProfileUsers);
-            const existingUser = profileUsers.find(user => user.email === userCurrent.mail);
-            if (existingUser) {
-                setErrorMessage('Este restaurante ya está registrado.');
-                return;
-            }
-        }
-
-        profileUsers.push(restaurantData);
-        localStorage.setItem('ProfileUsers', JSON.stringify(profileUsers));
-        setRedirect(true);
+        localStorage.setItem('ProfileUsers', JSON.stringify(storedProfileUsers));
+        localStorage.removeItem('UserEmail');
+        setRedirect('/');
     };
 
     const handleFileChange = (e) => {
@@ -60,7 +55,7 @@ const RegisterProfileRestaurant = () => {
 
     return (
         <div className='flex min-h-screen min-w-[544px] bg-white items-center justify-center'>
-            {redirect && <Navigate to="/" />}
+            {redirect && <Navigate to={redirect} />}
             <form onSubmit={handleSubmit} className='flex flex-col gap-[30px] items-center w-[544px] h-full min-w-[544px]'>
                 {[
                     { id: 'nombre_restaurant', value: name, placeholder: 'Nombre', onChange: setName },

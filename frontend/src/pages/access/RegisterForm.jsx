@@ -9,7 +9,7 @@ const RegisterForm = () => {
     const [role, setRole] = useState('');
     const [redirect, setRedirect] = useState('');
     const [showOptions, setShowOptions] = useState(false);
-    const [errorMessage, setErrorMessage] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const options = ['cliente', 'repartidor', 'restaurante'];
 
@@ -20,21 +20,39 @@ const RegisterForm = () => {
 
     const handleSubmitRegister = async (event) => {
         event.preventDefault();
-        let userData = [];
-        const storedUserData = localStorage.getItem('UsersData');
-        if (storedUserData) {
-            userData = JSON.parse(storedUserData);
-            const existingUser = userData.find(user => user.mail === mail);
-            if (existingUser) {
-                setErrorMessage(true);
-                return;
-            }
+
+        // Validar: selección de rol.
+        if (!role) {
+            setErrorMessage('Por favor, selecciona un usuario.');
+            return;
         }
 
-        const newUser = { mail, password, role };
-        localStorage.setItem('UsersData', JSON.stringify([...userData, newUser]));
-        localStorage.setItem('UserCurrent', JSON.stringify({ mail, role }));
+        // Verificar: usuarios ya registrados, por mail.
+        const storedUserData = JSON.parse(localStorage.getItem('UsersData')) || [];
+        const existingUser = storedUserData.find(user => user.mail === mail);
+        if (existingUser) {
+            setErrorMessage('El usuario ya está registrado.');
+            return;
+        }
 
+        //Almacenar: usuarios no registrados. 
+        const newUser = { mail, password, role };
+        localStorage.setItem('UsersData', JSON.stringify([...storedUserData, newUser]));
+
+        // Actualizar: sesión actual, por rol.
+        const storedUserCurrent = JSON.parse(localStorage.getItem('UserCurrent')) || [];
+        const existingSession = storedUserCurrent.findIndex(user => user.role === role);
+        const newSession = { mail, role };
+        const updatedUserCurrent = [...storedUserCurrent];
+        if (existingSession !== -1) {
+            updatedUserCurrent[existingSession] = { ...updatedUserCurrent[existingSession], mail };
+        } else {
+            updatedUserCurrent.push(newSession);
+        }
+        localStorage.setItem('UserCurrent', JSON.stringify(updatedUserCurrent));
+        localStorage.setItem('UserEmail', mail);
+
+        // Redirigir: según rol seleccionado.
         if (role === 'restaurante') {
             setRedirect('/restaurante/registro');
         } else if ((role === 'cliente')) {
@@ -49,7 +67,7 @@ const RegisterForm = () => {
                 <img src={logo1} alt='logo1' className='w-full h-[242px] min-h-[242px] object-cover mb-[10px]' />
                 <form onSubmit={handleSubmitRegister} className='flex flex-col w-full text-center h-full px-[22px]'>
                     <input
-                        type='text'
+                        type='email'
                         id='email'
                         placeholder='Email'
                         value={mail}
@@ -92,7 +110,7 @@ const RegisterForm = () => {
                         className='bg-[#00A896] border border-[#453A32] rounded-[20px] text-[36px] shadow-xl mt-[30px] w-full h-[60px]'>
                         Entrar
                     </button>
-                    {errorMessage && <p className="text-red-500 mt-2">No se puede redireccionar a este rol!</p>}
+                    {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
                 </form>
             </div>
         </div>
