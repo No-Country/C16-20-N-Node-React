@@ -9,6 +9,7 @@ import Pedidos from "../models/pedidos.js";
 import Restaurante from "../models/restaurante.js";
 import Cliente from "../models/cliente.js";
 import Repartidor from "../models/repartidor.js";
+import Producto from "../models/productos.js";
 import Conexion from "./conexion.js";
 
 //✔️ - Finalizado
@@ -60,7 +61,7 @@ const listarPedidosPorCliente = async (id) => {
 const listarPedidosPorRestaurant = async (id) => {
     try {
         const pedidosRestaurant = await Pedidos.findAll({
-        where: { id_restaurant: id },
+            where: { id_restaurant:id },
         include: [Restaurante, Cliente, Repartidor],
         });
         if (pedidosRestaurant.length === 0) {
@@ -71,6 +72,7 @@ const listarPedidosPorRestaurant = async (id) => {
         throw error;
     }
 };
+
 //✔️ - Finalizado
 const listarPedidosPorRepartidor = async (id) => {
     try {
@@ -87,12 +89,23 @@ const listarPedidosPorRepartidor = async (id) => {
     }
 };
 
-// ⏳ - En proceso
-const crearPedido = async (idRestaurant, idCliente, idRepartidor, pedido) => {
+//✔️ - Finalizado
+const crearPedido = async (id_cliente, id_repartidor, pedido) => {
     let t = await Conexion.sequelize.transaction();
+    console.log(`pedidosController:93, ${JSON.stringify(pedido)}`);
     try {
-        const nuevoPedido = await pedido.create(
-            { id_restaurant: idRestaurant, id_cliente: idCliente, id_repartidor: idRepartidor, ...pedido },
+        const nuevoPedido = await Pedidos.create(
+            { 
+                id_cliente,
+                cantidad:pedido.cantidad,
+                id_producto:pedido.producto.id,
+                id_restaurant:pedido.producto.id_restaurant,
+                id_pago:pedido.id_pago,
+                id_repartidor,
+                descripcion:pedido.descripcion,
+                id_status:pedido.id_status,
+                //...pedido },
+            },
             { transaction: t }
         );
         await t.commit();
@@ -102,7 +115,7 @@ const crearPedido = async (idRestaurant, idCliente, idRepartidor, pedido) => {
     }
 };
 
-// ⏳ - En proceso
+//✔️ - Finalizado
 const editarPedido = async (id, pedido) => {
     try {
         const pedidoEditado = await Pedidos.update(pedido, {

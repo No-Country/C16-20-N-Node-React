@@ -5,18 +5,18 @@ import { DataTypes, Model } from "sequelize";
 class Producto extends Model {}
 Producto.init(
   {
-    id_producto: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    nombre_producto: {
+    nombre: {
       type: DataTypes.STRING,
     },
-    descripcion_producto: {
+    descripcion: {
       type: DataTypes.STRING,
     },
-    precio_producto: {
+    precio: {
       type: DataTypes.INTEGER,
     },
     id_restaurant: {

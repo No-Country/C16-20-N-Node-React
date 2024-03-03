@@ -24,6 +24,9 @@ Restaurante.init(
     rubro_restaurant: {
       type: DataTypes.STRING,
     },
+    logo: {
+      type: DataTypes.STRING,
+    },
     id_usuario: {
       // enlace con la tabla de usuario
       type: DataTypes.INTEGER,

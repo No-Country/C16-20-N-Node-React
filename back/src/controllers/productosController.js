@@ -88,6 +88,7 @@ const crearProducto = async (idRestaurant, producto) => {
         { transaction: t }
         );
         await t.commit();
+        console.log(`productosController.js:91 ${nuevoProducto}`);
         return nuevoProducto;
     } catch (error) {
         throw error;
@@ -97,10 +98,9 @@ const crearProducto = async (idRestaurant, producto) => {
 //✔️ - Finalizado
 const editarProducto = async (id, producto) => {
     try {
-        console.log("productosController.js:81",id , producto);
         const productoEditado = await Producto.update(producto, {
             where: {
-                id_producto: id,
+                id,
             },
         });
 

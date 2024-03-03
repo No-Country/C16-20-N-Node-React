@@ -1,11 +1,11 @@
 import Conexion from "../controllers/conexion.js";
 import Cliente from "../models/cliente.js";
 import Repartidor from "../models/repartidor.js";
-import Restaurante from "../models/restaurante.js";
 import Pagos from "../models/pagos.js";
 import Status from "../models/status.js";
 import { DataTypes, Model } from "sequelize";
 import Producto from "./productos.js";
+import Restaurante from "./restaurante.js";
 
 class Pedidos extends Model {}
 
@@ -36,14 +36,14 @@ Pedidos.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    fecha_hora: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
     descripcion: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    // id_restaurant: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    // },
     id_status: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -69,11 +69,9 @@ Pedidos.belongsTo(Pagos, { foreignKey: "id_pago" });
 Producto.hasMany(Pedidos, { foreignKey: "id_producto" });
 Pedidos.belongsTo(Producto, { foreignKey: "id_producto" });
 
-// Restaurante.hasMany(Restaurante, { foreignKey: "id_restaurant" });
-// Pedidos.belongsTo(Producto, { foreignKey: "id_restaurant" });
-
 Status.hasMany(Pedidos, { foreignKey: "id_status" });
 Pedidos.belongsTo(Status, { foreignKey: "id_status" });
 
-
+Restaurante.hasOne(Pedidos, { foreignKey: "id_restaurant" });
+Pedidos.belongsTo(Restaurante, { foreignKey: "id_restaurant" });
 export default Pedidos;

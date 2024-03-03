@@ -53,7 +53,7 @@ routerRestaurante.get("/restaurante/:id", async (req, res) => {
 //✔️ - Finalizado
 routerRestaurante.post(
   "/restaurante/registro",
-  permisoRestaurant,
+  //permisoRestaurant,
   async (req, res) => {
     try {
       const restauranteRegistro = await crearRestaurante(req.body);
@@ -69,11 +69,12 @@ routerRestaurante.post(
 );
 //✔️ - Finalizado
 routerRestaurante.patch(
-  "/restaurante/editar",
-  permisoRestaurant,
+  "/restaurante/editar/:id",
+  //permisoRestaurant,
   async (req, res) => {
     try {
-      const id = req.session.usuario.id;
+      //const id = req.session.usuario.id;
+      const id = req.params.id;
       const restaurante = req.body;
       const restauranteEditado = await editarRestaurante(id, restaurante);
       res.status(200).json(restauranteEditado);

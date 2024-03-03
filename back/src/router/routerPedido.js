@@ -16,8 +16,8 @@ import {
   crearPedido,
   editarPedido,
 } from "../controllers/pedidosController.js";
-import { repartidorAleatorio } from "../controllers/repartidorController.js";
-import { permisoCliente, permisoRestaurant } from "../middleware/login.js";
+import { obtenerRepartidorAleatorio } from "../controllers/repartidorController.js";
+//import { permisoCliente, permisoRestaurant } from "../middleware/login.js";
 const routerPedido = express.Router();
 
 //✔️ - Finalizado
@@ -33,10 +33,10 @@ routerPedido.get("/pedido", async (req, res) => {
 });
 
 //✔️ - Finalizado
-routerPedido.get("/pedido/cliente", async (req, res) => {
+routerPedido.get("/pedido/cliente/:id", async (req, res) => {
   try {
-    //const id = req.params.id;
-    const id = req.session.id;
+    const id = req.params.id;
+    //const id = req.session.id;
     const pedidoCliente = await listarPedidosPorCliente(id);
     res.status(200).json(pedidoCliente);
   } catch (error) {
@@ -46,10 +46,10 @@ routerPedido.get("/pedido/cliente", async (req, res) => {
 });
 
 //✔️ - Finalizado
-routerPedido.get("/pedido/restaurante", async (req, res) => {
+routerPedido.get("/pedido/restaurante/:id", async (req, res) => {
   try {
-    //const id = req.params.id;
-    const id = req.session.id;
+    const id = req.params.id;
+    //const id = req.session.id;
     const pedidoRestaurant = await listarPedidosPorRestaurant(id);
     res.status(200).json(pedidoRestaurant);
   } catch (error) {
@@ -61,8 +61,8 @@ routerPedido.get("/pedido/restaurante", async (req, res) => {
 //✔️ - Finalizado
 routerPedido.get("/pedido/repartidor/:id", async (req, res) => {
   try {
-    //const id = req.params.id;
-    const id = req.session.id;
+    const id = req.params.id;
+    //const id = req.session.id;
     const pedidoRepartidor = await listarPedidosPorRepartidor(id);
     res.status(200).json(pedidoRepartidor);
   } catch (error) {
@@ -71,23 +71,18 @@ routerPedido.get("/pedido/repartidor/:id", async (req, res) => {
   }
 });
 
-//⏳ - En proceso
-routerPedido.post("/pedido/registro", permisoCliente, async (req, res) => {
+//✔️ - Finalizado
+routerPedido.post("/pedido/registro/:id", async (req, res) => {
   try {
-    const cliente = req.session.usuario;
-    const idCliente = cliente.id;
+    //const idCliente = req.session.usuario.id_cliente;
+    const id_cliente = req.params.id;
     const pedido = req.body;
-    // Obtener un repartidor aleatorio
-    const repartidor = await repartidorAleatorio();
-    console.log(`routerPedido:79, ${repartidor}`);
-    const idRepartidor = repartidor.id;
-    //const idProducto = ...;  //Como saco id_producto
-    const pedidoRegistro = await crearPedido(
-      idCliente,
-      //idProducto,
-      idRepartidor,
-      pedido
-    );
+
+    console.log(`routerPedido:81, ${JSON.stringify(pedido)}`);
+    const repartidor = await obtenerRepartidorAleatorio();// Obtener un repartidor aleatorio
+    console.log(`routerPedido:83, ${JSON.stringify(repartidor)}`);
+    const id_repartidor = repartidor.id;
+    const pedidoRegistro = await crearPedido(id_cliente, id_repartidor, pedido);
     res.status(201).json(pedidoRegistro);
   } catch (error) {
     res.status(500).json({ message: "Error interno del servidor" });
@@ -96,11 +91,8 @@ routerPedido.post("/pedido/registro", permisoCliente, async (req, res) => {
 });
 
 //✔️ - Finalizado
-routerPedido.patch(
-  "/pedido/editar/:id",
-  permisoCliente,
-  permisoRestaurant,
-  async (req, res) => {
+routerPedido.patch("/pedido/editar/:id",//permisoCliente,//permisoRestaurant,
+async (req, res) => {
     try {
       const id = req.params.id;
       const pedido = req.body;

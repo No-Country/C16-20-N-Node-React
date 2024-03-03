@@ -13,6 +13,7 @@ import {
   listarRepartidor,
   listarRepartidorPorId,
   editarRepartidor,
+  obtenerRepartidorAleatorio
 } from "../controllers/repartidorController.js";
 import {
   autenticado,
@@ -49,7 +50,7 @@ routerRepartidor.get("/repartidor/:id", async (req, res) => {
 //⏳ - En proceso
 routerRepartidor.post(
   "/repartidor/registro",
-  permisoRepartidor,
+  //permisoRepartidor,
   async (req, res) => {
     try {
       const repartidorRegistro = await crearRepartidor(req.body);
@@ -64,13 +65,24 @@ routerRepartidor.post(
   }
 );
 
+routerRepartidor.post("/repartidor/buscar",async (req, res) => {
+    try {
+      const repartidorAleatorio = await obtenerRepartidorAleatorio();;
+      res.status(201).json(repartidorAleatorio);
+    } catch (error) {
+        res.status(500).json({ message: "Error interno del servidor" });
+    }
+  }
+);
+
 //✔️ - Finalizado
 routerRepartidor.patch(
   "/repartidor/editar/:id",
-  permisoRepartidor,
+  //permisoRepartidor,
   async (req, res) => {
     try {
-      const id = req.session.usuario.id_repartidor;
+      //const id = req.session.usuario.id_repartidor;
+      const id = req.params.id;
       const repartidor = req.body;
       const repartidorEditado = await editarRepartidor(id, repartidor);
       res.status(200).json(repartidorEditado);

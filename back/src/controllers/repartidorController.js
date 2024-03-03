@@ -23,16 +23,20 @@ export const buscarRepartidorPorMail = async (usuario) => {
   }
 };
 
-// Obtener un repartidor aleatorio
-const repartidorAleatorio = async (req,res) => {
+//✔️ - Finalizado
+const obtenerRepartidorAleatorio = async () => {
     try {    
         const repartidorAleatorio = await Repartidor.findOne({
           order: Sequelize.literal('RAND()'), // Ordenar aleatoriamente
         });
+        const repartidorSeleccionado = {
+          id: repartidorAleatorio.id_repartidor,
+          nombre: repartidorAleatorio.nombre_repartidor
+        };
         if (!repartidorAleatorio) {
             throw new Error('No se encontraron repartidores disponibles');
         }
-        return repartidorAleatorio;
+        return repartidorSeleccionado;
     } catch (error) {
       throw error;
     }
@@ -58,6 +62,7 @@ const crearRepartidor = async (idUsuario, repartidor) => {
   }
 };
 
+//✔️ - Finalizado
 const listarRepartidor = async () => {
   try {
     const repartidores = await Repartidor.findAll();
@@ -107,4 +112,4 @@ const editarRepartidor = async (id, repartidor) => {
   }
 };
 
-export {crearRepartidor, repartidorAleatorio, listarRepartidor, listarRepartidorPorId, editarRepartidor}
+export {crearRepartidor, obtenerRepartidorAleatorio, listarRepartidor, listarRepartidorPorId, editarRepartidor}

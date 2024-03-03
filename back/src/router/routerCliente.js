@@ -16,7 +16,9 @@ import { permisoCliente } from "../middleware/login.js";
 const routerCliente = express.Router();
 
 //✔️ - Finalizado
-routerCliente.get("/clientes", permisoCliente, async (req, res) => {
+routerCliente.get("/clientes", 
+//permisoCliente, 
+async (req, res) => {
   try {
     const clientes = await listarClientes();
     res.status(200).json(clientes);
@@ -27,9 +29,11 @@ routerCliente.get("/clientes", permisoCliente, async (req, res) => {
 });
 
 //✔️ - Finalizado
-routerCliente.get("/clientes/sesion", async (req, res) => {
+routerCliente.get("/clientes/:id", async (req, res) => {
+//routerCliente.get("/clientes/sesion", async (req, res) => {
   try {
-    const id = req.session.usuario.id_cliente;
+    //const id = req.session.usuario.id_cliente;
+    const id = req.params.id;
     const clienteId = await listarClientesPorId(id);
     res.status(200).json(clienteId);
   } catch (error) {
@@ -38,7 +42,9 @@ routerCliente.get("/clientes/sesion", async (req, res) => {
 });
 
 //⏳ - En proceso
-routerCliente.post("/cliente/registro", permisoCliente, async (req, res) => {
+routerCliente.post("/cliente/registro", 
+//permisoCliente, 
+async (req, res) => {
   try {
     const clienteRegistro = await crearCliente(req.body);
     res.status(201).json(clienteRegistro);
@@ -52,9 +58,12 @@ routerCliente.post("/cliente/registro", permisoCliente, async (req, res) => {
 });
 
 //✔️ - Finalizado
-routerCliente.patch("/cliente/editar/:id", permisoCliente, async (req, res) => {
+routerCliente.patch("/cliente/editar/:id", 
+//permisoCliente, 
+async (req, res) => {
   try {
-    const id = req.session.usuario.id_cliente;
+    //const id = req.session.usuario.id_cliente;
+    const id = req.params.id;
     const cliente = req.body;
     const clienteEditado = await editarCliente(id, cliente);
     res.status(200).json(clienteEditado);
