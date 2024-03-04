@@ -47,6 +47,7 @@ const LoginForm = () => {
                         onChange={(e) => setMail(e.target.value)}
                         className='text-[16px] placeholder-black text-black rounded-[30px] border border-[#453A32] shadow-xl w-full h-[42px] px-[17px] mb-[16px]'
                         required
+                        autoComplete='email'
                     />
                     <input
                         type='password'

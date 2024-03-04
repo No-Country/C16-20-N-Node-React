@@ -21,9 +21,9 @@ const RegisterProfileRestaurant = () => {
             return;
         }
 
-        const userEmail = localStorage.getItem('UserEmail');
+        const storedUserCurrent = JSON.parse(localStorage.getItem('UserCurrent')) || [];
         const restaurantData = {
-            email: userEmail,
+            mail: storedUserCurrent.mail,
             name,
             address,
             category,
@@ -35,7 +35,7 @@ const RegisterProfileRestaurant = () => {
         storedProfileUsers.push(restaurantData);
 
         localStorage.setItem('ProfileUsers', JSON.stringify(storedProfileUsers));
-        localStorage.removeItem('UserEmail');
+        localStorage.removeItem('UserCurrent');
         setRedirect('/');
     };
 

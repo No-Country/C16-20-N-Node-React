@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import icon1 from '../../assets/icons/icon1.svg';
 import logo1 from '../../assets/logos/logo1.svg';
 
@@ -38,19 +38,7 @@ const RegisterForm = () => {
         //Almacenar: usuarios no registrados. 
         const newUser = { mail, password, role };
         localStorage.setItem('UsersData', JSON.stringify([...storedUserData, newUser]));
-
-        // Actualizar: sesión actual, por rol.
-        const storedUserCurrent = JSON.parse(localStorage.getItem('UserCurrent')) || [];
-        const existingSession = storedUserCurrent.findIndex(user => user.role === role);
-        const newSession = { mail, role };
-        const updatedUserCurrent = [...storedUserCurrent];
-        if (existingSession !== -1) {
-            updatedUserCurrent[existingSession] = { ...updatedUserCurrent[existingSession], mail };
-        } else {
-            updatedUserCurrent.push(newSession);
-        }
-        localStorage.setItem('UserCurrent', JSON.stringify(updatedUserCurrent));
-        localStorage.setItem('UserEmail', mail);
+        localStorage.setItem('UserCurrent', JSON.stringify({ mail, role }));
 
         // Redirigir: según rol seleccionado.
         if (role === 'restaurante') {
@@ -61,11 +49,11 @@ const RegisterForm = () => {
     };
 
     return (
-        <div className='flex min-h-screen min-w-[360px] bg-white items-center justify-center'>
+        <div className='flex min-h-screen min-w-[350px] bg-white items-center justify-center'>
             {redirect && <Navigate to={redirect} />}
-            <div className='flex flex-col w-[400px] h-full min-w-[400px] min-h-full my-[15px]'>
-                <img src={logo1} alt='logo1' className='w-full h-[242px] min-h-[242px] object-cover mb-[10px]' />
-                <form onSubmit={handleSubmitRegister} className='flex flex-col w-full text-center h-full px-[22px]'>
+            <div className='w-full max-w-md'>
+                <img src={logo1} alt='logo1' className='w-full h-auto' />
+                <form onSubmit={handleSubmitRegister} className='px-[22px]'>
                     <input
                         type='email'
                         id='email'
@@ -110,8 +98,14 @@ const RegisterForm = () => {
                         className='bg-[#00A896] border border-[#453A32] rounded-[20px] text-[36px] shadow-xl mt-[30px] w-full h-[60px]'>
                         Entrar
                     </button>
-                    {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
+                    {errorMessage && <p className="text-center text-red-500 mt-2 text-[16px]">{errorMessage}</p>}
                 </form>
+                <p className='text-center text-[16px] pt-[60px]'>
+                    ¿Ya estás registrado?{' '}
+                    <Link to='/' className='ml-[11px] text-[#1F31C8] underline font-bold'>
+                        Inicia sesión
+                    </Link>
+                </p>
             </div>
         </div>
     );

@@ -12,6 +12,7 @@ const ProductUploadFormRestaurant = () => {
     const [filePreview, setFilePreview] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [ProductsData, setProductsData] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         const savedFormData = localStorage.getItem('ProductsData');
@@ -22,22 +23,37 @@ const ProductUploadFormRestaurant = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (!selectedFile) {
+            setErrorMessage('Por favor, seleccione una imagen.');
+            return;
+        }
+
+        // Obtener: usuario actual.
+        const userCurrent = JSON.parse(localStorage.getItem('UserCurrent'));
+        const userMail = userCurrent ? userCurrent.mail : '';
+
+        // Generar un nuevo ID para el producto
+        const lastProductId = ProductsData.length > 0 ? ProductsData[ProductsData.length - 1].id : 0;
+        const newProductId = lastProductId + 1;
+
+        // Crear: nuevo producto.
         const newProduct = {
+            id: newProductId,
+            mail: userMail,
             nombre,
             descripcion,
             precio,
             tiempo,
             imagen: selectedFile ? URL.createObjectURL(selectedFile) : null
         };
+
+        // Agregar: nuevo producto.
         const updatedProductsData = [...ProductsData, newProduct];
         setProductsData(updatedProductsData);
         localStorage.setItem('ProductsData', JSON.stringify(updatedProductsData));
-        setNombrePlato('');
-        setDescripcion('');
-        setPrecio('');
-        setTiempoEspera('');
-        setSelectedFile(null);
-        setFilePreview('');
+
+        // Redirigir: a otra pagina.
         setRedirect('/restaurante/perfil');
     };
 
@@ -70,6 +86,7 @@ const ProductUploadFormRestaurant = () => {
                         placeholder='Nombre del plato:'
                         onChange={(e) => setNombrePlato(e.target.value)}
                         className='text-[16px] placeholder-[#737373] text-black rounded-[30px] border border-[#575757] w-full h-[42px] px-[18px]'
+                        required
                     />
                     <textarea
                         type='text'
@@ -78,6 +95,7 @@ const ProductUploadFormRestaurant = () => {
                         placeholder='Descripción:'
                         onChange={(e) => setDescripcion(e.target.value)}
                         className='mt-[30px] text-[16px] placeholder-[#737373] text-black rounded-[30px] border-[1px] border-[#575757] w-full h-[114px] px-[18px] pt-[8px]'
+                        required
                     />
                     <input
                         type='text'
@@ -86,6 +104,7 @@ const ProductUploadFormRestaurant = () => {
                         placeholder='Precio:'
                         onChange={(e) => setPrecio(e.target.value)}
                         className=' mt-[30px] text-[16px] placeholder-[#737373] text-black rounded-[30px] border border-[#575757] w-full h-[42px] px-[18px]'
+                        required
                     />
                     <input
                         type='text'
@@ -94,6 +113,7 @@ const ProductUploadFormRestaurant = () => {
                         placeholder='Tiempo de espera:'
                         onChange={(e) => setTiempoEspera(e.target.value)}
                         className='mt-[30px] text-[16px] placeholder-[#737373] text-black rounded-[30px] border border-[#575757] w-full h-[42px] px-[18px]'
+                        required
                     />
                     <input
                         type='file'
@@ -130,6 +150,7 @@ const ProductUploadFormRestaurant = () => {
                         Aceptar
                     </button>
                 </div>
+                {errorMessage && <p className="text-center text-red-500 mt-2 text-[16px]">{errorMessage}</p>}
             </form>
             {showModal && (
                 <div className="fixed top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
