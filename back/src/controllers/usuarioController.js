@@ -49,6 +49,7 @@ const crearUsuario = async (usuario) => {
         telefono_restaurant: usuario.telefono_restaurant,
         rubro_restaurant: usuario.rubro_restaurant,
         id_usuario: usuarioNuevo.id,
+        logo: usuario.logo,
       });
       return nuevoRestaurant;
     }

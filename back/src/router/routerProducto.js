@@ -16,7 +16,24 @@ import {
   editarProducto,
 } from "../controllers/productosController.js";
 import { permisoRestaurant } from "../middleware/login.js";
+import multer from "multer";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
 const routerProducto = express.Router();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const storage = multer.diskStorage({
+  destination: path.join(__dirname, "../public/img/productos"),
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 60000000 },
+});
 
 //✔️ - Finalizado
 routerProducto.get("/producto", async (req, res) => {
@@ -43,10 +60,12 @@ routerProducto.get("/producto/nombre/:nombre", async (req, res) => {
 });
 
 //✔️ - Finalizado
-routerProducto.get("/producto/restaurant/:id", async (req, res) => {
+routerProducto.get("/producto/restaurant/:id_restaurant", async (req, res) => {
   try {
-    const id = req.params.id;
-    const productoRestaurant = await listarProductosPorRestaurant(id);
+    const id_restaurant = req.params.id_restaurant;
+    const productoRestaurant = await listarProductosPorRestaurant(
+      id_restaurant
+    );
     res.status(200).json(productoRestaurant);
   } catch (error) {
     console.log(error);
@@ -67,11 +86,15 @@ routerProducto.get("/producto/:id", async (req, res) => {
 
 //✔️ - Finalizado
 routerProducto.post(
-  "/producto/registro/:id", async (req, res) => {
+  "/producto/registro/:id",
+  upload.single("imagen"), // Middleware de multer para manejar la carga de la imagen
+  async (req, res) => {
     try {
+      console.log(req.file);
       const idRestaurant = req.params.id;
-      //const idRestaurant = req.session.usuario.id;
-      const productoRegistro = await crearProducto(idRestaurant, req.body);
+      const producto = { ...req.body, imagen: req.file.originalname };
+      console.log(producto);
+      const productoRegistro = await crearProducto(idRestaurant, producto);
       res.status(201).json(productoRegistro);
     } catch (error) {
       res.status(500).json({ message: "Error interno del servidor" });
@@ -81,21 +104,17 @@ routerProducto.post(
 );
 
 //✔️ - Finalizado
-routerProducto.patch(
-  "/producto/editar/:id",
-  //permisoRestaurant,
-  async (req, res) => {
-    try {
-      const id = req.params.id;
-      //const idRestaurant = req.session.usuario.id;
-      const producto = req.body;
-      const productoEditado = await editarProducto(id, producto);
-      console.log(productoEditado);
-      res.status(200).json(productoEditado);
-    } catch (error) {
-      res.status(404).json({ message: error.message });
-    }
+routerProducto.patch("/producto/editar/:id", async (req, res) => {
+  try {
+    //const id = req.params.id;
+    const idRestaurant = req.session.usuario.id;
+    const producto = req.body;
+    const productoEditado = await editarProducto(idRestaurant, producto);
+    console.log(productoEditado);
+    res.status(200).json(productoEditado);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
   }
-);
+});
 
 export default routerProducto;

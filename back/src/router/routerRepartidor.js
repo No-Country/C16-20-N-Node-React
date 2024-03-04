@@ -13,7 +13,7 @@ import {
   listarRepartidor,
   listarRepartidorPorId,
   editarRepartidor,
-  obtenerRepartidorAleatorio
+  obtenerRepartidorAleatorio,
 } from "../controllers/repartidorController.js";
 import {
   autenticado,
@@ -24,7 +24,7 @@ import {
 } from "../middleware/login.js";
 const routerRepartidor = express.Router();
 
-routerRepartidor.get("/repartidores", ensureAuthenticated, async (req, res) => {
+routerRepartidor.get("/repartidores", async (req, res) => {
   try {
     console.log(req.user);
     const repartidores = await listarRepartidor();
@@ -48,48 +48,39 @@ routerRepartidor.get("/repartidor/:id", async (req, res) => {
 });
 
 //⏳ - En proceso
-routerRepartidor.post(
-  "/repartidor/registro",
-  //permisoRepartidor,
-  async (req, res) => {
-    try {
-      const repartidorRegistro = await crearRepartidor(req.body);
-      res.status(201).json(repartidorRegistro);
-    } catch (error) {
-      if (error.message === "El correo electrónico ya está en uso") {
-        res.status(409).json({ message: error.message });
-      } else {
-        res.status(500).json({ message: "Error interno del servidor" });
-      }
+routerRepartidor.post("/repartidor/registro", async (req, res) => {
+  try {
+    const repartidorRegistro = await crearRepartidor(req.body);
+    res.status(201).json(repartidorRegistro);
+  } catch (error) {
+    if (error.message === "El correo electrónico ya está en uso") {
+      res.status(409).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "Error interno del servidor" });
     }
   }
-);
+});
 
-routerRepartidor.post("/repartidor/buscar",async (req, res) => {
-    try {
-      const repartidorAleatorio = await obtenerRepartidorAleatorio();;
-      res.status(201).json(repartidorAleatorio);
-    } catch (error) {
-        res.status(500).json({ message: "Error interno del servidor" });
-    }
+routerRepartidor.post("/repartidor/buscar", async (req, res) => {
+  try {
+    const repartidorAleatorio = await obtenerRepartidorAleatorio();
+    res.status(201).json(repartidorAleatorio);
+  } catch (error) {
+    res.status(500).json({ message: "Error interno del servidor" });
   }
-);
+});
 
 //✔️ - Finalizado
-routerRepartidor.patch(
-  "/repartidor/editar/:id",
-  //permisoRepartidor,
-  async (req, res) => {
-    try {
-      //const id = req.session.usuario.id_repartidor;
-      const id = req.params.id;
-      const repartidor = req.body;
-      const repartidorEditado = await editarRepartidor(id, repartidor);
-      res.status(200).json(repartidorEditado);
-    } catch (error) {
-      res.status(404).json({ message: error.message });
-    }
+routerRepartidor.patch("/repartidor/editar/:id", async (req, res) => {
+  try {
+    //const id = req.session.usuario.id_repartidor;
+    const id = req.params.id;
+    const repartidor = req.body;
+    const repartidorEditado = await editarRepartidor(id, repartidor);
+    res.status(200).json(repartidorEditado);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
   }
-);
+});
 
 export default routerRepartidor;

@@ -13,9 +13,7 @@ import {
   crearRestaurante,
   editarRestaurante,
 } from "../controllers/restauranteController.js";
-import { permisoRestaurant } from "../middleware/login.js";
 const routerRestaurante = express.Router();
-
 // ✔️ - Finalizado
 routerRestaurante.get("/restaurante", async (req, res) => {
   try {
@@ -51,22 +49,18 @@ routerRestaurante.get("/restaurante/:id", async (req, res) => {
   }
 });
 //✔️ - Finalizado
-routerRestaurante.post(
-  "/restaurante/registro",
-  //permisoRestaurant,
-  async (req, res) => {
-    try {
-      const restauranteRegistro = await crearRestaurante(req.body);
-      res.status(201).json(restauranteRegistro);
-    } catch (error) {
-      if (error.message === "El correo electrónico ya está en uso") {
-        res.status(409).json({ message: error.message });
-      } else {
-        res.status(500).json({ message: "Error interno del servidor" });
-      }
+routerRestaurante.post("/restaurante/registro", async (req, res) => {
+  try {
+    const restauranteRegistro = await crearRestaurante(req.body);
+    res.status(201).json(restauranteRegistro);
+  } catch (error) {
+    if (error.message === "El correo electrónico ya está en uso") {
+      res.status(409).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "Error interno del servidor" });
     }
   }
-);
+});
 //✔️ - Finalizado
 routerRestaurante.patch(
   "/restaurante/editar/:id",
