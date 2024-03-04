@@ -7,6 +7,7 @@ import RegisterProfileRestaurant from './pages/access/RegisterProfileRestaurant'
 import LoginForm from './pages/access/LoginForm';
 import ManageProductsRestaurant from './pages/restaurant/ManageProductsRestaurant';
 import ProfileUpdateFormRestaurant from './pages/restaurant/ProfileUpdateFormRestaurant';
+import ManageOrdersRestaurant from './pages/restaurant/ManageOrdersRestaurant';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/restaurante/cargar-producto" element={<ProductUploadFormRestaurant />} />
         <Route path="/restaurante/platos" element={<ManageProductsRestaurant />} />
         <Route path="/restaurante/actualizar-perfil" element={<ProfileUpdateFormRestaurant />} />
+        <Route path="/restaurante/pedidos" element={<ManageOrdersRestaurant />} />
         {/* Cliente */}
         <Route path='/cliente/productos' element={<ManageProductsCustomer />} />
         {/* Repartidor */}

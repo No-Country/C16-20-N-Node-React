@@ -42,7 +42,7 @@ const ManageProfileRestaurant = () => {
             <TopBar />
             <div className="mx-auto min-w-[350px] h-screen flex">
                 <SideBar />
-                <div className='flex flex-col w-full mx-8'>
+                <div className='flex flex-col w-full mx-8 max-w-[1400px] items-center'>
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-8 my-8 sm:my-10'>
                         {/* Sección izquierda */}
                         <div className='flex shadow-xl border border-[#4E5858] rounded-[20px]'>

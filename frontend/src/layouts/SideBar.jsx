@@ -14,18 +14,34 @@ const SideBar = () => {
     };
 
     useEffect(() => {
-        if (selectedButton === 'Salir') {
+        const userCurrent = JSON.parse(localStorage.getItem('UserCurrent')) || [];
+
+        if (selectedButton === 'Salir' && userCurrent.role === 'restaurante') {
             localStorage.removeItem('UserCurrent');
             setRedirect('/');
         }
 
-        if (selectedButton === 'Perfil') {
+        if (selectedButton === 'Perfil' && userCurrent.role === 'restaurante') {
             setRedirect('/restaurante/perfil');
         }
 
-        if (selectedButton === 'Platos') {
+        if (selectedButton === 'Platos' && userCurrent.role === 'restaurante') {
             setRedirect('/restaurante/platos');
         }
+
+        if (selectedButton === 'Pedidos' && userCurrent.role === 'restaurante') {
+            setRedirect('/restaurante/pedidos');
+        }
+
+        if (selectedButton === 'Platos' && userCurrent.role === 'cliente') {
+            setRedirect('/cliente/productos');
+        }
+
+        if (selectedButton === 'Salir' && userCurrent.role === 'cliente') {
+            localStorage.removeItem('UserCurrent');
+            setRedirect('/');
+        }
+
     }, [selectedButton]);
 
     return (

@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import TopBar from '../../layouts/TopBar';
+import SideBar from '../../layouts/SideBar';
 
 const ManageProductsCustomer = () => {
     const [productos, setProductos] = useState([]);
     const [carrito, setCarrito] = useState([]);
-    const [mostrarModal, setMostrarModal] = useState(false);
 
     useEffect(() => {
         const handleStorageChange = () => {
@@ -25,65 +26,62 @@ const ManageProductsCustomer = () => {
     }, []);
 
     const agregarAlCarrito = (producto) => {
-        setCarrito([...carrito, producto]);
+        const nuevoProducto = {
+            ...producto,
+            id: generarNuevoId(),
+            fechaHora: obtenerFechaHoraActual()
+        };
+
+        setCarrito([...carrito, nuevoProducto]);
+        localStorage.setItem('PedidoData', JSON.stringify([...carrito, nuevoProducto]));
     };
 
-    const handleAlmacenarPedido = () => {
-        localStorage.setItem('PedidoData', JSON.stringify(carrito));
-        setCarrito([]);
-        setMostrarModal(false);
+    const generarNuevoId = () => {
+        const ids = carrito.map(producto => producto.id);
+        const ultimoId = Math.max(...ids, 0);
+        return ultimoId + 1;
+    };
+
+    const obtenerFechaHoraActual = () => {
+        const fechaHora = new Date();
+        return fechaHora.toISOString(); // Formato ISO: YYYY-MM-DDTHH:MM:SSZ
     };
 
     return (
-        <div className="container mx-auto px-4 min-w-[300px]">
-            <div className="flex flex-wrap justify-center gap-4 mt-4 sm:mt-8 md:mt-8 lg:mt-8">
-                {productos.length > 0 ? (
-                    productos.map((producto, index) => (
-                        <div key={index} className="bg-white rounded-[30px] shadow-md min-w-[200px] border border-[#FF5733] p-[15px] flex flex-col">
-                            <img
-                                src={producto.imagen}
-                                alt="imagen"
-                                className="w-full h-[200px] w-[200px] max-w-[200px] shadow-md object-cover rounded-lg"
-                            />
-                            <h3 className="text-lg font-semibold m-2">{producto.nombre}</h3>
-                            <div className="flex w-full justify-between px-2">
-                                <div className="flex flex-col">
-                                    <p className="text-gray-700">Precio:</p>
-                                    <p className="text-gray-900 font-bold">${producto.precio}</p>
+        <>
+            <TopBar />
+            <div className="mx-auto min-w-[350px] h-screen flex">
+                <SideBar />
+                <div className="flex flex-wrap justify-center gap-4 mt-4 ml-8 sm:mt-8 md:mt-8 lg:mt-8">
+                    {productos.length > 0 ? (
+                        productos.map((producto, index) => (
+                            <div key={index} className="bg-white rounded-[30px] h-min shadow-md min-w-[200px] border border-[#FF5733] p-[15px] flex flex-col">
+                                <img
+                                    src={producto.imagen}
+                                    alt="imagen"
+                                    className="w-full h-[200px] w-[200px] max-w-[200px] shadow-md object-cover rounded-lg"
+                                />
+                                <h3 className="text-lg font-semibold m-2">{producto.nombre}</h3>
+                                <div className="flex w-full justify-between px-2">
+                                    <div className="flex flex-col">
+                                        <p className="text-gray-700">Precio:</p>
+                                        <p className="text-gray-900 font-bold">${producto.precio}</p>
+                                    </div>
+                                    <button
+                                        onClick={() => agregarAlCarrito(producto)}
+                                        className="bg-[#00A896] text-black border shadow-xl border-black px-6 py-2 rounded-[30px] hover:bg-blue-600 transition duration-200 text-base md:text-lg "
+                                    >
+                                        Pedir
+                                    </button>
                                 </div>
-                                <button
-                                    onClick={() => agregarAlCarrito(producto)}
-                                    className="bg-[#00A896] text-black border shadow-xl border-black px-6 py-2 rounded-[30px] hover:bg-blue-600 transition duration-200 text-base md:text-lg "
-                                >
-                                    Pedir
-                                </button>
                             </div>
-                        </div>
-                    ))
-                ) : (
-                    <p>No hay productos disponibles.</p>
-                )}
-            </div>
-            {mostrarModal && (
-                <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75">
-                    <div className="bg-white p-4 rounded-lg">
-                        <h2 className="text-xl font-semibold mb-4">Carrito de Compra</h2>
-                        {carrito.map((producto, index) => (
-                            <div key={index} className="flex items-center justify-between border-b border-gray-300 py-2">
-                                <p>{producto.nombre}</p>
-                                <p>${producto.precio}</p>
-                            </div>
-                        ))}
-                        <button
-                            onClick={handleAlmacenarPedido}
-                            className="bg-[#00A896] text-white px-4 py-2 mt-4 rounded-lg hover:bg-blue-600 transition duration-200"
-                        >
-                            Almacenar Pedido
-                        </button>
-                    </div>
+                        ))
+                    ) : (
+                        <p>No hay productos disponibles.</p>
+                    )}
                 </div>
-            )}
-        </div>
+            </div>
+        </>
     )
 }
 
