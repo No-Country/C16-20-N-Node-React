@@ -5,6 +5,8 @@ import ManageProductsCustomer from './pages/custormer/ManageProductsCustomer'
 import RegisterForm from './pages/access/RegisterForm';
 import RegisterProfileRestaurant from './pages/access/RegisterProfileRestaurant';
 import LoginForm from './pages/access/LoginForm';
+import ManageProductsRestaurant from './pages/restaurant/ManageProductsRestaurant';
+import ProfileUpdateFormRestaurant from './pages/restaurant/ProfileUpdateFormRestaurant';
 
 const App = () => {
   return (
@@ -17,6 +19,8 @@ const App = () => {
         {/* Restaurante */}
         <Route path="/restaurante/perfil" element={<ManageProfileRestaurant />} />
         <Route path="/restaurante/cargar-producto" element={<ProductUploadFormRestaurant />} />
+        <Route path="/restaurante/platos" element={<ManageProductsRestaurant />} />
+        <Route path="/restaurante/actualizar-perfil" element={<ProfileUpdateFormRestaurant />} />
         {/* Cliente */}
         <Route path='/cliente/productos' element={<ManageProductsCustomer />} />
         {/* Repartidor */}

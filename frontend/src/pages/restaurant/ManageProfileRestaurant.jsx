@@ -33,7 +33,7 @@ const ManageProfileRestaurant = () => {
     };
 
     const handleRedirectToRegister = () => {
-        setRedirect('/profileUpdateForm');
+        setRedirect('/restaurante/actualizar-perfil');
     };
 
     return (
@@ -65,7 +65,7 @@ const ManageProfileRestaurant = () => {
                                             src={icon5}
                                             alt='icon5'
                                             onClick={handleRedirectToRegister}
-                                            className='cursor-pointer w-8 h-8 object-cover self-end'
+                                            className='cursor-pointer w-6 h-6 object-cover self-end'
                                         />
                                     </div>
                                 </div>

@@ -5,8 +5,8 @@ import icon4 from '../assets/icons/icon4.svg';
 import icon6 from '../assets/icons/icon6.svg';
 import { Navigate } from 'react-router-dom';
 
-const NavigationBarRestaurant = () => {
-    const [selectedButton, setSelectedButton] = useState('Platos');
+const SideBar = () => {
+    const [selectedButton, setSelectedButton] = useState([]);
     const [redirect, setRedirect] = useState('');
 
     const handleButtonClick = (name) => {
@@ -18,8 +18,16 @@ const NavigationBarRestaurant = () => {
             localStorage.removeItem('UserCurrent');
             setRedirect('/');
         }
+
+        if (selectedButton === 'Perfil') {
+            setRedirect('/restaurante/perfil');
+        }
+
+        if (selectedButton === 'Platos') {
+            setRedirect('/restaurante/platos');
+        }
     }, [selectedButton]);
-    
+
     return (
         <div className="bg-[#FF7C58] flex flex-col min-w-16">
             {redirect && <Navigate to={redirect} />}
@@ -42,4 +50,4 @@ const NavigationBarRestaurant = () => {
     );
 };
 
-export default NavigationBarRestaurant;
+export default SideBar;

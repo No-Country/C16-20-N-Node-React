@@ -36,7 +36,7 @@ const LoginForm = () => {
     return (
         <div className='flex min-h-screen min-w-[350px] bg-white items-center justify-center'>
             {redirect && <Navigate to={redirect} />}
-            <div className='w-full max-w-md'>
+            <div className='w-full max-w-md my-10'>
                 <img src={logo1} alt='logo1' className='w-full h-auto' />
                 <form onSubmit={handleLoginFormSubmit} className='px-[22px]'>
                     <input

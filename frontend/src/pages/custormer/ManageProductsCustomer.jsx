@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import NavigationBarCustomer from '../../layouts/NavigationBarCustomer';
 
 const ManageProductsCustomer = () => {
     const [productos, setProductos] = useState([]);
@@ -37,10 +36,6 @@ const ManageProductsCustomer = () => {
 
     return (
         <div className="container mx-auto px-4 min-w-[300px]">
-            <NavigationBarCustomer
-                onCarritoIconClick={() => setMostrarModal(true)}
-                cantidadCarrito={carrito.length}
-            />
             <div className="flex flex-wrap justify-center gap-4 mt-4 sm:mt-8 md:mt-8 lg:mt-8">
                 {productos.length > 0 ? (
                     productos.map((producto, index) => (
