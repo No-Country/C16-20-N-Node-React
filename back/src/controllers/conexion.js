@@ -17,7 +17,7 @@ class Conexion {
     password: process.env.DB_PASSWORD,
     dialect: process.env.DB_DIALECT,
     database: process.env.DB_DATABASE,
-    logging: true,
+    logging: false,
   });
   static async conectar() {
     try {
