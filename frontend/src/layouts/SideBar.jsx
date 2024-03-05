@@ -6,7 +6,7 @@ import icon6 from '../assets/icons/icon6.svg';
 import { Navigate } from 'react-router-dom';
 
 const SideBar = () => {
-    const [selectedButton, setSelectedButton] = useState(localStorage.getItem('selectedButton') || '');
+    const [selectedButton, setSelectedButton] = useState(localStorage.getItem('selectedButton') || 'Perfil');
     const [redirect, setRedirect] = useState('');
     const userCurrent = JSON.parse(localStorage.getItem('UserCurrent')) || {};
 
