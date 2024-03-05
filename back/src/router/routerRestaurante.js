@@ -62,21 +62,19 @@ routerRestaurante.post("/restaurante/registro", async (req, res) => {
   }
 });
 //✔️ - Finalizado
-routerRestaurante.patch(
-  "/restaurante/editar/:id",
-  //permisoRestaurant,
-  async (req, res) => {
-    try {
-      //const id = req.session.usuario.id;
-      const id = req.params.id;
-      const restaurante = req.body;
-      const restauranteEditado = await editarRestaurante(id, restaurante);
-      res.status(200).json(restauranteEditado);
-    } catch (error) {
-      res.status(404).json({ message: error.message });
-    }
+routerRestaurante.patch("/restaurante/editar/:id", async (req, res) => {
+  try {
+    //const id = req.session.usuario.id;
+    const id = req.params.id;
+    const restaurante = req.body;
+    console.log(id);
+    console.log(restaurante);
+    const restauranteEditado = await editarRestaurante(id, restaurante);
+    res.status(200).json(restauranteEditado);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
   }
-);
+});
 
 //TODO
 // realizar los diferentes endpoints para cada método del controlador

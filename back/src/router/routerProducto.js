@@ -24,7 +24,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const storage = multer.diskStorage({
-  destination: path.join(__dirname, "../public/img/productos"),
+  destination: path.join(__dirname, "../public"),
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
