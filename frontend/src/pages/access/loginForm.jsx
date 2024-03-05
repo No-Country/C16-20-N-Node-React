@@ -9,6 +9,7 @@ const LoginForm = ({ onLogin }) => {
     const [redirect, setRedirect] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
+    //
     const handleLoginFormSubmit = async (event) => {
         event.preventDefault();
         const storedData = sessionStorage.getItem('users');

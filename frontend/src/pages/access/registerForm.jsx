@@ -26,6 +26,7 @@ const RegisterForm = () => {
         setShowOptions(false);
     };
 
+    //
     const handleSubmitRegister = async (event) => {
         event.preventDefault();
         if (role === 'restaurante') {
