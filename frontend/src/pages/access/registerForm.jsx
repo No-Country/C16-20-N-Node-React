@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import icon1 from '../../assets/icons/icon1.svg';
 import logo1 from '../../assets/logos/logo1.svg';
 
@@ -9,49 +9,59 @@ const RegisterForm = () => {
     const [role, setRole] = useState('');
     const [redirect, setRedirect] = useState('');
     const [showOptions, setShowOptions] = useState(false);
-    const [errorMessage, setErrorMessage] = useState(false);
-    const [users, setUsers] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const options = ['cliente', 'repartidor', 'restaurante'];
-
-    useEffect(() => {
-        const existingUsers = JSON.parse(sessionStorage.getItem('users'));
-        if (existingUsers) {
-            setUsers(existingUsers);
-        }
-    }, []);
 
     const handleRole = (usuario) => {
         setRole(usuario);
         setShowOptions(false);
     };
 
-    //
     const handleSubmitRegister = async (event) => {
         event.preventDefault();
+
+        // Validar: selección de rol.
+        if (!role) {
+            setErrorMessage('Por favor, selecciona un usuario.');
+            return;
+        }
+
+        // Verificar: usuarios ya registrados, por mail.
+        const storedUserData = JSON.parse(localStorage.getItem('UsersData')) || [];
+        const existingUser = storedUserData.find(user => user.mail === mail);
+        if (existingUser) {
+            setErrorMessage('El usuario ya está registrado.');
+            return;
+        }
+
+        //Almacenar: usuarios no registrados. 
+        const newUser = { mail, password, role };
+        localStorage.setItem('UsersData', JSON.stringify([...storedUserData, newUser]));
+        localStorage.setItem('UserCurrent', JSON.stringify({ mail, role }));
+
+        // Redirigir: según rol seleccionado.
         if (role === 'restaurante') {
-            const newUser = { mail, password, role };
-            sessionStorage.setItem('users', JSON.stringify(newUser));
-            setRedirect('/registerFormRestaurant');
-        } else {
-            setErrorMessage(true);
+            setRedirect('/restaurante/registro');
+        } else if ((role === 'cliente')) {
+            setRedirect('/cliente/productos');
         }
     };
 
     return (
-        <div className='flex min-h-screen min-w-[360px] bg-white items-center justify-center'>
+        <div className='flex min-h-screen min-w-[350px] bg-white items-center justify-center'>
             {redirect && <Navigate to={redirect} />}
-            <div className='flex flex-col w-[400px] h-full min-w-[400px] min-h-full my-[15px]'>
-                <img src={logo1} alt='logo1' className='w-full h-[242px] min-h-[242px] object-cover mb-[10px]' />
-                <form onSubmit={handleSubmitRegister} className='flex flex-col w-full text-center h-full px-[22px]'>
+            <div className='w-full max-w-md'>
+                <img src={logo1} alt='logo1' className='w-full h-auto' />
+                <form onSubmit={handleSubmitRegister} className='px-[22px]'>
                     <input
-                        type='text'
+                        type='email'
                         id='email'
                         placeholder='Email'
                         value={mail}
                         onChange={(e) => setMail(e.target.value)}
                         className='text-[16px] placeholder-black text-black rounded-[30px] border border-[#453A32] shadow-xl w-full h-[42px] px-[17px] mb-[16px]'
-                        required // Campo requerido
+                        required
                     />
                     <input
                         type='password'
@@ -60,7 +70,7 @@ const RegisterForm = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className='text-[16px] placeholder-black text-black rounded-[30px] border border-[#453A32] shadow-xl w-full h-[42px] px-[17px]'
-                        required // Campo requerido
+                        required
                     />
                     <div className='relative mt-[30px]'>
                         <div onClick={() => setShowOptions(!showOptions)} className='border border-[#453A32] rounded-[30px] shadow-xl w-full h-[42px] px-[17px] flex items-center justify-between cursor-pointer'>
@@ -88,8 +98,14 @@ const RegisterForm = () => {
                         className='bg-[#00A896] border border-[#453A32] rounded-[20px] text-[36px] shadow-xl mt-[30px] w-full h-[60px]'>
                         Entrar
                     </button>
-                    {errorMessage && <p className="text-red-500 mt-2">No se puede redireccionar a este rol!</p>}
+                    {errorMessage && <p className="text-center text-red-500 mt-2 text-[16px]">{errorMessage}</p>}
                 </form>
+                <p className='text-center text-[16px] pt-[60px]'>
+                    ¿Ya estás registrado?{' '}
+                    <Link to='/' className='ml-[11px] text-[#1F31C8] underline font-bold'>
+                        Inicia sesión
+                    </Link>
+                </p>
             </div>
         </div>
     );
