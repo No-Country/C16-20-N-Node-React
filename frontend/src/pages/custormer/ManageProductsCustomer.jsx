@@ -44,7 +44,7 @@ const ManageProductsCustomer = () => {
 
     const obtenerFechaHoraActual = () => {
         const fechaHora = new Date();
-        return fechaHora.toISOString(); // Formato ISO: YYYY-MM-DDTHH:MM:SSZ
+        return fechaHora.toISOString();
     };
 
     return (

@@ -40,58 +40,50 @@ const ManageProfileRestaurant = () => {
         <>
             {redirect && <Navigate to={redirect} />}
             <TopBar />
-            <div className="mx-auto min-w-[350px] h-screen flex">
+            <div className='flex min-h-screen w-full bg-white'>
                 <SideBar />
-                <div className='flex flex-col w-full mx-8 max-w-[1400px] items-center'>
-                    <div className='grid grid-cols-1 md:grid-cols-2 gap-8 my-8 sm:my-10'>
+                <div className='flex flex-col p-8 w-full'>
+                    <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-8'>
                         {/* Sección izquierda */}
-                        <div className='flex shadow-xl border border-[#4E5858] rounded-[20px]'>
-                            <div className="flex items-center justify-center w-1/3 px-3">
-                                <div className='rounded-lg overflow-hidden w-[150px] flex justify-center items-center'>
-                                    <img
-                                        src={profile?.logo}
-                                        alt=''
-                                        className='w-full object-cover'
-                                    />
-                                </div>
+                        <div className='relative flex flex-col justify-center border items-center p-4 md:p-6 lg:p-8 bg-white rounded-xl shadow-xl'>
+                            <div className='w-48 h-48 mb-4 overflow-hidden'>
+                                <img
+                                    src={profile?.logo}
+                                    alt=''
+                                    className='object-cover w-full h-full'
+                                />
                             </div>
-                            <div className='flex pt-5 px-5 w-full'>
-                                <div className='rounded-lg overflow-hidden bg-white mb-4 flex-grow relative'>
-                                    <p className='text-lg font-medium mb-2'>{profile?.name}</p>
-                                    <p className='text-sm mb-2'>{profile?.address}</p>
-                                    <p className='text-sm'>{profile?.phone}</p>
-                                    <div className="absolute bottom-0 right-0">
-                                        <img
-                                            src={icon5}
-                                            alt='icon5'
-                                            onClick={handleRedirectToRegister}
-                                            className='cursor-pointer w-6 h-6 object-cover self-end'
-                                        />
-                                    </div>
-                                </div>
+                            <div className='text-center'>
+                                <p className='text-xl md:text-2xl font-bold mb-2'>{profile?.name}</p>
+                                <p className='text-sm md:text-lg mb-2'>{profile?.address}</p>
+                                <p className='text-sm md:text-lg'>{profile?.phone}</p>
                             </div>
+                            <img
+                                src={icon5}
+                                alt='icon5'
+                                onClick={handleRedirectToRegister}
+                                className='cursor-pointer w-8 h-8 md:w-10 md:h-10 object-cover absolute bottom-8 right-12'
+                            />
                         </div>
                         {/* Sección derecha */}
-                        <div className='flex text-center items-center shadow-xl border border-[#4E5858] rounded-[20px]'>
-                            <div className='rounded-lg p-4 flex-grow'>
-                                <p className='text-lg mb-4'>Administra tu carta</p>
-                                <button
-                                    onClick={handleRedirectToLoadProduct}
-                                    className='bg-[#00A896] border border-[#575757] rounded-[20px] h-[48px] w-full text-lg'>
-                                    Entrar
-                                </button>
-                            </div>
+                        <div className='flex flex-col justify-center border items-center p-4 md:p-6 lg:p-6 bg-white rounded-xl shadow-xl'>
+                            <p className='text-lg md:text-xl font-semibold mb-4'>Administra tu carta</p>
+                            <button
+                                onClick={handleRedirectToLoadProduct}
+                                className='bg-[#00A896] border border-[#575757] rounded-[20px] h-[48px] px-24 text-lg md:text-xl text-white hover:bg-green-700 transition duration-300'>
+                                Entrar
+                            </button>
                         </div>
                     </div>
                     {/* Sección inferior */}
-                    <div className='grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 mt-8'>
+                    <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8 mt-8'>
                         {productsData.length > 0 ? (
                             productsData.map((producto, index) => (
-                                <div key={index} className='max-h-[120px] max-w-xs sm:max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl rounded-lg bg-white shadow-md'>
+                                <div key={index} className='bg-white rounded-lg shadow-md overflow-hidden mt-4'>
                                     <img
                                         src={producto.imagen}
                                         alt={producto.nombre}
-                                        className='w-full h-full object-cover'
+                                        className='w-full h-48 object-cover'
                                     />
                                 </div>
                             ))
@@ -101,8 +93,11 @@ const ManageProfileRestaurant = () => {
                     </div>
                 </div>
             </div>
+
+
         </>
     );
+
 };
 
 export default ManageProfileRestaurant;

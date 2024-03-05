@@ -26,6 +26,8 @@ const LoginForm = () => {
 
         localStorage.setItem('UserCurrent', JSON.stringify({ mail: mail, role: existingUser.role }));
 
+        localStorage.setItem('selectedButton', 'Perfil');
+
         if (existingUser.role === 'restaurante') {
             setRedirect('/restaurante/perfil');
         } else if (existingUser.role === 'cliente') {

@@ -21,25 +21,24 @@ const ManageOrdersRestaurant = () => {
             <div className='flex min-h-screen w-full bg-white'>
                 <SideBar />
                 <div className='mt-8 ml-8'>
-                    <table className='text-[16px] font-medium'>
+                    <table className='text-[16px] font-medium w-full'>
                         <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Descripción</th>
-                                <th>Precio</th>
-                                <th>Tiempo</th>
-                                <th>Imagen</th>
+                            <tr className="bg-gray-200">
+                                <th className="p-2">Nombre</th>
+                                <th className="p-2">Descripción</th>
+                                <th className="p-2">Precio</th>
+                                <th className="p-2">Tiempo</th>
+                                <th className="p-2">Imagen</th>
                             </tr>
                         </thead>
                         <tbody>
                             {orders.map((order, index) => (
-                                <tr key={index}>
-                                    <td>{order.nombre}</td>
-                                    <td>{order.descripcion}</td>
-                                    <td>{order.precio}</td>
-                                    <td>{order.tiempo}</td>
-                                    <td>{order.fechaHora}</td>
-                                    <td>
+                                <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : ''}>
+                                    <td className="p-2">{order.nombre}</td>
+                                    <td className="p-2">{order.descripcion}</td>
+                                    <td className="p-2">{order.precio}</td>
+                                    <td className="p-2">{order.tiempo}</td>
+                                    <td className="p-2">
                                         <img src={order.imagen} alt={order.nombre} className='h-8 w-16 object-cover' />
                                     </td>
                                 </tr>
