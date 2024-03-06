@@ -8,8 +8,6 @@ const LoginForm = () => {
     const [redirect, setRedirect] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    
-
     const handleLoginFormSubmit = async (event) => {
         event.preventDefault();
         try {
