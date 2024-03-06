@@ -40,7 +40,7 @@ const ManageProfileRestaurant = () => {
                         <div className='relative flex flex-col justify-center border items-center p-4 md:p-6 lg:p-8 bg-white rounded-xl shadow-xl'>
                             <div className='w-48 h-48 mb-4 overflow-hidden'>
                                 <img
-                                    src={userCurrent?.usuario?.logo}
+                                    src=''
                                     alt=''
                                     className='object-cover w-full h-full'
                                 />
