@@ -42,7 +42,7 @@ const SideBar = () => {
                 case 'Platos':
                     setRedirect('/cliente/productos');
                     break;
-                    case 'Pedidos':
+                case 'Pedidos':
                     setRedirect('');
                     break;
                 default:
@@ -56,7 +56,7 @@ const SideBar = () => {
             {redirect && <Navigate to={redirect} />}
             {[
                 { name: 'Platos', icon: icon2, visible: userCurrent.role === 'restaurante' || userCurrent.role === 'cliente' },
-                { name: 'Pedidos', icon: icon3, visible: userCurrent.role === 'restaurante' || userCurrent.role === 'cliente'},
+                { name: 'Pedidos', icon: icon3, visible: userCurrent.role === 'restaurante' || userCurrent.role === 'cliente' },
                 { name: 'Perfil', icon: icon4, visible: userCurrent.role === 'restaurante' },
                 { name: 'Salir', icon: icon6, visible: userCurrent.role === 'restaurante' || userCurrent.role === 'cliente' }
             ].map(({ name, icon, visible }) => (
@@ -64,10 +64,10 @@ const SideBar = () => {
                 <button
                     key={name}
                     onClick={() => handleButtonClick(name)}
-                    className={`flex items-center py-10 justify-between px-5 border-l-0 border-r-0 transition-colors duration-300 ease-in-out ${selectedButton === name ? 'bg-[#00A896] border-black border-[2px]' : 'hover:bg-[#FF975A]'}`}
+                    className={`flex flex-col md:flex-row items-center py-10 justify-between px-5 border-l-0 border-r-0 transition-colors duration-300 ease-in-out ${selectedButton === name ? 'bg-[#00A896] border-black border-[2px]' : 'hover:bg-[#FF975A]'}`}
                 >
-                    <p className='hidden md:block text-[20px] font-bold text-start'>{name}</p>
                     <img src={icon} alt={name} className='h-[30px] md:h-[44px] w-[30px] md:w-[46px] transition-transform duration-300 ease-in-out transform hover:scale-110' />
+                    <p className={`md:flex text-[20px] md:text-[16px] font-bold text-start ${selectedButton === name ? 'text-white' : 'text-black'}`}>{name}</p>
                 </button>
             ))}
         </div>
