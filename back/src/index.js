@@ -9,6 +9,8 @@ import express, { urlencoded } from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import cors from "cors";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
 import Conexion from "./controllers/conexion.js";
 import routerRestaurante from "./router/routerRestaurante.js";
 import routerCliente from "./router/routerCliente.js";
@@ -22,13 +24,10 @@ import expressSession from "express-session";
 import cookieParser from "cookie-parser";
 import { autenticado, ensureAuthenticated } from "./middleware/login.js";
 import passport from "passport";
-// import { autenticado } from "./middleware/login.js";
+
 dotenv.config();
 const app = express();
-// const corsOptions = {
-//   origin: '*',
-//   credentials: true
-// };
+
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
@@ -48,9 +47,9 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-/**
- * ruteo al restaurante
- */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, "public")));
 // ✔️ - Finalizado
 app.get("/", (req, res) => {
   Conexion.conectar(); //prueba que se conecta a la base de datos
@@ -66,11 +65,6 @@ app.use("/", routerPago);
 app.use("/", routerStatus);
 
 const port = process.env.PORT || 3000;
-/**
- * ruta de acceso publico
- * acá podria ir el login
- */
-
 app.listen(port, () => {
   console.log(`La aplicación está funcionando en http://localhost:${port}`);
 });
