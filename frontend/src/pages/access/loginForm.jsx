@@ -10,26 +10,26 @@ const LoginForm = () => {
 
     const handleLoginFormSubmit = async (event) => {
         event.preventDefault();
-        try {
-            const response = await fetch("https://vaya-pronto.onrender.com/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    mail: mail,
-                    password: password,
-                }),
-            });
-            if (!response.ok) {
-                throw new Error("Error al iniciar sesión");
-            }
-            const userData = await response.json();
-            console.log(userData);
-            localStorage.setItem("UserCurrent", JSON.stringify(userData));
+
+        const userData = JSON.parse(localStorage.getItem('UsersData')) || [];
+        const existingUser = userData.find(user => user.mail === mail);
+
+        if (!existingUser) {
+            setErrorMessage('El usuario no existe. Por favor, registre una cuenta.');
+            return;
+        }
+
+        if (existingUser.password !== password) {
+            setErrorMessage('La contraseña es incorrecta. Por favor, inténtelo de nuevo.');
+            return;
+        }
+
+        localStorage.setItem('UserCurrent', JSON.stringify({ mail: mail, role: existingUser.role }));
+
+        if (existingUser.role === 'restaurante') {
             setRedirect('/restaurante/perfil');
-        } catch (error) {
-            setErrorMessage("El correo electrónico o la contraseña son incorrectos.");
+        } else if (existingUser.role === 'cliente') {
+            setRedirect('/cliente/productos');
         }
     };
 
