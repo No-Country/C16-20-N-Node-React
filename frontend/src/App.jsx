@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import ManageProfileRestaurant from './pages/restaurant/ManageProfileRestaurant';
 import ProductUploadFormRestaurant from './pages/restaurant/ProductUploadFormRestaurant';
 import ManageProductsCustomer from './pages/custormer/ManageProductsCustomer'
@@ -11,7 +11,7 @@ import ManageOrdersRestaurant from './pages/restaurant/ManageOrdersRestaurant';
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         {/* Pagina inicio */}
         <Route path="/" element={<LoginForm />} />
@@ -27,7 +27,7 @@ const App = () => {
         <Route path='/cliente/productos' element={<ManageProductsCustomer />} />
         {/* Repartidor */}
       </Routes>
-    </BrowserRouter>
+    </Router>
   )
 }
 
