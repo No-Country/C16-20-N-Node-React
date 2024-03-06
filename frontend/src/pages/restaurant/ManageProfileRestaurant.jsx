@@ -12,7 +12,6 @@ const ManageProfileRestaurant = () => {
     useEffect(() => {
         const storedUserCurrent = JSON.parse(localStorage.getItem('UserCurrent'));
         setUserCurrent(storedUserCurrent);
-
         const storedProducts = localStorage.getItem('ProductsData');
         if (storedProducts) {
             const allProducts = JSON.parse(storedProducts);
