@@ -4,23 +4,23 @@ import { DataTypes, Model } from "sequelize";
 class Status extends Model {}
 
 Status.init(
-    {
-        id_status: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        },
-        tipo_status: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        },
+  {
+    id_status: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
     },
-    {
-        sequelize: Conexion.sequelize,
-        modelName: "status",
-        tableName: "status",
-        timestamps: false,
-    }
+    tipo_estatus: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize: Conexion.sequelize,
+    modelName: "status",
+    tableName: "status",
+    timestamps: false,
+  }
 );
 
 export default Status;
