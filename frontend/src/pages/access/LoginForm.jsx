@@ -9,12 +9,13 @@ const LoginForm = () => {
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleLoginFormSubmit = async (event) => {
+        event.preventDefault();
         try {
             const response = await fetch("https://vaya-pronto.onrender.com/login", {
                 method: "POST",
                 headers: {
-                    "Conten": "application/json",
-                }
+                    "Content-Type": "application/json",
+                },
                 body: JSON.stringify({
                     mail: mail,
                     password: password,
