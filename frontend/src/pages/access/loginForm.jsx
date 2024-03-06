@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import logo1 from '../../assets/logos/logo1.svg';
 
@@ -7,6 +7,13 @@ const LoginForm = () => {
     const [password, setPassword] = useState('');
     const [redirect, setRedirect] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+        const userCurrent = JSON.parse(localStorage.getItem('UserCurrent'));
+        if (userCurrent) {
+            setRedirect('/restaurante/perfil');
+        }
+    }, []);
 
     const handleLoginFormSubmit = async (event) => {
         event.preventDefault();
