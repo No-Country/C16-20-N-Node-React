@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import icon5 from '../../assets/icons/icon5.svg';
 import TopBar from '../../layouts/TopBar';
 import SideBar from '../../layouts/SideBar'
+import islamargarita from '../../assets/logos/islamargarita.jpeg'
 
 const ManageProfileRestaurant = () => {
     const [redirect, setRedirect] = useState(null);
@@ -40,7 +41,7 @@ const ManageProfileRestaurant = () => {
                         <div className='relative flex flex-col justify-center border items-center p-4 md:p-6 lg:p-8 bg-white rounded-xl shadow-xl'>
                             <div className='w-48 h-48 mb-4 overflow-hidden'>
                                 <img
-                                    src=''
+                                    src={islamargarita}
                                     alt=''
                                     className='object-cover w-full h-full'
                                 />
