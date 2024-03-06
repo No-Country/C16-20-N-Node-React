@@ -7,20 +7,13 @@ import SideBar from '../../layouts/SideBar'
 const ManageProfileRestaurant = () => {
     const [redirect, setRedirect] = useState(null);
     const [productsData, setProductsData] = useState([]);
-    const [profile, setProfile] = useState('');
+    const [userCurrent, setUserCurrent] = useState(null);
 
     useEffect(() => {
         const storedUserCurrent = JSON.parse(localStorage.getItem('UserCurrent'));
-        const storedProfileData = JSON.parse(localStorage.getItem('ProfileUsers'));
+        setUserCurrent(storedUserCurrent);
+
         const storedProducts = localStorage.getItem('ProductsData');
-
-        if (typeof storedUserCurrent === 'object' && storedProfileData) {
-            const userProfile = storedProfileData.find(profile => profile.mail === storedUserCurrent.mail);
-            if (userProfile) {
-                setProfile(userProfile);
-            }
-        }
-
         if (storedProducts) {
             const allProducts = JSON.parse(storedProducts);
             const userProducts = allProducts.filter(product => product.mail === storedUserCurrent.mail);
@@ -48,15 +41,15 @@ const ManageProfileRestaurant = () => {
                         <div className='relative flex flex-col justify-center border items-center p-4 md:p-6 lg:p-8 bg-white rounded-xl shadow-xl'>
                             <div className='w-48 h-48 mb-4 overflow-hidden'>
                                 <img
-                                    src={profile?.logo}
+                                    src={userCurrent?.usuario?.logo}
                                     alt=''
                                     className='object-cover w-full h-full'
                                 />
                             </div>
                             <div className='text-center'>
-                                <p className='text-xl md:text-2xl font-bold mb-2'>{profile?.name}</p>
-                                <p className='text-sm md:text-lg mb-2'>{profile?.address}</p>
-                                <p className='text-sm md:text-lg'>{profile?.phone}</p>
+                                <p className='text-xl md:text-2xl font-bold mb-2'>{userCurrent?.usuario?.nombre_restaurant}</p>
+                                <p className='text-sm md:text-lg mb-2'>{userCurrent?.usuario?.direccion_restaurant}</p>
+                                <p className='text-sm md:text-lg'>{userCurrent?.usuario?.telefono_restaurant}</p>
                             </div>
                             <img
                                 src={icon5}
@@ -93,8 +86,6 @@ const ManageProfileRestaurant = () => {
                     </div>
                 </div>
             </div>
-
-
         </>
     );
 

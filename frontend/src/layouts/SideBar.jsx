@@ -23,44 +23,30 @@ const SideBar = () => {
             return;
         }
 
-        if (userCurrent.role === 'restaurante') {
-            switch (selectedButton) {
-                case 'Perfil':
-                    setRedirect('/restaurante/perfil');
-                    break;
-                case 'Platos':
-                    setRedirect('/restaurante/platos');
-                    break;
-                case 'Pedidos':
-                    setRedirect('/restaurante/pedidos');
-                    break;
-                default:
-                    setRedirect('');
-            }
-        } else if (userCurrent.role === 'cliente') {
-            switch (selectedButton) {
-                case 'Platos':
-                    setRedirect('/cliente/productos');
-                    break;
-                case 'Pedidos':
-                    setRedirect('');
-                    break;
-                default:
-                    setRedirect('');
-            }
+        switch (selectedButton) {
+            case 'Perfil':
+                setRedirect('/restaurante/perfil');
+                break;
+            case 'Platos':
+                setRedirect('/restaurante/platos');
+                break;
+            case 'Pedidos':
+                setRedirect('/restaurante/pedidos');
+                break;
+            default:
+                setRedirect('');
         }
-    }, [selectedButton, userCurrent.role]);
+    }, [selectedButton]);
 
     return (
         <div className="bg-[#FF7C58] flex flex-col min-w-16 md:w-[250px] md:max-w-[190px]">
             {redirect && <Navigate to={redirect} />}
             {[
-                { name: 'Platos', icon: icon2, visible: userCurrent.role === 'restaurante' || userCurrent.role === 'cliente' },
-                { name: 'Pedidos', icon: icon3, visible: userCurrent.role === 'restaurante' || userCurrent.role === 'cliente' },
-                { name: 'Perfil', icon: icon4, visible: userCurrent.role === 'restaurante' },
-                { name: 'Salir', icon: icon6, visible: userCurrent.role === 'restaurante' || userCurrent.role === 'cliente' }
-            ].map(({ name, icon, visible }) => (
-                visible &&
+                { name: 'Platos', icon: icon2 },
+                { name: 'Pedidos', icon: icon3 },
+                { name: 'Perfil', icon: icon4 },
+                { name: 'Salir', icon: icon6 }
+            ].map(({ name, icon }) => (
                 <button
                     key={name}
                     onClick={() => handleButtonClick(name)}
