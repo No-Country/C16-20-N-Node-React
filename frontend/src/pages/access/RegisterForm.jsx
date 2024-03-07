@@ -105,6 +105,7 @@ const RegisterForm = () => {
                     </p>
                 </div>
             </div>
+        </>
     );
 };
 
