@@ -1,22 +1,31 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import SideBar from '../../layouts/SideBar';
 import TopBar from '../../layouts/TopBar';
 import icon5 from '../../assets/icons/icon5.svg';
 
 const ManageProductsRestaurant = () => {
     const [products, setProducts] = useState([]);
-    const [userCurrent, setUserCurrent] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
-        const storedProducts = JSON.parse(localStorage.getItem('ProductsData')) || [];
         const storedUserCurrent = JSON.parse(localStorage.getItem('UserCurrent')) || {};
 
-        const filteredProducts = storedProducts.filter(product => product.mail === storedUserCurrent.mail);
-        setProducts(filteredProducts);
-        setUserCurrent(storedUserCurrent);
+        const fetchData = async () => {
+            try {
+                const response = await fetch('https://vaya-pronto.onrender.com/producto/restaurant/' + storedUserCurrent.usuario.id);
+                if (!response.ok) {
+                    throw new Error('Error al obtener los productos');
+                }
+                const data = await response.json();
+                setProducts(data);
+            } catch (error) {
+                setErrorMessage(error.message);
+            }
+        };
+        fetchData();
     }, []);
 
     const handleEditProduct = (product) => {
@@ -34,23 +43,7 @@ const ManageProductsRestaurant = () => {
     };
 
     const handleSubmit = () => {
-        // Actualizar el producto seleccionado con los nuevos valores
-        const updatedProduct = {
-            ...selectedProduct,
-            nombre: document.getElementById('nombre').value,
-            descripcion: document.getElementById('descripcion').value,
-            precio: document.getElementById('precio').value,
-            tiempo: document.getElementById('tiempo').value,
-            imagen: selectedImage || selectedProduct.imagen, // Usar la nueva imagen si se seleccionó, de lo contrario, conservar la imagen existente
-        };
-
-        // Actualizar el array de productos en localStorage
-        const updatedProducts = products.map(product => (product.id === updatedProduct.id ? updatedProduct : product));
-        localStorage.setItem('ProductsData', JSON.stringify(updatedProducts));
-
-        // Actualizar el estado de los productos en el componente
-        setProducts(updatedProducts);
-        closeModal();
+        // Aquí puedes implementar la lógica para guardar los cambios del producto
     };
 
     const closeModal = () => {
@@ -64,45 +57,45 @@ const ManageProductsRestaurant = () => {
             <TopBar />
             <div className='flex min-h-screen w-full bg-white'>
                 <SideBar />
-                <div className='flex flex-col flex-1 pt-6 px-6 md:mx-[1vw]' style={{ maxWidth: 'max-content' }}>
-                    {products.length > 0 ? (
-                        products.map((producto, index) => (
-                            <div key={index} className="grid grid-cols-1 sm:grid-cols-6 gap-4 border border-gray-300 rounded-lg p-4 mt-4 shadow-md">
-                                {/* Mostrar los campos con sus valores y títulos */}
-                                <div className="col-span-1 sm:col-span-1">
-                                    <p className="font-semibold">Nombre:</p>
-                                    <p>{producto.nombre}</p>
-                                </div>
-                                <div className="col-span-1 sm:col-span-1">
-                                    <p className="font-semibold">Descripción:</p>
-                                    <p>{producto.descripcion}</p>
-                                </div>
-                                <div className="col-span-1 sm:col-span-1">
-                                    <p className="font-semibold">Precio:</p>
-                                    <p>{producto.precio}</p>
-                                </div>
-                                <div className="col-span-1 sm:col-span-1">
-                                    <p className="font-semibold">Tiempo:</p>
-                                    <p>{producto.tiempo}</p>
-                                </div>
-                                <div className="col-span-1 sm:col-span-1 flex items-center justify-center">
-                                    <img src={producto.imagen} alt={producto.nombre} className="h-auto md:max-w-32 w-full object-cover" />
-                                </div>
-                                <div className="col-span-1 sm:col-span-1 flex items-center justify-end sm:justify-center">
-                                    <img
-                                        src={icon5}
-                                        alt={producto.nombre}
-                                        className='cursor-pointer w-8 h-8'
-                                        onClick={() => handleEditProduct(producto)}
-                                    />
-                                </div>
-                            </div>
-                        ))
-                    ) : (
-                        <p className="text-center mt-4">No hay productos disponibles.</p>
-                    )}
+                <div className='relative w-full overflow-x-auto'>
+                    {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+                    <table className="border-collapse w-full">
+                        <thead>
+                            <tr className='bg-[#FF7C58]'>
+                                <th className="px-4 pl-12 mb-6 pb-3 text-left max-w-xs overflow-hidden whitespace-nowrap overflow-ellipsis">Nombre</th>
+                                <th className="px-4 mb-6 pb-3 text-left max-w-xs overflow-hidden whitespace-nowrap overflow-ellipsis">Descripción</th>
+                                <th className="px-4 mb-6 pb-3 text-left max-w-xs overflow-hidden whitespace-nowrap overflow-ellipsis">Precio</th>
+                                <th className="px-4 mb-6 pb-3 text-left max-w-xs overflow-hidden whitespace-nowrap overflow-ellipsis">Tiempo</th>
+                                <th className="px-4 mb-6 pb-3 text-left max-w-xs overflow-hidden whitespace-nowrap overflow-ellipsis">Imagen</th>
+                                <th className="px-4 mb-6 pb-3 text-left max-w-xs overflow-hidden whitespace-nowrap overflow-ellipsis">Editar</th>
+                                <th className="px-6 py-3"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {products.map((product, index) => (
+                                <tr key={index}>
+                                    <td className="px-4 pl-12 py-3 text-left" style={{ minWidth: '120px' }}>{product.nombre}</td>
+                                    <td className="px-4 py-3 text-left" style={{ minWidth: '120px' }}>{product.descripcion}</td>
+                                    <td className="px-4 py-3 text-left" style={{ minWidth: '120px' }}>{product.precio}</td>
+                                    <td className="px-4 py-3 text-left" style={{ minWidth: '120px' }}>{product.tiempo_preparacion}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <img src={`https://vaya-pronto.onrender.com/${product.imagen}`} alt={product.nombre} className="h-auto md:max-w-32 w-full object-cover" />
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <img
+                                            src={icon5}
+                                            alt='lapiz'
+                                            className='cursor-pointer w-12 h-12'
+                                            onClick={() => handleEditProduct(product)}
+                                        />
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
+            {/* Modal de edición de producto */}
             {isModalOpen && selectedProduct && (
                 <div className="fixed z-10 inset-0 overflow-y-auto">
                     <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -133,7 +126,7 @@ const ManageProductsRestaurant = () => {
                                                 </div>
                                                 <div className="mb-4">
                                                     <label htmlFor="tiempo" className="block text-gray-700 font-bold mb-2">Tiempo:</label>
-                                                    <input type="text" id="tiempo" name="tiempo" defaultValue={selectedProduct.tiempo} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                                                    <input type="text" id="tiempo" name="tiempo" defaultValue={selectedProduct.tiempo_preparacion} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
                                                 </div>
                                                 <div className="mb-4">
                                                     <label htmlFor="imagen" className="block text-gray-700 font-bold mb-2">Imagen:</label>

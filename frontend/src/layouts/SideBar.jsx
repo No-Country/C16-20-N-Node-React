@@ -39,7 +39,7 @@ const SideBar = () => {
     }, [selectedButton]);
 
     return (
-        <div className="bg-[#FF7C58] flex flex-col min-w-16 md:w-[250px] md:max-w-[190px]">
+        <div className="bg-[#FF7C58] flex flex-col min-w-16 md:w-[250px] md:max-w-[190px] pt-9">
             {redirect && <Navigate to={redirect} />}
             {[
                 { name: 'Platos', icon: icon2 },
