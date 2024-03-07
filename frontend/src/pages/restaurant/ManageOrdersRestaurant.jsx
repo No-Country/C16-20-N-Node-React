@@ -4,33 +4,33 @@ import TopBar from "../../layouts/TopBar";
 
 const ManageOrdersRestaurant = () => {
     const [orders, setOrders] = useState([]);
-    const [error, setError] = useState(null);
+    const [userCurrent, setUserCurrent] = useState(null);
 
     useEffect(() => {
         const fetchOrders = async () => {
             try {
+                // Obtener el usuario actual del localStorage
                 const storedUserCurrent = JSON.parse(localStorage.getItem('UserCurrent'));
                 if (!storedUserCurrent || !storedUserCurrent.usuario || !storedUserCurrent.usuario.id) {
                     throw new Error('Usuario actual no encontrado o estructura incorrecta');
                 }
+                // Establecer el usuario actual en el estado
+                setUserCurrent(storedUserCurrent.usuario.id);
+                // Realizar la solicitud fetch utilizando el ID del usuario actual
                 const response = await fetch('https://vaya-pronto.onrender.com/pedido/restaurante/' + storedUserCurrent.usuario.id);
                 if (!response.ok) {
                     throw new Error('Error al obtener los pedidos');
                 }
                 const data = await response.json();
-                setOrders(data);
                 console.log(data);
+                setOrders(data);
             } catch (error) {
-                setError(error.message);
+                console.error(error);
             }
         };
 
         fetchOrders();
     }, []);
-
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
 
     return (
         <>

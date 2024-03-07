@@ -21,22 +21,35 @@ const RegisterProfileRestaurant = () => {
             return;
         }
 
-        const storedUserCurrent = JSON.parse(localStorage.getItem('UserCurrent')) || [];
-        const restaurantData = {
-            mail: storedUserCurrent.mail,
-            name,
-            address,
-            category,
-            phone,
-            logo: selectedFile ? URL.createObjectURL(selectedFile) : null
-        };
+        const storedUserCurrent = JSON.parse(sessionStorage.getItem('UserCurrentLogin')) || {};
+        const formData = new FormData();
+        formData.append('mail', storedUserCurrent.mail);
+        formData.append('password', storedUserCurrent.password);
+        formData.append('rol_usuario', storedUserCurrent.rol_usuario);
+        formData.append('nombre_restaurant', name);
+        formData.append('direccion_restaurant', address);
+        formData.append('telefono_restaurant', phone);
+        formData.append('rubro_restaurant', category);
+        formData.append('logo', selectedFile);
 
-        const storedProfileUsers = JSON.parse(localStorage.getItem('ProfileUsers')) || [];
-        storedProfileUsers.push(restaurantData);
+        try {
+            const response = await fetch('https://vaya-pronto.onrender.com/usuario/registro', {
+                method: 'POST',
+                body: formData
+            });
 
-        localStorage.setItem('ProfileUsers', JSON.stringify(storedProfileUsers));
-        localStorage.removeItem('UserCurrent');
-        setRedirect('/');
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data);
+                setRedirect('/');
+            } else {
+                const errorData = await response.json();
+                setErrorMessage(errorData.error || 'Error en el registro.');
+            }
+        } catch (error) {
+            console.error('Error en la solicitud:', error);
+            setErrorMessage('Error en la solicitud.');
+        }
     };
 
     const handleFileChange = (e) => {

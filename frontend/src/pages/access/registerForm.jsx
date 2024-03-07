@@ -27,87 +27,85 @@ const RegisterForm = () => {
             return;
         }
 
-        // Verificar: usuarios ya registrados, por mail.
-        const storedUserData = JSON.parse(localStorage.getItem('UsersData')) || [];
-        const existingUser = storedUserData.find(user => user.mail === mail);
-        if (existingUser) {
-            setErrorMessage('El usuario ya está registrado.');
-            return;
-        }
+        try {
+            // Almacenar datos del usuario en sessionStorage
+            sessionStorage.setItem('UserCurrentLogin', JSON.stringify({
+                mail,
+                password,
+                rol_usuario: role,
+            }));
 
-        //Almacenar: usuarios no registrados. 
-        const newUser = { mail, password, role };
-        localStorage.setItem('UsersData', JSON.stringify([...storedUserData, newUser]));
-        localStorage.setItem('UserCurrent', JSON.stringify({ mail, role }));
-
-        // Redirigir: según rol seleccionado.
-        if (role === 'restaurante') {
-            setRedirect('/restaurante/registro');
-        } else if ((role === 'cliente')) {
-            setRedirect('/cliente/productos');
+            // Registro exitoso, redirige según el rol seleccionado.
+            if (role === 'restaurante') {
+                setRedirect('/restaurante/registro');
+            }
+        } catch (error) {
+            console.error('Error en la solicitud:', error);
+            setErrorMessage('Error en la solicitud.');
         }
     };
 
     return (
-        <div className='flex min-h-screen min-w-[350px] bg-white items-center justify-center'>
-            {redirect && <Navigate to={redirect} />}
-            <div className='w-full max-w-md'>
-                <img src={logo1} alt='logo1' className='w-full h-auto' />
-                <form onSubmit={handleSubmitRegister} className='px-[22px]'>
-                    <input
-                        type='email'
-                        id='email'
-                        placeholder='Email'
-                        value={mail}
-                        onChange={(e) => setMail(e.target.value)}
-                        className='text-[16px] placeholder-black text-black rounded-[30px] border border-[#453A32] shadow-xl w-full h-[42px] px-[17px] mb-[16px]'
-                        required
-                    />
-                    <input
-                        type='password'
-                        id='contraseña'
-                        placeholder='Contraseña'
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className='text-[16px] placeholder-black text-black rounded-[30px] border border-[#453A32] shadow-xl w-full h-[42px] px-[17px]'
-                        required
-                    />
-                    <div className='relative mt-[30px]'>
-                        <div onClick={() => setShowOptions(!showOptions)} className='border border-[#453A32] rounded-[30px] shadow-xl w-full h-[42px] px-[17px] flex items-center justify-between cursor-pointer'>
-                            <span>{role || 'Selecciona un usuario'}</span>
-                            <img
-                                src={icon1}
-                                alt='icon1'
-                                className='w-[16px] h-[10px] mr-[15px] object-cover' />
-                        </div>
-                        {showOptions && (
-                            <div className='absolute bg-white border border-[#453A32] rounded-[20px] w-full mt-[8px]'>
-                                {options.map((option, index) => (
-                                    <div
-                                        key={index}
-                                        className='text-left px-[22px] py-[8px] h-[35px] cursor-pointer'
-                                        onClick={() => handleRole(option)}>
-                                        {option}
-                                    </div>
-                                ))}
+        <>{redirect && <Navigate to={redirect} />}
+            <div className='flex min-h-screen min-w-[350px] bg-white items-center justify-center'>
+                <div className='w-full max-w-md'>
+                    <img src={logo1} alt='logo1' className='w-full h-auto' />
+                    <form onSubmit={handleSubmitRegister} className='px-[22px]'>
+                        <input
+                            type='email'
+                            id='email'
+                            placeholder='Email'
+                            value={mail}
+                            onChange={(e) => setMail(e.target.value)}
+                            className='text-[16px] placeholder-black text-black rounded-[30px] border border-[#453A32] shadow-xl w-full h-[42px] px-[17px] mb-[16px]'
+                            required
+                        />
+                        <input
+                            type='password'
+                            id='contraseña'
+                            placeholder='Contraseña'
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className='text-[16px] placeholder-black text-black rounded-[30px] border border-[#453A32] shadow-xl w-full h-[42px] px-[17px]'
+                            required
+                        />
+                        <div className='relative mt-[30px]'>
+                            <div onClick={() => setShowOptions(!showOptions)} className='border border-[#453A32] rounded-[30px] shadow-xl w-full h-[42px] px-[17px] flex items-center justify-between cursor-pointer'>
+                                <span>{role || 'Selecciona un usuario'}</span>
+                                <img
+                                    src={icon1}
+                                    alt='icon1'
+                                    className='w-[16px] h-[10px] mr-[15px] object-cover' />
                             </div>
-                        )}
-                    </div>
-                    <button
-                        type='submit'
-                        className='bg-[#00A896] border border-[#453A32] rounded-[20px] text-[36px] shadow-xl mt-[30px] w-full h-[60px]'>
-                        Entrar
-                    </button>
-                    {errorMessage && <p className="text-center text-red-500 mt-2 text-[16px]">{errorMessage}</p>}
-                </form>
-                <p className='text-center text-[16px] pt-[60px]'>
-                    ¿Ya estás registrado?{' '}
-                    <Link to='/' className='ml-[11px] text-[#1F31C8] underline font-bold'>
-                        Inicia sesión
-                    </Link>
-                </p>
+                            {showOptions && (
+                                <div className='absolute bg-white border border-[#453A32] rounded-[20px] w-full mt-[8px]'>
+                                    {options.map((option, index) => (
+                                        <div
+                                            key={index}
+                                            className='text-left px-[22px] py-[8px] h-[35px] cursor-pointer'
+                                            onClick={() => handleRole(option)}>
+                                            {option}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                        <button
+                            type='submit'
+                            className='bg-[#00A896] border border-[#453A32] rounded-[20px] text-[36px] shadow-xl mt-[30px] w-full h-[60px]'>
+                            Entrar
+                        </button>
+                        {errorMessage && <p className="text-center text-red-500 mt-2 text-[16px]">{errorMessage}</p>}
+                    </form>
+                    <p className='text-center text-[16px] pt-[60px]'>
+                        ¿Ya estás registrado?{' '}
+                        <Link to='/' className='ml-[11px] text-[#1F31C8] underline font-bold'>
+                            Inicia sesión
+                        </Link>
+                    </p>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
