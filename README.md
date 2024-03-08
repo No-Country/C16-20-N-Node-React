@@ -105,3 +105,7 @@ https://vayapronto.onrender.com/
 
 https://youtu.be/YOCreHHn4Uk
 
+
+## Prototipo
+
+[Figma](https://www.figma.com/proto/ZGN1nPmv8dpcSJUNEeYZfJ/No-Country-C16-20-n?page-id=34%3A12&type=design&node-id=482-396&viewport=141%2C761%2C0.06&t=1z8SZYNkceIJBaYi-1&scaling=scale-down&starting-point-node-id=482%3A396&mode=design)
