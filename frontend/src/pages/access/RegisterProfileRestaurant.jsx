@@ -15,13 +15,17 @@ const RegisterProfileRestaurant = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+    
         if (!selectedFile) {
             setErrorMessage('Por favor, sube una imagen para tu perfil.');
             return;
         }
-
+    
         const storedUserCurrent = JSON.parse(sessionStorage.getItem('UserCurrentLogin')) || {};
+    
+        const fileName = selectedFile.name; // Obtener el nombre del archivo
+        const fileExtension = fileName.split('.').pop(); // Obtener la extensión del archivo
+    
         const formData = new FormData();
         formData.append('mail', storedUserCurrent.mail);
         formData.append('password', storedUserCurrent.password);
@@ -30,14 +34,14 @@ const RegisterProfileRestaurant = () => {
         formData.append('direccion_restaurant', address);
         formData.append('telefono_restaurant', phone);
         formData.append('rubro_restaurant', category);
-        formData.append('logo', selectedFile);
-
+        formData.append('logo', `${fileName}.${fileExtension}`); // Enviar solo nombre y extensión del archivo
+    
         try {
             const response = await fetch('https://vaya-pronto.onrender.com/usuario/registro', {
                 method: 'POST',
                 body: formData
             });
-
+    
             if (response.ok) {
                 const data = await response.json();
                 console.log(data);
@@ -51,6 +55,7 @@ const RegisterProfileRestaurant = () => {
             setErrorMessage('Error en la solicitud.');
         }
     };
+    
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
