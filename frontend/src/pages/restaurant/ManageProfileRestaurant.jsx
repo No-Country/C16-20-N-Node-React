@@ -3,22 +3,28 @@ import { Navigate } from 'react-router-dom';
 import icon5 from '../../assets/icons/icon5.svg';
 import TopBar from '../../layouts/TopBar';
 import SideBar from '../../layouts/SideBar'
-import islamargarita from '../../assets/logos/islamargarita.jpeg'
 
 const ManageProfileRestaurant = () => {
     const [redirect, setRedirect] = useState(null);
-    const [productsData, setProductsData] = useState([]);
+    const [products, setProducts] = useState([]);
     const [userCurrent, setUserCurrent] = useState(null);
 
     useEffect(() => {
         const storedUserCurrent = JSON.parse(localStorage.getItem('UserCurrent'));
         setUserCurrent(storedUserCurrent);
-        const storedProducts = localStorage.getItem('ProductsData');
-        if (storedProducts) {
-            const allProducts = JSON.parse(storedProducts);
-            const userProducts = allProducts.filter(product => product.mail === storedUserCurrent.mail);
-            setProductsData(userProducts);
-        }
+
+        const fetchData = async () => {
+            try {
+                const response = await fetch('https://vaya-pronto.onrender.com/producto/restaurant/' + storedUserCurrent.usuario.id);
+                if (!response.ok) {
+                    throw new Error('Error al obtener los productos');
+                }
+                const data = await response.json();
+                setProducts(data);
+            } catch (error) {
+            }
+        };
+        fetchData();
     }, []);
 
     const handleRedirectToLoadProduct = () => {
@@ -41,8 +47,8 @@ const ManageProfileRestaurant = () => {
                         <div className='relative flex flex-col justify-center border items-center p-4 md:p-6 lg:p-8 bg-white rounded-xl shadow-xl'>
                             <div className='w-48 h-48 mb-4 overflow-hidden'>
                                 <img
-                                    src={islamargarita}
-                                    alt=''
+                                    src={`https://vaya-pronto.onrender.com/${userCurrent?.usuario?.logo}`}
+                                    alt={userCurrent?.usuario?.logo}
                                     className='object-cover w-full h-full'
                                 />
                             </div>
@@ -70,11 +76,11 @@ const ManageProfileRestaurant = () => {
                     </div>
                     {/* Sección inferior */}
                     <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8 mt-8'>
-                        {productsData.length > 0 ? (
-                            productsData.map((producto, index) => (
+                        {products.length > 0 ? (
+                            products.map((producto, index) => (
                                 <div key={index} className='bg-white rounded-lg shadow-md overflow-hidden mt-4'>
                                     <img
-                                        src={producto.imagen}
+                                        src={`https://vaya-pronto.onrender.com/${producto.imagen}`}
                                         alt={producto.nombre}
                                         className='w-full h-48 object-cover'
                                     />
