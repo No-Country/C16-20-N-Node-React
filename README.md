@@ -78,10 +78,9 @@ Testing QA:
 
 ## Links a Google Drive
 
-UX/UI
-
-
 TESTING
+
+https://drive.google.com/drive/folders/1BK4OfTn0PybIJfHVgQMzIwmM-AG67BMG?usp=drive_link
 
 
 ## Equipo: C16-20-N-Node-React
