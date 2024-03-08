@@ -23,8 +23,7 @@ const RegisterProfileRestaurant = () => {
     
         const storedUserCurrent = JSON.parse(sessionStorage.getItem('UserCurrentLogin')) || {};
     
-        const fileName = selectedFile.name; // Obtener el nombre del archivo
-        const fileExtension = fileName.split('.').pop(); // Obtener la extensión del archivo
+        const fileName = selectedFile.name;
     
         const formData = new FormData();
         formData.append('mail', storedUserCurrent.mail);
@@ -34,7 +33,7 @@ const RegisterProfileRestaurant = () => {
         formData.append('direccion_restaurant', address);
         formData.append('telefono_restaurant', phone);
         formData.append('rubro_restaurant', category);
-        formData.append('logo', `${fileName}.${fileExtension}`); // Enviar solo nombre y extensión del archivo
+        formData.append('logo', `${fileName}`);
     
         try {
             const response = await fetch('https://vaya-pronto.onrender.com/usuario/registro', {
