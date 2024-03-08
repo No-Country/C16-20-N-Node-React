@@ -107,8 +107,10 @@ routerProducto.post(
 routerProducto.patch("/producto/editar/:id", async (req, res) => {
   try {
     //const id = req.params.id;
-    const idRestaurant = req.session.usuario.id;
+    const idRestaurant = req.params.id;
     const producto = req.body;
+    console.log(idRestaurant);
+    console.log(producto);
     const productoEditado = await editarProducto(idRestaurant, producto);
     console.log(productoEditado);
     res.status(200).json(productoEditado);
