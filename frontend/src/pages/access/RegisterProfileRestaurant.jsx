@@ -44,7 +44,7 @@ const RegisterProfileRestaurant = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log(data);
-                setRedirect('/');
+                setRedirect('/restaurante/perfil');
             } else {
                 const errorData = await response.json();
                 setErrorMessage(errorData.error || 'Error en el registro.');
