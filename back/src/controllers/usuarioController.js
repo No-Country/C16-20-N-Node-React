@@ -18,6 +18,7 @@ export async function compararPass(passActual, passHash) {
 }
 
 const crearUsuario = async (usuario) => {
+  console.log(usuario);
   try {
     usuario.password = await hashearPass(usuario.password);
     const usuarioNuevo = await Usuario.create({
@@ -25,6 +26,7 @@ const crearUsuario = async (usuario) => {
       password: usuario.password,
       rol_usuario: usuario.rol_usuario,
     });
+    console.log("Usuario creado:", usuarioNuevo);
     console.log(usuario.rol_usuario);
     if (usuario.rol_usuario === "cliente") {
       const clienteNuevo = await Cliente.create({
@@ -64,7 +66,7 @@ const crearUsuario = async (usuario) => {
 
 const buscarUsuarioPorMail = async (usuario) => {
   try {
-    // console.log(usuario);
+    console.log(usuario);
     let usuarioEncontrado = await buscarRestaurantePorMail(usuario);
 
     if (!usuarioEncontrado || usuarioEncontrado.length === 0) {

@@ -40,23 +40,14 @@ routerUsuario.get("/perfil", async (req, res) => {
 
 routerUsuario.post(
   "/usuario/registro",
-  upload.single("imagen"),
+  upload.single("logo"),
   async (req, res) => {
     try {
       console.log(req.body);
       const usuario = req.body;
-      const usuarioExistente = await buscarUsuarioPorMail(usuario);
-      if (!usuarioExistente) {
-        const nuevoUsuario = await crearUsuario(usuario);
-        console.log(nuevoUsuario);
-        return res.status(201).json(nuevoUsuario);
-      }
-      console.log(usuarioExistente);
-      /**
-       * Si el usuario ya existe, devolver un error
-       *
-       */
-      res.status(200).json(usuarioExistente);
+      const usuarioRegistro = await crearUsuario(usuario);
+      
+      res.status(201).json(usuarioRegistro);
     } catch (error) {
       if (error.message === "El correo electrónico ya está en uso") {
         return res.status(409).json({ error: error.message });
