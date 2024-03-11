@@ -78,6 +78,14 @@ Testing QA:
 
 ## Links a Google Drive
 
+[Plataforma de Comida a Domicilio (restaurante)](https://docs.google.com/forms/d/1bFbFzjUfeHPxnLx26b71myUYDN4UjqGg6T7Pu2If2ZQ/edit?usp=drive_web)
+
+[Plataforma de Comida a Domicilio (cliente final)](https://docs.google.com/forms/d/1eiFgIfF3BX0pbRW1Ve87Hq9WDPqDv9mNTviQsrlcZnY/edit?usp=drive_web)
+
+[Plataforma de Comida a Domicilio (repartidor)](https://docs.google.com/forms/d/17EGGdHbwPU2N1YuRGeFEH8_lmV7iq_bkrJBWB9HevTw/edit)
+
+[Figjam](https://www.figma.com/file/oMB2ylf5sAU2niDMRnxTNM/No-Country-C16-20-n-node-react?type=whiteboard&node-id=0%3A1&t=534SRptF6V2ftWq8-1)
+
 TESTING
 
 https://drive.google.com/drive/folders/1BK4OfTn0PybIJfHVgQMzIwmM-AG67BMG?usp=drive_link
